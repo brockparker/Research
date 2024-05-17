@@ -1,9 +1,3 @@
-"""
-Created on Thu May  9 12:54:36 2024
-
-@author: baparker
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 import astropy.units as u
@@ -96,8 +90,8 @@ def total_noise(speed, noise_density, noise_freqs):
     sigma = np.sqrt(variance)
     return sigma
 
-#@u.quantity_input(f=u.Hz, f1=u.Hz, f2=u.Hz, ewn=u.V/u.Hz**0.5)
 #@custom_model
+#@u.quantity_input(f=u.Hz, f1=u.Hz, f2=u.Hz, ewn=u.V/u.Hz**0.5)
 def noise_model(f, ewn, f1, f2):
     f = u.Quantity(f, u.Hz).value
     f1 = u.Quantity(f1, u.Hz).value
@@ -172,6 +166,7 @@ plt.show()
 
 
 fig, ax = plt.subplots(1, 1, figsize=(5,4), layout='tight')
+ax2 = ax.twiny()
 
 freqs = np.logspace(0,10,10000) * u.Hz
 tau = np.logspace(-9, -2, 10000) * u.s 
@@ -183,12 +178,17 @@ nc_1f2 = 100 * u.kHz#2e6 * u.Hz # Nominally 100 * u.kHz
 
 skips = 512
 
-conversion = 6.5e-6
-# Steve recommended 5e-6
+npixx = 4000
+npixy = 2000
+npix=npixx * npixy
+namp = 128
+
+conversion =6.5e-6
+# Steve recommended 5e-6 - 2.5e6
 # delay = 0.01*u.us
 
 ax.plot(tau, sig_cds(wn_floor, tau, nc_1f, nc_1f2) / conversion, label='Total Noise', color='purple')
-ax.plot(tau * skips, sig_skipper(skips, wn_floor, tau, nc_1f, nc_1f2) / conversion, label='512 Skips', color='purple', ls='--')
+ax.plot(tau*skips, sig_skipper(skips, wn_floor, tau, nc_1f, nc_1f2) / conversion, label='512 Skips', color='purple', ls='--')
 ax.axvline(1/(200 * u.kHz), label='200 kHz Optimum', color='k', ls=':')
 # ax.axvline(1/(5000 * u.kHz), label='5 MHz', color='k', ls=':')
 
@@ -196,8 +196,11 @@ ax.axhline(0.15, color='red', ls='--', label='0.15 e$^-$ threshold')
 
 ax.set_xlabel(r'Pixel Time [s]')
 ax.set_ylabel(r'Integrated Noise [e-]')
+ax2.set_xlabel(r'Readout Time [s]')
 ax.legend(loc = 'best')
-ax.set_xlim(1e-7, 1e-2)
+ax.set_xlim(1e-6, 1e-2)
+ax2.set_xlim(1e-6*npix/namp, 1e-2*npix/namp)
+ax2.set_xscale('log')
 ax.set_xscale('log')
 ax.set_yscale('log')
 ax.set_ylim(1e-2, 1e2)
@@ -298,18 +301,19 @@ cerr = np.sqrt(np.diag(pcov))
 sig_below = noise_model(freqs, popt[0]-cerr[0],popt[1]-cerr[1],popt[2]-cerr[2])
 sig_above = noise_model(freqs, popt[0]+cerr[0],popt[1]+cerr[1],popt[2]+cerr[2])
 
+# =============================================================================
+# z = np.polyfit(noise_freqs.value, noise_density.value, 7)
+# p = np.poly1d(z)
+# =============================================================================
 
 
-###############
 
 
-
-#model = noise_model(*best_guess)  
-#fitter = fitting.LevMarLSQFitter()
-#noise_fit = fitter(model, noise_freqs, noise_density)
-
-
-###############
+# =============================================================================
+# model = noise_model(*best_guess)  
+# fitter = fitting.LevMarLSQFitter()
+# noise_fit = fitter(model, noise_freqs, noise_density)
+# =============================================================================
 
 
 
@@ -319,6 +323,7 @@ popt2 = [1.9e-8, 1e5, 0.9e7]
 
 ax.plot(freqs, noise_model(freqs, *popt), label='Total Noise \ne$_{{wn}}$={:.2e}$\pm${:.2e}\nf$_{{1nc}}$={:.2e}$\pm${:.2e}\n$f_{{2nc}}=${:.2e}$\pm${:.2e}'.format(popt[0],cerr[0],popt[1],cerr[1],popt[2],cerr[2]), color='purple')
 ax.plot(freqs, noise_model(freqs, *popt2), label='Theoretical', color='green')
+#ax.plot(freqs.value, p(freqs.value), color='orange')
 ax.plot(noise_freqs, noise_density, color='red', ls='-')
 
 ax.fill_between(freqs, sig_below, sig_above, facecolor='purple', alpha=0.25)
@@ -383,7 +388,11 @@ ax.tick_params(axis='both', direction='in', which='both')
  
 fig.tight_layout()
 
-# plt.savefig('C:/Users/Brock/Documents/Git/Research/CCDs/ccd_integrated_noise_data.png', dpi=250)
-# plt.savefig('/home/baparker/GitHub/Research/CCDs/ccd_integrated_noise.png', dpi=250)
+plt.savefig(path + '/Research/CCDs/ccd_integrated_noise_data.png', dpi=250)
 plt.show()
+
+
+## Fit by CDS function
+
+
 
