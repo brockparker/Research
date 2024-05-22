@@ -1,3 +1,10 @@
+'''
+Skipper Read Noise Modelling 
+by Brock Parker
+
+Updated 5/20/2024
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 import astropy.units as u
@@ -9,9 +16,10 @@ from scipy.optimize import curve_fit
 from astropy.modeling import models, fitting
 from astropy.modeling.models import custom_model
 from astropy.modeling import Fittable1DModel, Parameter
+# BP Import needed packages.
 
-
-machine = 'Linux'
+machine = 'Desktop'
+# BP Define what machine code is being run on to save files. For internal use only.
 
 if machine == 'Linux':
     path = '/home/baparker/GitHub'
@@ -19,13 +27,16 @@ elif machine == 'Laptop':
     path = 'C:/Users/Brock/Documents/Git'
 elif machine == 'Desktop':
     path = 'F:/Github'
+# BP Define file save path based on machine.
     
 plt.rc('axes', labelsize=14)
 plt.rc('figure', titlesize=30)
 plt.rc('xtick', labelsize=12)
 plt.rc('ytick', labelsize=12)
 plt.rc('legend', fontsize=12)
+# BP Plot stylization parameters.
 
+# BP
 @u.quantity_input(f=u.Hz, t=u.s, delay=u.s)
 def transfer(f, t, delay = 0*u.s):
     '''
@@ -47,7 +58,7 @@ def transfer_skipper(f, t, n, delay = 0*u.s):
     t = t / 2 + delay
 
     part1 = 4 * (np.sin((np.pi * f * t).to(u.rad, equivalencies=u.dimensionless_angles())))**2 / (2 * np.pi * f * t * n).to(u.rad, equivalencies=u.dimensionless_angles())
-    part2 = abs( np.sin((2*np.pi * f * t * n).value) / np.sin((2*np.pi * f * t).to(u.rad, equivalencies=u.dimensionless_angles())))
+    part2 = abs( np.sin((2*np.pi * f * t * n).to(u.rad, equivalencies=u.dimensionless_angles())) / np.sin((2*np.pi * f * t).to(u.rad, equivalencies=u.dimensionless_angles())))
 
     noise_density = part1 * part2
     # noise_density[f>1/t] = 0
@@ -102,6 +113,7 @@ def noise_model(f, ewn, f1, f2):
     # return ewn * ((f/f1)**-1 + 1) * (1 + (f/f2)**2)**-1
     return ewn * (1/(1 + (f/f2)**2) + 1/(f/f1))
 
+
 quantity_support()
 
 fig, ax = plt.subplots(1, 1, figsize=(5,4), layout='tight')
@@ -132,8 +144,6 @@ plt.savefig(path + '/Research/CCDs/Skipper_Noise/cds_transfer_func.png', dpi=250
 plt.show()
 
 
-
-
 fig, ax = plt.subplots(1, 1, figsize=(5,4), layout='tight')
 
 freqs = np.logspace(0,10,10000) * u.Hz
@@ -162,7 +172,7 @@ plt.savefig(path + '/Research/CCDs/Skipper_Noise/skipper_cds_transfer_func.png',
 plt.show()
 
 
-
+stop
 
 
 fig, ax = plt.subplots(1, 1, figsize=(5,4), layout='tight')
