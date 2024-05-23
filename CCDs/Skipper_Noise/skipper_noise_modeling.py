@@ -18,7 +18,7 @@ from astropy.modeling.models import custom_model
 from astropy.modeling import Fittable1DModel, Parameter
 # BP Import needed packages.
 
-machine = 'Desktop'
+machine = 'Linux'
 # BP Define what machine code is being run on to save files. For internal use only.
 
 if machine == 'Linux':
@@ -36,194 +36,232 @@ plt.rc('ytick', labelsize=12)
 plt.rc('legend', fontsize=12)
 # BP Plot stylization parameters.
 
-# BP
-@u.quantity_input(f=u.Hz, t=u.s, delay=u.s)
-def transfer(f, t, delay = 0*u.s):
+plot_colors = ['#293462', '#1CD6CE', '#FEDB39', '#D61C4E', '#0b132b']
+
+@u.quantity_input(f=u.Hz, tau=u.s, delay=u.s)
+def transfer(f, tau, n, delay = 0*u.s):
     '''
-    t is the integration time of the signal and pedestal levels
-    f is the frequency at which the ccd is clocked
+    Function defining the transfer function for correlated double sampling.
+    Valid for both single samples and multiple samples at varying pedestal sampling times.
+    
+    f : astropy.units.Quantity
+        Array of input frequencies as an astropy Quantity. This is the value the function is evaluated at, and represents the specific frequency contribution.
+    
+    tau : astropy.units.Quantity
+        The pedestal integration time, i.e. how long it takes to move the charge on and off of the pedestal. The individual pixel time is thus half this.
+        
+    n : int
+        The number of times a sample is taken. For Skipper CCDs, this is analagous to the number of skips.
     '''
-    t = t / 2 + delay
+    
+    tau = tau / 2
 
-    noise_density = 2 * (np.sin((np.pi * f * t).to(u.rad, equivalencies=u.dimensionless_angles())))**2 / ((np.pi * f * t).to(u.rad, equivalencies=u.dimensionless_angles()))
-    # noise_density[f>1/t] = 0
-    return noise_density
+    part1 = 4 * (np.sin((np.pi * f * tau).to(u.rad, equivalencies=u.dimensionless_angles())))**2 / (2 * np.pi * f * tau * n).to(u.rad, equivalencies=u.dimensionless_angles())
+    part2 = abs( np.sin((2*np.pi * f * tau * n).to(u.rad, equivalencies=u.dimensionless_angles())) / np.sin((2*np.pi * f * tau).to(u.rad, equivalencies=u.dimensionless_angles())))
 
-@u.quantity_input(f=u.Hz, t=u.s, delay=u.s)
-def transfer_skipper(f, t, n, delay = 0*u.s):
+    transfer_value = part1*part2
+
+    return transfer_value
+# BP Define function to return the transfer function. Describes how much weight is given to noise at each frequency.
+
+@u.quantity_input(ewn=u.V/u.Hz**0.5, f1=u.Hz, f2=u.Hz, tau=u.s, delay=u.s, conversion=u.V/u.electron)
+def total_noise_model(n, ewn, tau, f1, f2, conversion, delay=0*u.s):
     '''
-    t is the integration time of the signal and pedestal levels
-    f is the frequency at which the ccd is clocked
+    Theoretical total noise model as a function of noise spectrum parameters. Valid for noise model as defined by the 1/f and 1/f^2 noise corner and white noise level.
+    Defined in Greffe & Smith 2024 Poster.
+    Valid for both single and mutiple samples.
+    
+    n : int
+        The number of times a sample is taken. For Skipper CCDs, this is analagous to the number of skips.
+    
+    ewn : astropy.units.Quantity
+        White noise level in V/Hz^1/2. Should be the value the noise spectrum levels off at.
+    
+    tau : astropy.units.Quantity
+        The pedestal integration time, i.e. how long it takes to move the charge on and off of the pedestal. The individual pixel time is thus half this.
+    
+    f1 : astropy.units.Quantity
+        1/f noise corner frequency. Where the noise spectrum turns over.
+        
+    f2 : astropy.units.Quantity
+        1/f^2 noise corner frequency. Where the noise spectrum turns over.
+        
+    conversion : astropy.units.Quantity
+        Conversion factor to convert between number of electrons and volts.
     '''
-    t = t / 2 + delay
+    tau = tau / 2
+    
+    total_noise = ewn * np.sqrt(1/tau + 4*f1*np.log(2) + 4/3 * f2**2 * np.pi**2 * tau) / np.sqrt(n)
 
-    part1 = 4 * (np.sin((np.pi * f * t).to(u.rad, equivalencies=u.dimensionless_angles())))**2 / (2 * np.pi * f * t * n).to(u.rad, equivalencies=u.dimensionless_angles())
-    part2 = abs( np.sin((2*np.pi * f * t * n).to(u.rad, equivalencies=u.dimensionless_angles())) / np.sin((2*np.pi * f * t).to(u.rad, equivalencies=u.dimensionless_angles())))
+    return total_noise / conversion
 
-    noise_density = part1 * part2
-    # noise_density[f>1/t] = 0
-    return noise_density
-
-@u.quantity_input(f1=u.Hz, f2=u.Hz, t=u.s, delay=u.s)
-def sig_cds(ewn, t, f1, f2, delay=0*u.s):
+@u.quantity_input(f=u.Hz, tau=u.s, noise_density=u.V/u.Hz**0.5, conversion=u.V/u.electron)
+def total_noise_integral(f, tau, noise_density, conversion):
     '''
-    ewn is voltage noise density of white noise
-    Function defined in poster.
+    The total noise calculated by convolving the noise density spectrum with the transfer function.
+    All values must be in MKS.
+    
+    f : astropy.units.Quantity
+        Array of input frequencies as an astropy Quantity. This is the value the function is evaluated at, and represents the specific frequency contribution.
+    
+    tau : astropy.units.Quantity
+        The pedestal integration time, i.e. how long it takes to move the charge on and off of the pedestal. The individual pixel time is thus half this.
+        
+    noise_density : astropy.units.Quantity
+        The noise density spectrum from the on-chip MOSFET. In units of V/Hz^1/2     
+        
+    conversion : astropy.units.Quantity
+        Conversion factor to convert between number of electrons and volts.
     '''
-    t = t / 2 + delay
-
-    return ewn * np.sqrt(1/t + 4*f1.si*np.log(2) + 4/3 * f2**2 * np.pi**2 * t)
-
-@u.quantity_input(f1=u.Hz, f2=u.Hz, t=u.s, delay=u.s)
-def sig_skipper(n, ewn, t, f1, f2, delay=0*u.s):
-    '''
-    ewn is voltage noise density of white noise
-    Function defined in poster.
-    '''
-    t = t / 2 + delay
-
-    return ewn * np.sqrt(1/t + 4*f1*np.log(2) + 4/3 * f2**2 * np.pi**2 * t) / np.sqrt(n)
-
-@u.quantity_input(speed=u.s, noise_freqs=u.Hz)
-def total_noise(speed, noise_density, noise_freqs):
-    '''Calculate total noise by convolving the noise density spectrum with the CDS transfer function.'''
 
     try:
-        length = len(speed)
         variance = []
-        for i in range(length):
-            value = simpson((noise_density * transfer(noise_freqs, speed[i]))**2, noise_freqs)
+        for i in range(len(tau)):
+            value = simpson((noise_density * transfer(noise_freqs, tau[i]))**2, f)
             variance.append(value)
 
     except:
-        variance = simpson((noise_density * transfer(noise_freqs, speed))**2, noise_freqs)
+        variance = simpson((noise_density * transfer(noise_freqs, tau))**2, f)
         
     sigma = np.sqrt(variance)
-    return sigma
+    return sigma / conversion
 
-#@custom_model
-#@u.quantity_input(f=u.Hz, f1=u.Hz, f2=u.Hz, ewn=u.V/u.Hz**0.5)
-def noise_model(f, ewn, f1, f2):
-    f = u.Quantity(f, u.Hz).value
-    f1 = u.Quantity(f1, u.Hz).value
-    f2 = u.Quantity(f2, u.Hz).value
-    ewn = u.Quantity(ewn, u.V / u.Hz**0.5).value
+@u.quantity_input(f=u.Hz, f1=u.Hz, f2=u.Hz, conversion=u.V/u.electron, ewn=u.V/u.Hz**0.5)
+def noise_spectrum_model(f, ewn, f1, f2, conversion):
+    '''
+    Theoretical MOSFET noise spectrum function to allow extrapolation from measured spectrum by best fit.
     
-    # return ewn * f1.value / f.value *n1 + ewn * f2.value / f.value**2 * n2 + ewn
-    # return ewn * ((f/f1)**-1 + 1) * (1 + (f/f2)**2)**-1
-    return ewn * (1/(1 + (f/f2)**2) + 1/(f/f1))
+    f : astropy.units.Quantity
+        Array of input frequencies as an astropy Quantity. This is the value the function is evaluated at, and represents the specific frequency contribution.
+    
+    ewn : astropy.units.Quantity
+        White noise level in V/Hz^1/2. Should be the value the noise spectrum levels off at.
+    
+    f1 : astropy.units.Quantity
+        1/f noise corner frequency. Where the noise spectrum turns over.
+        
+    f2 : astropy.units.Quantity
+        1/f^2 noise corner frequency. Where the noise spectrum turns over.
+        
+    conversion : astropy.units.Quantity
+        Conversion factor to convert between number of electrons and volts.
+    '''
 
+    return ewn * (1/(1 + (f/f2)**2) + 1/(f/f1)) / conversion
 
 quantity_support()
+# BP Allow plotting with units.
 
 fig, ax = plt.subplots(1, 1, figsize=(5,4), layout='tight')
+# BP Initialize plots.
 
-freqs = np.logspace(0,10,10000) * u.Hz
-tau = np.logspace(-9, -3, 10000) * u.s 
+frequencies = np.logspace(0,10,100000) * u.Hz
+taus = np.logspace(-10, 0, 100000) * u.s 
+# BP Create array of frequencies and pedestal times.
 
-int_speed_10 = 1/(10*u.kHz)
-int_speed_100 = 1/(100*u.kHz)
-int_speed_1000 = 1/(1*u.MHz)
+tau_10 = 1/(10*u.kHz)
+tau_100 = 1/(100*u.kHz)
+tau_1000 = 1/(1*u.MHz)
+# BP Define three discrete pedestal times.
 
-ax.plot(freqs, transfer(freqs, int_speed_10), label = '{:.0f}'.format((1/int_speed_10).to(u.kHz)), color = 'blue', ls='--')
-ax.plot(freqs, transfer(freqs, int_speed_100), label = '{:.0f}'.format((1/int_speed_100).to(u.kHz)), color = 'orange', ls='--')
-ax.plot(freqs, transfer(freqs, int_speed_1000), label = '{:.0f}'.format((1/int_speed_1000).to(u.kHz)), color='green', ls='--')
+ax.plot(frequencies, transfer(frequencies, tau_10, 1), label = '{:.0f}'.format((1/tau_10).to(u.kHz)), color = plot_colors[0], ls='-')
+ax.plot(frequencies, transfer(frequencies, tau_100, 1), label = '{:.0f}'.format((1/tau_100).to(u.kHz)), color = plot_colors[1], ls='-')
+ax.plot(frequencies, transfer(frequencies, tau_1000, 1), label = '{:.0f}'.format((1/tau_1000).to(u.kHz)), color = plot_colors[2], ls='-')
+# BP Plot transfer functions.
 
 ax.set_xlabel(r'Frequency [Hz]')
 ax.set_ylabel(r'Transfer Function')
 ax.legend(loc = 'best')
 ax.set_xlim(1e3, 0.2e7)
 ax.set_xscale('log')
-ax.set_ylim(0, 2)
-
+ax.set_ylim(0, 1.75)
 ax.tick_params(axis='both', direction='in', which='both')
-
 fig.tight_layout()
+# BP Sylization parameters.
 
 plt.savefig(path + '/Research/CCDs/Skipper_Noise/cds_transfer_func.png', dpi=250)
 plt.show()
-
+# BP Save figure.
 
 fig, ax = plt.subplots(1, 1, figsize=(5,4), layout='tight')
+# BP Initialize plots.
 
-freqs = np.logspace(0,10,10000) * u.Hz
-tau = np.logspace(-9, -3, 10000) * u.s 
+tau_200 = 1/(2e5*u.Hz)
+n_skip_1 = 2
+n_skip_2 = 32
+# BP Define pedestal time and number of skips.
 
-int_speed = 1/(2e5*u.Hz)
-nskip1 = 2
-nskip2 = 32
-
-ax.plot(freqs, transfer_skipper(freqs, int_speed, 1), color = 'black', ls='--', label='1 Skip')
-ax.plot(freqs, transfer_skipper(freqs, int_speed, nskip1), color = 'black', ls=':', label='2 Skips')
-ax.plot(freqs, transfer_skipper(freqs, int_speed, nskip2), color = 'black', ls='dashdot', label='32 Skips')
+ax.plot(frequencies, transfer(frequencies, tau_200, 1), color = plot_colors[0], ls='-', label='1 Skip')
+ax.plot(frequencies, transfer(frequencies, tau_200, n_skip_1), color = plot_colors[1], ls='-', label='2 Skips')
+ax.plot(frequencies, transfer(frequencies, tau_200, n_skip_2), color = plot_colors[2], ls='-', label='32 Skips')
+# BP Plot transfer function of different number of skips.
 
 ax.set_xlabel(r'Frequency [Hz]')
 ax.set_ylabel(r'Transfer Function')
 ax.legend(loc = 'best')
 ax.set_xlim(1e3, 1e7)
 ax.set_xscale('log')
-ax.set_ylim(0, 2)
-
+ax.set_ylim(0, 1.75)
 ax.tick_params(axis='both', direction='in', which='both')
-
 fig.tight_layout()
+# BP Stylization parameters.
 
 plt.savefig(path + '/Research/CCDs/Skipper_Noise/skipper_cds_transfer_func.png', dpi=250)
 plt.show()
-
-
-stop
-
+# BP Save figure.
 
 fig, ax = plt.subplots(1, 1, figsize=(5,4), layout='tight')
 ax2 = ax.twiny()
-
-freqs = np.logspace(0,10,10000) * u.Hz
-tau = np.logspace(-9, -2, 10000) * u.s 
+# BP Initialize plots.
 
 wn_floor = 2e-8 * u.V / ((u.Hz)**(1/2))
+# BP Define white noise floor.
 
 nc_1f = 100 * u.kHz
 nc_1f2 = 100 * u.kHz#2e6 * u.Hz # Nominally 100 * u.kHz
+# BP Define noise corners.
 
-skips = 512
+n_skips = 512
+# BP Define number of skips.
 
-npixx = 4000
-npixy = 2000
-npix=npixx * npixy
-namp = 128
+n_pix_x = 4000
+n_pix_y = 2000
+n_pix = n_pix_x * n_pix_y
+# BP Define number of pixels.
 
-conversion =6.5e-6
+n_amp = 128
+# BP Define number of amplifiers.
+
+conversion = 6.5e-6 * u.V/u.electron
 # Steve recommended 5e-6 - 2.5e6
-# delay = 0.01*u.us
 
-ax.plot(tau, sig_cds(wn_floor, tau, nc_1f, nc_1f2) / conversion, label='Total Noise', color='purple')
-ax.plot(tau*skips, sig_skipper(skips, wn_floor, tau, nc_1f, nc_1f2) / conversion, label='512 Skips', color='purple', ls='--')
-ax.axvline(1/(200 * u.kHz), label='200 kHz Optimum', color='k', ls=':')
-# ax.axvline(1/(5000 * u.kHz), label='5 MHz', color='k', ls=':')
+ax.plot(taus, total_noise_model(1, wn_floor, taus, nc_1f, nc_1f2, conversion), label='Traditional CCD', color=plot_colors[1])
+ax.plot(taus * n_skips, total_noise_model(n_skips, wn_floor, taus, nc_1f, nc_1f2, conversion), label='512 Skips', color=plot_colors[1], ls='--')
+ax.axhline(0.15, color=plot_colors[3], ls=':', label='0.15 e$^-$ threshold')
+# BP Plot total integrated noise using theoretical model.
 
-ax.axhline(0.15, color='red', ls='--', label='0.15 e$^-$ threshold')
-
-ax.set_xlabel(r'Pixel Time [s]')
-ax.set_ylabel(r'Integrated Noise [e-]')
-ax2.set_xlabel(r'Readout Time [s]')
-ax.legend(loc = 'best')
-ax.set_xlim(1e-6, 1e-2)
-ax2.set_xlim(1e-6*npix/namp, 1e-2*npix/namp)
-ax2.set_xscale('log')
 ax.set_xscale('log')
 ax.set_yscale('log')
-ax.set_ylim(1e-2, 1e2)
-
+ax.set_xlabel(r'Pixel Time [s]')
+ax.set_ylabel(r'Integrated Noise [e-]')
+ax.legend(loc = 'best')
+ax.set_xlim(1e-6, 1e-1)
+ax.set_ylim(5e-3, 1e2)
 ax.tick_params(axis='both', direction='in', which='both')
+# BP Pedestal time axes sytlization.
 
+ax2.set_xscale('log')
+ax2.set_xlabel(r'Readout Time [s]')
+ax2.set_xlim(ax.get_xlim()[0] * n_pix / n_amp, ax.get_xlim()[1] * n_pix / n_amp)
+ax2.tick_params(axis='both', direction='in', which='both')
 fig.tight_layout()
+# Calculate corresponding read time for secondary axes. Stylization parameters.
 
 plt.savefig(path + '/Research/CCDs/Skipper_Noise/model_integrated_noise.png', dpi=250)
 plt.show()
+# BP Save figure.
 
-
-
+stop
 
 noise_spectrum = pd.read_csv(path + '/Research/CCDs/Skipper_Noise/STANoiseSpectrum.csv', header=None)
 
@@ -308,8 +346,8 @@ best_guess = [1.9e-8, 1e5, 0.95e7]
 popt, pcov = curve_fit(noise_model, noise_freqs, noise_density, p0=best_guess, bounds=([0, 0, 0],[np.infty,np.infty,np.infty]), sigma = np.sqrt(noise_density), absolute_sigma=False)
 cerr = np.sqrt(np.diag(pcov))
 
-sig_below = noise_model(freqs, popt[0]-cerr[0],popt[1]-cerr[1],popt[2]-cerr[2])
-sig_above = noise_model(freqs, popt[0]+cerr[0],popt[1]+cerr[1],popt[2]+cerr[2])
+sig_below = noise_model(frequencies, popt[0]-cerr[0],popt[1]-cerr[1],popt[2]-cerr[2])
+sig_above = noise_model(frequencies, popt[0]+cerr[0],popt[1]+cerr[1],popt[2]+cerr[2])
 
 # =============================================================================
 # z = np.polyfit(noise_freqs.value, noise_density.value, 7)
@@ -331,12 +369,12 @@ fig, ax = plt.subplots(1, 1, figsize=(6,4.5), layout='tight')
 
 popt2 = [1.9e-8, 1e5, 0.9e7]
 
-ax.plot(freqs, noise_model(freqs, *popt), label='Total Noise \ne$_{{wn}}$={:.2e}$\pm${:.2e}\nf$_{{1nc}}$={:.2e}$\pm${:.2e}\n$f_{{2nc}}=${:.2e}$\pm${:.2e}'.format(popt[0],cerr[0],popt[1],cerr[1],popt[2],cerr[2]), color='purple')
-ax.plot(freqs, noise_model(freqs, *popt2), label='Theoretical', color='green')
+ax.plot(frequencies, noise_model(freqs, *popt), label='Total Noise \ne$_{{wn}}$={:.2e}$\pm${:.2e}\nf$_{{1nc}}$={:.2e}$\pm${:.2e}\n$f_{{2nc}}=${:.2e}$\pm${:.2e}'.format(popt[0],cerr[0],popt[1],cerr[1],popt[2],cerr[2]), color='purple')
+ax.plot(frequencies, noise_model(freqs, *popt2), label='Theoretical', color='green')
 #ax.plot(freqs.value, p(freqs.value), color='orange')
 ax.plot(noise_freqs, noise_density, color='red', ls='-')
 
-ax.fill_between(freqs, sig_below, sig_above, facecolor='purple', alpha=0.25)
+ax.fill_between(frequencies, sig_below, sig_above, facecolor='purple', alpha=0.25)
 
 ax.set_xlabel(r'Frequency [Hz]')
 ax.set_ylabel(r'Noise Density [nV Hz$^{-1/2}$]')
