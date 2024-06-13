@@ -19,7 +19,7 @@ from astropy.modeling import Fittable1DModel, Parameter
 from scipy.signal import savgol_filter
 # BP Import needed packages.
 
-machine = 'Linux'
+machine = 'Desktop'
 # BP Define what machine code is being run on to save files. For internal use only.
 
 if machine == 'Linux':
@@ -222,7 +222,7 @@ nc_1f = 100 * u.kHz
 nc_1f2 = 100 * u.kHz#2e6 * u.Hz # Nominally 100 * u.kHz
 # BP Define noise corners.
 
-n_skips = 512
+n_skips = 4096
 # BP Define number of skips.
 
 n_pix_x = 4000
@@ -233,11 +233,11 @@ n_pix = n_pix_x * n_pix_y
 n_amp = 128
 # BP Define number of amplifiers.
 
-conversion = 6.5e-6 * u.V/u.electron
+conversion = 2.5e-6 * u.V/u.electron
 # Steve recommended 5e-6 - 2.5e6
 
 ax.plot(taus, total_noise_model(1, wn_floor, taus, nc_1f, nc_1f2, conversion), label='Traditional CCD', color=plot_colors[1])
-ax.plot(taus * n_skips, total_noise_model(n_skips, wn_floor, taus, nc_1f, nc_1f2, conversion), label='512 Skips', color=plot_colors[1], ls='--')
+ax.plot(taus * n_skips, total_noise_model(n_skips, wn_floor, taus, nc_1f, nc_1f2, conversion), label='{:.0f} Skips'.format(n_skips), color=plot_colors[1], ls='--')
 ax.axhline(0.15, color=plot_colors[3], ls=':', label='0.15 e$^-$ threshold')
 # BP Plot total integrated noise using theoretical model.
 
@@ -272,7 +272,7 @@ noise_density = np.array(noise_spectrum[1]) * u.V / (u.Hz**0.5)
 
 lta_noise_freqs = np.array(lta_noise_spectrum[0]) * u.Hz
 lta_noise_density = np.array(lta_noise_spectrum[1]) 
-lta_noise_density = savgol_filter(lta_noise_density, 50, 3) * u.nV / (u.Hz**0.5)
+lta_noise_density = savgol_filter(lta_noise_density, 100, 3) * u.nV / (u.Hz**0.5)
 # BP Extract noise frequencies and densities from data.
 
 opt_speed = 1/(1000*u.kHz)
@@ -285,7 +285,7 @@ ax2 = ax.twinx()
 
 ax2.plot(noise_freqs, cds_transfer, color = 'blue', ls='--')
 ax.plot(noise_freqs, noise_density, color='black', ls='-')
-ax.plot(lta_noise_freqs, lta_noise_density, color='red', ls='-')
+ax.plot(lta_noise_freqs, lta_noise_density*100, color='red', ls='-')
 # BP plot noise spectrum and CDS function.
 
 ax.set_xlabel(r'Frequency [Hz]')
@@ -307,6 +307,10 @@ plt.savefig(path + '/Research/CCDs/Skipper_Noise/sta_noise_spectrum.png', dpi=25
 plt.show()
 
 stop
+
+
+
+
 
 fig, ax = plt.subplots(1, 1, figsize=(6,4.5), layout='tight')
 ax3 = ax.twiny()
