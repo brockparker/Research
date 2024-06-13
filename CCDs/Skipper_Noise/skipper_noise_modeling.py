@@ -16,6 +16,7 @@ from scipy.optimize import curve_fit
 from astropy.modeling import models, fitting
 from astropy.modeling.models import custom_model
 from astropy.modeling import Fittable1DModel, Parameter
+from scipy.signal import savgol_filter
 # BP Import needed packages.
 
 machine = 'Linux'
@@ -261,21 +262,31 @@ plt.savefig(path + '/Research/CCDs/Skipper_Noise/model_integrated_noise.png', dp
 plt.show()
 # BP Save figure.
 
-stop
-
 noise_spectrum = pd.read_csv(path + '/Research/CCDs/Skipper_Noise/STANoiseSpectrum.csv', header=None)
+lta_noise_spectrum = pd.read_csv(path + '/Research/CCDs/Skipper_Noise/lta_noise_spectrum_2.csv', header=None)
+# BP Read in read-out amplifier noise spectrums.
 
 noise_freqs = np.array(noise_spectrum[0]) * u.Hz
 noise_density = np.array(noise_spectrum[1]) * u.V / (u.Hz**0.5)
+# BP Extract noise frequencies and densities from data.
+
+lta_noise_freqs = np.array(lta_noise_spectrum[0]) * u.Hz
+lta_noise_density = np.array(lta_noise_spectrum[1]) 
+lta_noise_density = savgol_filter(lta_noise_density, 50, 3) * u.nV / (u.Hz**0.5)
+# BP Extract noise frequencies and densities from data.
 
 opt_speed = 1/(1000*u.kHz)
-cds_transfer = transfer(noise_freqs, opt_speed)
+cds_transfer = transfer(noise_freqs, opt_speed, 1)
+# BP Define optimum readout speed and create CDS transfer function at that frequency.
 
 fig, ax = plt.subplots(1, 1, figsize=(6,4), layout='tight')
 ax2 = ax.twinx()
+# BP Create plot axes.
 
 ax2.plot(noise_freqs, cds_transfer, color = 'blue', ls='--')
 ax.plot(noise_freqs, noise_density, color='black', ls='-')
+ax.plot(lta_noise_freqs, lta_noise_density, color='red', ls='-')
+# BP plot noise spectrum and CDS function.
 
 ax.set_xlabel(r'Frequency [Hz]')
 ax2.set_ylabel(r'Transfer Function')
@@ -284,9 +295,9 @@ ax.set_ylabel(r'Noise Density [V Hz$^{-1/2}$]')
 ax.set_xlim(1e3, 1e7)
 ax.set_xscale('log')
 ax.set_yscale('log')
-ax.set_ylim(1e-9, 1e-5)
+ax.set_ylim(1e-10, 1e-5)
 ax2.set_ylim(0, 2)
-ax.axvline(400*u.kHz)
+# ax.axvline(400*u.kHz)
 
 ax.tick_params(axis='both', direction='in', which='both')
 
@@ -295,8 +306,7 @@ fig.tight_layout()
 plt.savefig(path + '/Research/CCDs/Skipper_Noise/sta_noise_spectrum.png', dpi=250)
 plt.show()
 
-
-
+stop
 
 fig, ax = plt.subplots(1, 1, figsize=(6,4.5), layout='tight')
 ax3 = ax.twiny()
