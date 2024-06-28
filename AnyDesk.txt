@@ -2,4 +2,4 @@ Nuvu Computer		- 539 140 553	iseeuv123	good
 Solidworks Lab Computer	- 488 597 024	???
 Affy Laptop		- 191 579 336	Hamdenlab	good
 Superlotis Computer	- 1 741 108 658	Hamdenlab	good
-Cleanroom Computer	- 922 175 862	iseeuv123
+Cleanroom Computer	- 922 175 862	iseeuv123	good
