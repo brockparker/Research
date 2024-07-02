@@ -24,7 +24,7 @@ import pandas as pd
 #from matplotlib.colors import LogNorm
 #from astropy.stats import sigma_clipped_stats
 #from astropy.modeling import models, fitting
-#from scipy import signal,interpolate
+from scipy import signal,interpolate
 
 #from plotly.subplots import make_subplots
 #import plotly.graph_objects as go
@@ -46,13 +46,13 @@ plt.rcParams['figure.figsize'] = [24, 12]  # set plotsize
 global data_path, raw_db_filename, master_db_filename
 
 """Change these path and fileneames to your  dataset"""
-data_path = r'C:/Users/Brock/Documents/Git/Research/CCDs/Sophia_QE/20240607/'
+data_path = r'/home/baparker/GitHub/Research/CCDs/Sophia_QE/20240607/'
 # raw db has the dark measurements saved with 0 wavelength. Need to fix this in the future to avoid divide by zero error 
 # raw_db_filename=r'D:\Nuvu_data\w18d10\qe_07112023\qe_07112023\MC_Charachterisation\May PTC Data\raw_MC_characterization_052023.csv'
 # master db the dark corrected lamp data is coverted to photon count rate. Dark data is not recorded in this data frame to avoid divide by zero error. Need to fix this in the future and set a "wavelenght" for dark data for corresponding wavelength around which dark was taken.  
-master_db_filename=r'C:/Users/Brock/Documents/Git/Research/CCDs/Sophia_QE/master_MC_characterization_20240626.csv'
+master_db_filename=r'/home/baparker/GitHub/Research/CCDs/Sophia_QE/master_MC_characterization_20240626.csv'
 
-photodiode_response_path = r'C:/Users/Brock/Documents/Git/Research/CCDs/Sophia_QE/photodiode_response.csv'
+photodiode_response_path = r'/home/baparker/GitHub/Research/CCDs/Sophia_QE/photodiode_response.csv'
 # BP Path that describes the photodiode A/W response at a given wavelength.
 
 def get_photodiode_AW_response(wl):

@@ -1,0 +1,1 @@
+wavelength,data_type,Slitsize,Filter,Ch1,Ch2,Ch1_total,Ch1_mean,Ch1_max,Ch1_min,Ch1_std,Ch1_median,Ch2_total,Ch2_mean,Ch2_max,Ch2_min,Ch2_std,Ch2_median,Filename,Expname,Ch1_mean_phrate,Ch1_median_phrate,Ch1_min_phrate,Ch1_max_phrate,Ch1_std_phrate,Ch2_mean_phrate,Ch2_median_phrate,Ch2_min_phrate,Ch2_max_phrate,Ch2_std_phrate,RatioMbyS,RatioMbyS_err
