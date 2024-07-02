@@ -11,9 +11,6 @@ import glob
 import pandas as pd
 from scipy import interpolate
 import matplotlib.pyplot as plt
-import astropy.constants as const
-from astropy import units as u
-stop
 
 """Adding Asthetics to the plot"""
 plt.rc('font', size=15)          # controls default text sizes
@@ -72,7 +69,8 @@ def currenttophotonrate(wl,current):
     """
     
     """Import astropy constant and units package"""
-    
+    import astropy.constants as const
+    from astropy import units as u
     """Remove the sign from photocurrent ad convert it to Astropy quanity object with units of Ampere"""
     picoAmpcurrent=-1*current*u.A
     """Get the photodiode A/W factor from measuremetns and assign it units of A/W"""
