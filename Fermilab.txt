@@ -1,0 +1,8 @@
+Services = bapATYCLB1357!
+vpn email training service desk
+ 
+Fermi = bapFermilab24!
+windows computers
+
+Kerberos = baMon07082417%
+connecting to scientific computers ssh
