@@ -7,7 +7,9 @@ Simplified data reduction for testing purposes.
 @author: baparker
 """
 
+import re
 import os
+import csv
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,6 +18,7 @@ import astropy.units as u
 import astropy.constants as c
 from astropy.visualization import quantity_support
 import scipy.interpolate
+import fnmatch
 # BP Necessary imports.
 
 quantity_support()
@@ -31,9 +34,11 @@ plt.rc('xtick.minor', size=4)    # size of the tick markers
 plt.rc('ytick.minor', size=4)    # size of the tick markers
 # BP Plot stylization parameters.
 
-data_path = '/home/baparker/GitHub/Research/CCDs/Sophia_QE/20240607/'
+path_base = '/home/baparker/GitHub/'
+
+data_path = path_base + 'Research/CCDs/Sophia_QE/20240607/'
 # BP Directory storing raw data, both fits files from sophia (dark, bias, and science) and photodiode csvs (dark and science).
-photodiode_response_file = '/home/baparker/GitHub/Research/CCDs/Sophia_QE/photodiode_response_new.csv'
+photodiode_response_file = path_base + 'Research/CCDs/Sophia_QE/photodiode_response_new.csv'
 # BP File location of the csv file containing the current to power conversion for the calibrated photodiode.
 # BP This will vary for different photodiodes.
 
@@ -122,18 +127,52 @@ def current_to_photon_rate(wavelength, current):
     """
     
     current = np.abs(current)
-    # BP Get the unsigned current.
+    # BP Get the unsigned photodiode current.
     
     response = get_photodiode_response(photodiode_response_file)
     conversion = response(wavelength.to(u.m).value) * u.A / u.W
+    # BP Calculate the photodiode conversion factor at each wavelength.
     
     photodiode_power = current / conversion
+    # BP Convert photodiode current into power.
 
     photon_energy = c.h * c.c / wavelength    
+    # BP Calculate the energy of a photon at each wavelength.
 
     photon_rate = photodiode_power / photon_energy * u.photon
+    # BP Calculate the rate of photons needed to produce the observed power.
 
     return photon_rate.to(u.photon / u.s)
+
+def compile_photodiode_csv(data_path, string_pattern):
+    photodiode_in_list = glob.glob(data_path + string_pattern)
+    
+    for file in photodiode_in_list:
+        data = pd.read_csv(file)
+        
+        global ind 
+        ind = re.search(string_pattern.replace('*','.+'), file)
+        start = ind.start() + 6
+        end = ind.end() - 4
+        
+        wavelength = int(file[start:end])
+                
+        ch1 = data['Ch1']
+        ch1_mean = np.mean(ch1)
+        
+        compiled_data = [wavelength, ch1_mean]
+        print(compiled_data)
+
+        compiled_file_path = data_path + 'compiled_photodiode.csv'
+
+        if os.path.isfile(compiled_file_path):
+            with open(compiled_file_path,'a') as cf:
+                writer = csv.writer(cf)
+                writer.writerow(fields)
+                cf.write(str(wavelength) + ',' + str(ch1_mean) + r'\n')
+                
+        else:         
+            np.savetxt(data_path + "compiled_photodiode.csv", compiled_data, delimiter=",", header='wavelength, ch1_mean')
 
 def main():
 
@@ -148,8 +187,11 @@ def main():
     print('Compiling photodiode data.')
     ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean of each raw file.
     
+    compile_photodiode_csv(data_path, 'picoa*.csv')
+    
     #current = current * u.A
     
+
     print('Converting photodiode response into photon counts.')
     # BP Read in photodiode response function.
     ### Convert master photodiode csv of currents into total photon counts. Read in conversion and do calculations.

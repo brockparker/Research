@@ -1,7 +1,11 @@
-Services = bapATYCLB1357!
+Username = baparker
+
+Fermilab ID = 53274V
+
+Services = 5Snbe3,@uNV'BF@
 vpn email training service desk
  
-Fermi = bapFermilab24!
+Fermi = 6Dc09b^?/q.!
 windows computers
 
 Kerberos = baMon07082417%
