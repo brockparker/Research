@@ -9,7 +9,6 @@ Simplified data reduction for testing purposes.
 
 import re
 import os
-import csv
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,7 +17,7 @@ import astropy.units as u
 import astropy.constants as c
 from astropy.visualization import quantity_support
 import scipy.interpolate
-import fnmatch
+from astropy.io import fits
 # BP Necessary imports.
 
 quantity_support()
@@ -144,50 +143,94 @@ def current_to_photon_rate(wavelength, current):
 
     return photon_rate.to(u.photon / u.s)
 
-def compile_photodiode_csv(data_path, string_pattern):
-    photodiode_in_list = glob.glob(data_path + string_pattern)
+def compile_photodiode_csv(data_path, string_pattern, dark_string_pattern = 0):
     
-    for file in photodiode_in_list:
+    df = pd.DataFrame(data=None, columns=['wavelength', 'ch1_mean', 'photon_rate', 'sophia_region'], dtype='float64')
+    
+    photodiode_in_list = glob.glob(data_path + string_pattern)
+    compiled_file_path = data_path + 'compiled_photodiode.csv'
+    
+    if dark_string_pattern != 0:
+        dark_in_list = glob.glob(data_path + dark_string_pattern)
+        dark_data = pd.read_csv(dark_in_list)
+        
+        photodiode_dark = np.mean(dark_data['Ch1'])
+        
+    else:
+        photodiode_dark = 0
+    
+    for idx, file in enumerate(photodiode_in_list):
         data = pd.read_csv(file)
         
-        global ind 
-        ind = re.search(string_pattern.replace('*','.+'), file)
+        ind = re.search(string_pattern.replace('.','\.').replace('???','...'), file)
         start = ind.start() + 6
         end = ind.end() - 4
         
         wavelength = int(file[start:end])
-                
-        ch1 = data['Ch1']
-        ch1_mean = np.mean(ch1)
+        # BP Wavelength in nanometers
         
-        compiled_data = [wavelength, ch1_mean]
-        print(compiled_data)
+        ch1 = data['Ch1']
+        ch1_mean = np.mean(ch1) - photodiode_dark
+        
+        compiled_data = np.array([wavelength, ch1_mean])
+        compiled_data = np.sort(compiled_data)
+        
+        df.loc[idx, ['wavelength', 'ch1_mean']] = np.array([wavelength, ch1_mean])
 
-        compiled_file_path = data_path + 'compiled_photodiode.csv'
+    if os.path.isfile(compiled_file_path):
+        final_data = pd.read_csv(compiled_file_path)
+        
+        return final_data
+            
+    else:
+        df = df.sort_values('wavelength')
+        df.to_csv(compiled_file_path, index = False)
+        
+        return df
 
-        if os.path.isfile(compiled_file_path):
-            with open(compiled_file_path,'a') as cf:
-                writer = csv.writer(cf)
-                writer.writerow(fields)
-                cf.write(str(wavelength) + ',' + str(ch1_mean) + r'\n')
-                
-        else:         
-            np.savetxt(data_path + "compiled_photodiode.csv", compiled_data, delimiter=",", header='wavelength, ch1_mean')
+def reduce_camera_images(data_path, bias_string_pattern, dark_string_pattern, science_string_pattern):
+    bias_in_list = glob.glob(data_path + bias_string_pattern)
+    dark_in_list = glob.glob(data_path + dark_string_pattern)
+    science_in_list = glob.glob(data_path + science_string_pattern)
+    
+    global master_bias
+    master_bias, master_dark = 0, 0
+    
+    for file in bias_in_list:
+        hdul = fits.open(file)
+        hdr = hdul[0].header
+        data = hdul[0].data[0]
+        
+        master_bias += data
+        
+    master_bias = master_bias / len(bias_in_list)
+    
+    hdu = fits.PrimaryHDU(data = master_bias, header = hdr)
+    hdu.writeto(data_path + 'master_bias.fits')
+    
+    #read in all darks
+    #subtract bias
+    #scale by exposure time
+    #combine into master dark
+    
+    #read in all science images
+    #subtract bias
+    #subtract scaled dark
+    
+    print(master_bias)
 
 def main():
-
-
-    
     print('Reading in raw data.')
     ### Read in raw data
     
     print('Reducing FITS files.')
+    reduce_camera_images(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
     ### Reduce raw sophia files. Subtract biases, subtract (and scale if necessary) darks.
     
     print('Compiling photodiode data.')
     ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean of each raw file.
     
-    compile_photodiode_csv(data_path, 'picoa*.csv')
+    compiled_data_frame = compile_photodiode_csv(data_path, 'picoa_???.csv')
     
     #current = current * u.A
     
