@@ -18,6 +18,7 @@ import astropy.constants as c
 from astropy.visualization import quantity_support
 import scipy.interpolate
 from astropy.io import fits
+from matplotlib import colormaps
 # BP Necessary imports.
 
 quantity_support()
@@ -188,14 +189,18 @@ def compile_photodiode_csv(data_path, string_pattern, dark_string_pattern = 0):
         
         return df
 
-def reduce_camera_images(data_path, bias_string_pattern, dark_string_pattern, science_string_pattern):
+def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pattern, science_string_pattern):
     bias_in_list = glob.glob(data_path + bias_string_pattern)
     dark_in_list = glob.glob(data_path + dark_string_pattern)
     science_in_list = glob.glob(data_path + science_string_pattern)
+    bias_in_list.sort()
+    dark_in_list.sort()
+    science_in_list.sort()
     
-    global master_bias
+    # Should probably read in and store these all as a 3D datacube.
     master_bias, master_dark = 0, 0
     
+    # BP Create master bias.
     for file in bias_in_list:
         hdul = fits.open(file)
         hdr = hdul[0].header
@@ -203,41 +208,159 @@ def reduce_camera_images(data_path, bias_string_pattern, dark_string_pattern, sc
         
         master_bias += data
         
+        hdul.close()
+        
     master_bias = master_bias / len(bias_in_list)
     
     hdu = fits.PrimaryHDU(data = master_bias, header = hdr)
-    hdu.writeto(data_path + 'master_bias.fits')
+    hdu.writeto(data_path + 'master_bias.fits', overwrite = True)
     
-    #read in all darks
-    #subtract bias
-    #scale by exposure time
-    #combine into master dark
+    dark_bias_subtracted_list = []
     
-    #read in all science images
-    #subtract bias
-    #subtract scaled dark
-    
-    print(master_bias)
+    # BP Subtract master bias from all dark images.
+    for file in dark_in_list:
+        outfile = file.replace('.fits', '_b.fits')
+        
+        hdul = fits.open(file)
+        hdr = hdul[0].header
+        data = hdul[0].data
+        
+        data = data - master_bias
+        
+        hdu = fits.PrimaryHDU(data = data, header = hdr)
+        hdu.writeto(outfile, overwrite = True)
+        
+        dark_bias_subtracted_list.append(outfile)
+        
+        hdul.close()
+        
+    science_bias_subtracted_list = []
 
-def main():
-    print('Reading in raw data.')
-    ### Read in raw data
+    # Subtract master bias from all science images.
+    for file in science_in_list:
+        outfile = file.replace('.fits', '_b.fits')
+        
+        hdul = fits.open(file)
+        hdr = hdul[0].header
+        data = hdul[0].data
+        
+        data = data - master_bias
+        
+        hdu = fits.PrimaryHDU(data = data, header = hdr)
+        hdu.writeto(outfile, overwrite = True)
+        
+        science_bias_subtracted_list.append(outfile)
+        
+        hdul.close()
     
+    # BP Create master dark by scaling all darks to 1 second after subtracting bias.
+    for file in dark_bias_subtracted_list:       
+        hdul = fits.open(file)
+        hdr = hdul[0].header
+        data = hdul[0].data
+        
+        exp_time = hdr['EXPTIME']
+        
+        try:
+            scaled_data = data / exp_time
+        except:
+            print('Temporary issue with dark measurements')
+            scaled_data = data
+        
+        master_dark += scaled_data
+        
+        hdul.close()
+        
+    master_dark = master_dark / len(dark_bias_subtracted_list)
+        
+    hdu = fits.PrimaryHDU(data = master_dark, header = hdr)
+    hdu.writeto(data_path + 'master_dark.fits', overwrite = True)
+    # BP Currently generating and using master_dark, may be better to use individual darks for each wavelength, as exposure time should be the same.
+    
+    science_out_list = []
+    
+    # BP Subtract master dark from all science images
+    for file in science_bias_subtracted_list:
+        outfile = file.replace('_b.fits', '_bd.fits')
+        
+        hdul = fits.open(file)
+        hdr = hdul[0].header
+        data = hdul[0].data
+        
+        data = data - master_dark
+        
+        hdu = fits.PrimaryHDU(data = data, header = hdr)
+        hdu.writeto(outfile, overwrite = True)
+        
+        science_out_list.append(outfile)
+        
+        hdul.close()
+    
+    return science_out_list
+
+def reduce_camera_images_individual(data_path, bias_string_pattern, dark_string_pattern, science_string_pattern):
+    bias_in_list = glob.glob(data_path + bias_string_pattern)
+    dark_in_list = glob.glob(data_path + dark_string_pattern)
+    science_in_list = glob.glob(data_path + science_string_pattern)
+    
+    bias_in_list.sort()
+    dark_in_list.sort()
+    science_in_list.sort()
+    
+    for b_file, d_file, s_file in zip(bias_in_list, dark_in_list, science_in_list):
+        hdul_b = fits.open(b_file)
+        data_b = hdul_b[0].data
+        
+        hdul_d = fits.open(d_file)
+        data_d = hdul_d[0].data
+        
+        hdul_s = fits.open(s_file)
+        hdr_s = hdul_s[0].header
+        data_s = hdul_s[0].data
+        
+        science_outfile = s_file.replace('.fits', '_bd_separate.fits')
+        
+        dark_sub_bias = data_d - data_b
+        science_sub_bias = data_s - data_b
+        
+        science_out = science_sub_bias - dark_sub_bias
+        
+        hdu = fits.PrimaryHDU(data = science_out, header = hdr_s)
+        hdu.writeto(science_outfile, overwrite = True)
+    
+def update_master_database():
+    # Helper function to update a specific row in the master compiled data csv.
+    pass
+
+def main():   
     print('Reducing FITS files.')
-    reduce_camera_images(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
+    sophia_file_list = reduce_camera_images_individual(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
     ### Reduce raw sophia files. Subtract biases, subtract (and scale if necessary) darks.
     
     print('Compiling photodiode data.')
     ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean of each raw file.
-    
+    global photodiode_photon_rate
     compiled_data_frame = compile_photodiode_csv(data_path, 'picoa_???.csv')
-    
-    #current = current * u.A
-    
 
     print('Converting photodiode response into photon counts.')
     # BP Read in photodiode response function.
     ### Convert master photodiode csv of currents into total photon counts. Read in conversion and do calculations.
+    wavelengths = np.array(compiled_data_frame['wavelength']) * u.nm
+    photodiode_current = np.array(compiled_data_frame['ch1_mean']) * u.A
+    
+    photodiode_photon_rate = current_to_photon_rate(wavelengths, photodiode_current)
+    
+    print('Updating compiled data.')
+    if os.path.isfile(compiled_file_path):
+        final_data = pd.read_csv(compiled_file_path)
+        
+        return final_data
+            
+    else:
+        df = df.sort_values('wavelength')
+        df.to_csv(compiled_file_path, index = False)
+        
+        return df
     
     print('Reading in sophia regions.')
     ### Add mean counts of different regions in sophia data into new file with wavelengths and photodiode values.
