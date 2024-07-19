@@ -41,6 +41,8 @@ data_path = path_base + 'Research/CCDs/Sophia_QE/20240607/'
 photodiode_response_file = path_base + 'Research/CCDs/Sophia_QE/photodiode_response_new.csv'
 # BP File location of the csv file containing the current to power conversion for the calibrated photodiode.
 # BP This will vary for different photodiodes.
+compiled_file_path = data_path + 'compiled_data.csv'
+# BP File location of the master database of all compiled photodiode and fits file region data. All plots and analysis can be done from this file.
 
 def log_interp1d(xx, yy, kind='linear'):
     """
@@ -144,12 +146,11 @@ def current_to_photon_rate(wavelength, current):
 
     return photon_rate.to(u.photon / u.s)
 
-def compile_photodiode_csv(data_path, string_pattern, dark_string_pattern = 0):
+def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_string_pattern = 0):
     
     df = pd.DataFrame(data=None, columns=['wavelength', 'ch1_mean', 'photon_rate', 'sophia_region'], dtype='float64')
     
     photodiode_in_list = glob.glob(data_path + string_pattern)
-    compiled_file_path = data_path + 'compiled_photodiode.csv'
     
     if dark_string_pattern != 0:
         dark_in_list = glob.glob(data_path + dark_string_pattern)
@@ -178,16 +179,9 @@ def compile_photodiode_csv(data_path, string_pattern, dark_string_pattern = 0):
         
         df.loc[idx, ['wavelength', 'ch1_mean']] = np.array([wavelength, ch1_mean])
 
-    if os.path.isfile(compiled_file_path):
-        final_data = pd.read_csv(compiled_file_path)
-        
-        return final_data
-            
-    else:
-        df = df.sort_values('wavelength')
-        df.to_csv(compiled_file_path, index = False)
-        
-        return df
+    final_data = update_master_database(compiled_file_path, df)
+    
+    return final_data
 
 def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pattern, science_string_pattern):
     bias_in_list = glob.glob(data_path + bias_string_pattern)
@@ -328,9 +322,21 @@ def reduce_camera_images_individual(data_path, bias_string_pattern, dark_string_
         hdu = fits.PrimaryHDU(data = science_out, header = hdr_s)
         hdu.writeto(science_outfile, overwrite = True)
     
-def update_master_database():
+def update_master_database(compiled_file_path, df):
     # Helper function to update a specific row in the master compiled data csv.
-    pass
+    print('Updating compiled data.')
+# =============================================================================
+#     if os.path.isfile(compiled_file_path):
+#         final_data = pd.read_csv(compiled_file_path)
+#         
+#         return final_data
+#             
+#     else:
+# =============================================================================
+    df = df.sort_values('wavelength', ignore_index = True)
+    df.to_csv(compiled_file_path, index = False)
+    
+    return df
 
 def main():   
     print('Reducing FITS files.')
@@ -339,8 +345,10 @@ def main():
     
     print('Compiling photodiode data.')
     ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean of each raw file.
-    global photodiode_photon_rate
-    compiled_data_frame = compile_photodiode_csv(data_path, 'picoa_???.csv')
+    global photodiode_photon_rate, wavelengths, compiled_data_frame, photon_rate_df
+    compiled_data_frame = compile_photodiode_csv(data_path, compiled_file_path, 'picoa_???.csv')
+    print(compiled_data_frame)
+
 
     print('Converting photodiode response into photon counts.')
     # BP Read in photodiode response function.
@@ -350,17 +358,12 @@ def main():
     
     photodiode_photon_rate = current_to_photon_rate(wavelengths, photodiode_current)
     
-    print('Updating compiled data.')
-    if os.path.isfile(compiled_file_path):
-        final_data = pd.read_csv(compiled_file_path)
-        
-        return final_data
-            
-    else:
-        df = df.sort_values('wavelength')
-        df.to_csv(compiled_file_path, index = False)
-        
-        return df
+    photon_rate_df = pd.DataFrame(data = photodiode_photon_rate, columns = ['new'], dtype='float64')
+
+
+    compiled_data_frame.update(photon_rate_df)
+    print(compiled_data_frame)
+    #compiled_data_frame.loc[wavelengths.value == compiled_data_frame['wavelength'], ['photon_rate']] = np.array([photodiode_photon_rate])
     
     print('Reading in sophia regions.')
     ### Add mean counts of different regions in sophia data into new file with wavelengths and photodiode values.
