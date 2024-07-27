@@ -1,0 +1,8 @@
+Fine grain PAT
+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
+
+Classic PAT
+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
+
+Organization PAT
+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
