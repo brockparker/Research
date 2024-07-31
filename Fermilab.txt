@@ -10,3 +10,8 @@ windows computers
 
 Kerberos = baMon07082417%
 connecting to scientific computers ssh
+
+need
+Basic Electrical Safety [FN000235]
+Training and Electrical Safety Orientation [FN000387] Training
+Electrostatic Discharge [PDSI0001/CR/01] Training
