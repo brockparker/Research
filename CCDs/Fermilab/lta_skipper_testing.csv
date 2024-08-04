@@ -1,0 +1,13 @@
+﻿NAME,NSAMP,STD,GAIN,ESTD,PRED_ESTD,NOTES
+image_lta_7.fz,1,755.789,150,5.038593333,5.038593333,Started at 650 full columns
+image_lta_8.fz,2,525.675,150,3.5045,3.562823514,
+image_lta_9.fz,4,371.179,150,2.474526667,2.519296667,
+image_lta_10.fz,8,262.84,150,1.752266667,1.781411757,
+image_lta_11.fz,16,186.06,150,1.2404,1.259648333,
+image_lta_12.fz,32,130.467,150,0.86978,0.890705878,Reduced to 30 columns for speed
+image_lta_13.fz,64,101.484,150,0.67656,0.629824167,
+image_lta_14.fz,128,89.8189,150,0.598792667,0.445352939,Need to start fitting gaussian here
+image_lta_15.fz,256,45,150,0.3,0.314912083,Guessing here
+image_lta_16.fz,512,35,150,0.233333333,0.22267647,Photon counting acheieved here
+image_lta_17.fz,1024,27.5,150,0.183333333,0.157456042,
+image_lta_18.fz,2048,25,150,0.166666667,0.111338235,Dropped to 10 rows
