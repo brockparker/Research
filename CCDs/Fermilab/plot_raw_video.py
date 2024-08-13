@@ -83,7 +83,7 @@ def get_read_noise(file, amplifier):
     ax.set_xlim(new_range[0], new_range[1])
     ax.tick_params(axis='both', direction='in', which='both')
     fig.tight_layout()
-    plt.savefig(base_dir + '\\histogram_' + file_name + '_' + str(amplifier), dpi=250)
+    plt.savefig(base_dir + '/histogram_' + file_name + '_' + str(amplifier) + '.png', dpi=250)
     plt.show()
     
     return popt[2]
@@ -101,11 +101,12 @@ plt.rc('ytick.minor', size=4)    # size of the tick markers
 
 amplifier = 1 # from 0 to 3
 
-base_dir = r'C:\Users\Brock\Documents\Git\Research\CCDs\Fermilab\LTA_Data\raw_video'
+## base_dir = r'C:\Users\Brock\Documents\Git\Research\CCDs\Fermilab\LTA_Data\raw_video'
+base_dir = '/home/baparker/GitHub/Research/CCDs/Fermilab/LTA_Data/raw_video'
 
-pattern = '\image_lta_skip*'
+pattern = '/image_lta_skip*'
 
-hdu_files = sorted(glob.glob(base_dir + pattern + '\HDU_' + str(amplifier) + '_*.csv'))
+hdu_files = sorted(glob.glob(base_dir + pattern + '/HDU_' + str(amplifier) + '_*.csv'))
 image_files = sorted(glob.glob(base_dir + pattern + '.fz'))
 
 quantity_support()
@@ -127,7 +128,7 @@ for hdu_file, image_file in zip_longest(hdu_files, image_files):
     hdul.close()
     
     
-    file_name = hdu_file[hdu_file.find('image_lta_skip'):hdu_file.find(r'\HDU')]  
+    file_name = hdu_file[hdu_file.find('image_lta_skip'):hdu_file.find(r'/HDU')]  
     
     sinit = int(header['SINIT'])
     pinit = int(header['PINIT'])
@@ -147,7 +148,7 @@ for hdu_file, image_file in zip_longest(hdu_files, image_files):
     
     df = pd.read_csv(hdu_file, header=None).to_numpy()
     integ = df[offset:,2]
-    waveform = df[offset:,3]/1e5
+    waveform = -df[offset:,3]/1e5
 
     start = [2, 0]
     ind = find_subarray(integ, 2, start) + 1

@@ -1,0 +1,93 @@
+20240606
+	BAD
+	Initial Testing Data
+	
+20240607
+	BAD
+	First full day of data
+	Fully pumped down
+	Cooled to -85
+	Exposure times too short
+	Darks all bad
+	
+20240626
+	BAD
+	Testing dynamic exposure time
+	No lamp
+	Pumped down
+	Cooled
+	
+20240703
+	BAD
+	Exposure times too long
+	Lamp on
+	Fully pumped down
+	Cooled to -85
+	
+20240717
+	BAD
+	Test data with lamp off
+	Warm
+	
+20240718
+	GOOD
+	200 - 245 nm
+	Fully pumped down
+	Cooled to -85
+	Lamp on
+	Darks - None
+	
+20240719
+	GOOD
+	250 - 290 nm
+	Fully pumped down
+	Cooled to -85
+	Lamp on
+	Darks - -85, -75, -65, -55, -45
+	
+20240722
+	OKAY
+	295 - 305 nm
+	May be water on detector
+	Fully pumped down
+	Lamp on
+	Cooled to -85
+	Some warm data
+	Darks - None
+	
+20240724
+	BAD
+	Test data for moisture
+	Pumped down
+	Warm
+	Darks - None
+	
+20240726
+	GOOD
+	295 - 505 nm
+	Much shorter exposure times?
+	Some marks on detector
+	Fully pumped down
+	Cooled to -85
+	Darks - -35
+	
+20240727
+	GOOD
+	Darks only
+	Darks - -35, -25
+	
+20240728
+	GOOD
+	Darks only
+	Darks - -10, -15
+	
+20240729
+	GOOD
+	Darks only
+	Darks - -5, 0, 5, 10
+	
+20240730
+	GOOD
+	Darks only
+	Darks - -55, 15, 20
+	

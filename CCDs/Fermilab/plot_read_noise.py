@@ -29,10 +29,11 @@ plt.rc('ytick.major', size=6)    # size of the tick markers
 plt.rc('xtick.minor', size=4)    # size of the tick markers
 plt.rc('ytick.minor', size=4)    # size of the tick markers
 
-path = r'C:\Users\Brock\Documents\Git\Research\CCDs\Fermilab\LTA_Data\read_noise'
+## path = r'\Research\CCDs\Fermilab\LTA_Data\read_noise'
+path = '/home/baparker/GitHub/Research/CCDs/Fermilab/LTA_Data/read_noise'
 
 #files = sorted(glob.glob(path + '\proc_image_lta_reverse_??.fits'))
-files = sorted(glob.glob(path + '\proc_image_lta_??.fits'))
+files = sorted(glob.glob(path + '/proc_image_lta_??.fits'))
 
 amplifier = 1 # only amplifier 2 is working, from 1 to 4
 overscan = 371 # pixel where overscan starts, TODO define better
