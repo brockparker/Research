@@ -12,8 +12,8 @@ import pandas as pd
 from astropy.io import fits
 from matplotlib.colors import LogNorm
 
-base_dir = '/home/GitHub/Research/CCDs/Sophia_QE/Data/'
-base_dir = r'C:\Users\Brock\Documents\Git\Research\CCDs\Sophia_QE\Data\\'
+# base_dir = '/home/GitHub/Research/CCDs/Sophia_QE/Data/'
+base_dir = r'C:\Users\Brock\Documents\Git\Research\CCDs\Sophia_QE\Data'
 
 dates = ['20240718','20240719','20240722','20240724', '20240726']
 
@@ -21,16 +21,17 @@ dates = ['20240718','20240719','20240722','20240724', '20240726']
 
 wls = [245, 290, 295, 300, 300]
 
-in_folder = ['QE', 'QE', ['QE', 'warm'], ['QE', 'First']]
+in_folder = [['QE'], ['QE'], ['QE', 'warm'], ['QE', 'First']]
 
 vmins = [[1000, 10000, 10000, 6000, 1000]] #24
 vmaxes = [[25000, 60000, 30000, 8000, 30000]] #24
 
 for i, date in enumerate(dates):
+    wl = wls[i]
     for folder in in_folder[i]:
-        science_file = base_dir + folder + date + '\QE'
+        base_file = base_dir + '\\' + date + '\\' + folder
         
-        science_file = r'D:\Sophia\20240724\QE\test_science_{:.0f}.fits'.format(wl)
+        science_file = base_file + r'\science_{:.0f}.fits'.format(wl)
         dark_file = r'D:\Sophia\20240724\QE\test_dark_{:.0f}.fits'.format(wl)
         bias_file = r'D:\Sophia\20240724\QE\test_bias_{:.0f}.fits'.format(wl)
         
