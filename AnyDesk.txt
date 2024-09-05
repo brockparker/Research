@@ -4,5 +4,6 @@ Affy Laptop		- 191 579 336	Hamdenlab (080888)	good
 Superlotis Computer	- 1 741 108 658	Hamdenlab		good
 Cleanroom Windows	- 922 175 862	iseeuv123		good
 Cleanroom Linux		- 859 083 690	iseeuv123
-Altair (Steward)	- 449 954 968	SchanemanUW!1009	good
+Steward Desktop		- 449 954 968	SchanemanUW!1009	good
 Aldebaran (Laptop)	- 1 965 064 582 SchanemanUW!1009
+Altair (Desktop)	- 1 997 254 040 8955
