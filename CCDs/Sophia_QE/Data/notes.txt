@@ -90,4 +90,11 @@
 	GOOD
 	Darks only
 	Darks - -55, 15, 20
+
+20240906
+	BAD
+	Test images
+	Cooled to 5
+	Lamp on
+	Darks - None
 	
