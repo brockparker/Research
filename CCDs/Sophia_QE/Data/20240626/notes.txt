@@ -1,0 +1,3 @@
+testing dynamic exposure time
+test data
+no lamp
