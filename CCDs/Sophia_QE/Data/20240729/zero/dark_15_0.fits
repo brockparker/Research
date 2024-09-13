@@ -1,0 +1,342 @@
+SIMPLE  =                    T / file does conform to FITS standard             BITPIX  =                   16 / number of bits per data pixel                  NAXIS   =                    3 / number of data axes                            NAXIS1  =                 2048 / length of data axis 1                          NAXIS2  =                 2048 / length of data axis 2                          NAXIS3  =                    1 / length of data axis 3                          EXTEND  =                    T / FITS dataset may contain extensions            COMMENT   FITS (Flexible Image Transport System) format is defined in 'AstronomyCOMMENT   and Astrophysics', volume 376, page 359; bibcode: 2001A&A...376..359H BZERO   =                32768 / offset data range to that of unsigned short    BSCALE  =                    1 / default scaling factor                         DATE    = '2024-07-29T21:46:13' / file creation date (YYYY-MM-DDThh:mm:ss UT)   DATE-OBS= '2024-07-29T21:46:13' / Date of data acquisition                      EXPTIME = '15000   '           / Exposure time                                  LONGSTRN= 'OGIP 1.0'           / The OGIP long string convention may be used.   COMMENT   This FITS file may contain long string keyword values that are        COMMENT   continued over multiple keywords. This convention uses the '&'        COMMENT   character at the end of a string which is then continued              COMMENT   on subsequent keywords whose name = 'CONTINUE'.                       HIERARCH PI Camera Sensor Layout ActiveArea Width='&'                           CONTINUE  '2048' /pixels                                                        HIERARCH PI Camera Sensor Layout ActiveArea Height='&'                          CONTINUE  '2048' /rows                                                          HIERARCH PI Camera Sensor Layout ActiveArea TopMargin='&'                       CONTINUE  '2' /rows                                                             HIERARCH PI Camera Sensor Layout ActiveArea LeftMargin='&'                      CONTINUE  '50' /pixels                                                          HIERARCH PI Camera Sensor Layout ActiveArea BottomMargin='&'                    CONTINUE  '3' /rows                                                             HIERARCH PI Camera Sensor Layout ActiveArea RightMargin='&'                     CONTINUE  '50' /pixels                                                          HIERARCH PI Camera Sensor Information SensorName='&'                            CONTINUE  'E2V 2048 x 2048 (CCD 42-40)(B)(UV)(MP)'                              HIERARCH PI Camera Sensor Information CcdCharacteristics='&'                    CONTINUE  'BackIlluminated, UVEnhanced, Multiport'                              HIERARCH PI Camera Sensor Information Type='&'                                  CONTINUE  'Ccd'                                                                 HIERARCH PI Camera Sensor Information ActiveArea Height='&'                     CONTINUE  '2048' /rows                                                          HIERARCH PI Camera Sensor Information ActiveArea Width='&'                      CONTINUE  '2048' /pixels                                                        HIERARCH PI Camera Sensor Information ActiveArea BottomMargin='&'               CONTINUE  '3' /rows                                                             HIERARCH PI Camera Sensor Information ActiveArea LeftMargin='&'                 CONTINUE  '50' /pixels                                                          HIERARCH PI Camera Sensor Information ActiveArea RightMargin='&'                CONTINUE  '50' /pixels                                                          HIERARCH PI Camera Sensor Information ActiveArea TopMargin='&'                  CONTINUE  '2' /rows                                                             HIERARCH PI Camera Sensor Information ActiveArea ExtendedHeight='&'             CONTINUE  '0' /rows                                                             HIERARCH PI Camera Sensor Information MaskedArea BottomMargin='&'               CONTINUE  '0' /rows                                                             HIERARCH PI Camera Sensor Information MaskedArea Height='&'                     CONTINUE  '0' /rows                                                             HIERARCH PI Camera Sensor Information MaskedArea TopMargin='&'                  CONTINUE  '0' /rows                                                             HIERARCH PI Camera Sensor Information Pixel Width='&'                           CONTINUE  '13.5' /microns                                                       HIERARCH PI Camera Sensor Information Pixel Height='&'                          CONTINUE  '13.5' /microns                                                       HIERARCH PI Camera Sensor Information Pixel GapWidth='&'                        CONTINUE  '0' /microns                                                          HIERARCH PI Camera Sensor Information Pixel GapHeight='&'                       CONTINUE  '0' /microns                                                          HIERARCH PI Camera Sensor Information Secondary ActiveArea Height='&'           CONTINUE  '0' /rows                                                             HIERARCH PI Camera Sensor Information Secondary MaskedArea Height='&'           CONTINUE  '0' /rows                                                             HIERARCH PI Camera Sensor Temperature SetPoint='&'                              CONTINUE  '0' /degrees Celsius                                                  HIERARCH PI Camera Sensor Temperature Reading='&'                               CONTINUE  '0' /degrees Celsius                                                  HIERARCH PI Camera Sensor Temperature Status='&'                                CONTINUE  'Locked'                                                              HIERARCH PI Camera Sensor Temperature DisableCoolingFan='&'                     CONTINUE  'False' /true or false                                                HIERARCH PI Camera Sensor Temperature CoolingFanStatus='&'                      CONTINUE  'On'                                                                  HIERARCH PI Camera Sensor Cleaning CleanSerialRegister='&'                      CONTINUE  'True' /true or false                                                 HIERARCH PI Camera Sensor Cleaning CleanUntilTrigger='&'                        CONTINUE  'True' /true or false                                                 HIERARCH PI Camera Sensor Cleaning CycleCount='&'                               CONTINUE  '1'                                                                   HIERARCH PI Camera Sensor Cleaning CycleHeight='&'                              CONTINUE  '2048' /rows                                                          HIERARCH PI Camera ShutterTiming ExposureTime='&'                               CONTINUE  '15000' /msec                                                         HIERARCH PI Camera ShutterTiming OpeningDelay='&'                               CONTINUE  '0' /usec                                                             HIERARCH PI Camera ShutterTiming Mode='&'                                       CONTINUE  'AlwaysOpen'                                                          HIERARCH PI Camera ShutterTiming ClosingDelay='&'                               CONTINUE  '0' /usec                                                             HIERARCH PI Camera ShutterTiming Shutter Active='&'                             CONTINUE  'None'                                                                HIERARCH PI Camera ReadoutControl Mode='&'                                      CONTINUE  'FullFrame'                                                           HIERARCH PI Camera ReadoutControl Time='&'                                      CONTINUE  '4272.99326' /msec                                                    HIERARCH PI Camera ReadoutControl PortsUsed='&'                                 CONTINUE  '1'                                                                   HIERARCH PI Camera ReadoutControl Orientation='&'                               CONTINUE  'Normal'                                                              HIERARCH PI Camera ReadoutControl StorageShiftRate='&'                          CONTINUE  '12' /msec                                                            HIERARCH PI Camera ReadoutControl VerticalShiftRate='&'                         CONTINUE  '12' /msec                                                            HIERARCH PI Camera ReadoutControl RegionsOfInterest Selection='&'               CONTINUE  'FullSensor'                                                          HIERARCH PI Camera ReadoutControl RegionsOfInterest BinningProvider='&'         CONTINUE  'Hardware'                                                            HIERARCH PI Camera ReadoutControl RegionsOfInterest BinnedSensor XBinning='&'   CONTINUE  '1' /pixels                                                           HIERARCH PI Camera ReadoutControl RegionsOfInterest BinnedSensor YBinning='&'   CONTINUE  '1' /pixels                                                           HIERARCH PI Camera ReadoutControl RegionsOfInterest LineSensor RowBinning='&'   CONTINUE  '1' /rows                                                             HIERARCH PI Camera ReadoutControl RegionsOfInterest Result='&'                  CONTINUE  '{(0,0)[2048,2048]<1,1>}' /{(x,y)[width,height]<xbin,ybin>}           HIERARCH PI Camera ReadoutControl Kinetics WindowHeight='&'                     CONTINUE  '10' /rows                                                            HIERARCH PI Camera HardwareIO OutputSignal='&'                                  CONTINUE  'AlwaysHigh'                                                          HIERARCH PI Camera HardwareIO InvertOutputSignal='&'                            CONTINUE  'False' /true or false                                                HIERARCH PI Camera HardwareIO OutputSignal2='&'                                 CONTINUE  'AlwaysHigh'                                                          HIERARCH PI Camera HardwareIO InvertOutputSignal2='&'                           CONTINUE  'False' /true or false                                                HIERARCH PI Camera HardwareIO Trigger Response='&'                              CONTINUE  'NoResponse'                                                          HIERARCH PI Camera HardwareIO Trigger Determination='&'                         CONTINUE  'RisingEdge'                                                          HIERARCH PI Camera Adc Speed='&'                                                CONTINUE  '1' /MHz                                                              HIERARCH PI Camera Adc BitDepth='&'                                             CONTINUE  '16' /bits per pixel                                                  HIERARCH PI Camera Adc AnalogGain='&'                                           CONTINUE  'High' /scaler                                                        HIERARCH PI Camera Adc Quality='&'                                              CONTINUE  'LowNoise'                                                            HIERARCH PI Camera Adc CorrectPixelBias='&'                                     CONTINUE  'True' /true or false                                                 HIERARCH PI Camera Acquisition Orientation='&'                                  CONTINUE  'Normal'                                                              HIERARCH PI Camera Acquisition PixelFormat='&'                                  CONTINUE  'MonochromeUnsigned16'                                                HIERARCH PI Camera Acquisition FrameSize='&'                                    CONTINUE  '8388608' /bytes                                                      HIERARCH PI Camera Acquisition FrameStride='&'                                  CONTINUE  '8388608' /bytes                                                      HIERARCH PI Camera Acquisition FramesPerReadout='&'                             CONTINUE  '1'                                                                   HIERARCH PI Camera Acquisition ReadoutStride='&'                                CONTINUE  '8388608' /bytes                                                      HIERARCH PI Camera Acquisition PixelDepth='&'                                   CONTINUE  '16' /bits per pixel                                                  HIERARCH PI Camera Acquisition ReadoutRate='&'                                  CONTINUE  '0.051886076361342535' /readouts per sec                              HIERARCH PI Camera Acquisition FrameRate='&'                                    CONTINUE  '0.051886076361342535' /frames per sec                                HIERARCH PI Camera Acquisition FrameTracking Enabled='&'                        CONTINUE  'False' /true or false                                                HIERARCH PI Camera Acquisition TimeStamping Stamps='&'                          CONTINUE  'None'                                                                HIERARCH PI Camera Experiment Acquisition FramesToStore='&'                     CONTINUE  '1' /frames                                                           HIERARCH PI Camera Experiment Acquisition FrameSize='&'                         CONTINUE  '8388608' /bytes                                                      HIERARCH PI Camera Experiment Acquisition FrameStride='&'                       CONTINUE  '8388608' /bytes                                                      HIERARCH PI Camera Experiment Acquisition PixelDepth='&'                        CONTINUE  '16' /bits                                                            HIERARCH PI Camera Experiment Acquisition PixelFormat='&'                       CONTINUE  'MonochromeUnsigned16'                                                HIERARCH PI Camera Experiment Acquisition FramesToInitiallyDiscard='&'          CONTINUE  '0'                                                                   HIERARCH PI Camera Experiment Acquisition EnableIntermediateFrameUpdates='&'    CONTINUE  'False'                                                               HIERARCH PI Camera Experiment Acquisition Orientation Result='&'                CONTINUE  'Normal'                                                              HIERARCH PI OutputFiles AllResults OutputFileCollection OutputFile='&'          CONTINUE  'D:\Sophia\20240729\zero\dark_15_0.fits'                              HIERARCH PI OutputFiles AllResults OutputFileCollection OutputFile='&'          CONTINUE  'D:\Sophia\20240729\zero\dark_15_0.spe'                               HIERARCH PI Camera Experiment Acquisition Notification Enabled='&'              CONTINUE  'False'                                                               HIERARCH PI Camera Experiment Acquisition Notification Frequency='&'            CONTINUE  'CompletionOnly'                                                      HIERARCH PI Camera Experiment Acquisition Notification ElapsedInterval='&'      CONTINUE  '30'                                                                  HIERARCH PI Camera Experiment Acquisition Notification AttachScreenShot='&'     CONTINUE  'True'                                                                HIERARCH PI Camera Experiment FileNameGeneration Directory='&'                  CONTINUE  'D:\Sophia\20240729\zero'                                             HIERARCH PI Camera Experiment FileNameGeneration BaseFileName='&'               CONTINUE  'dark_15_0'                                                           HIERARCH PI Camera Experiment FileNameGeneration AttachTime='&'                 CONTINUE  'False' /true or false                                                HIERARCH PI Camera Experiment FileNameGeneration AttachDate='&'                 CONTINUE  'False' /true or false                                                HIERARCH PI Camera Experiment FileNameGeneration FileFormatLocation='&'         CONTINUE  'Suffix'                                                              HIERARCH PI Camera Experiment FileNameGeneration AttachIncrement='&'            CONTINUE  'False' /true or false                                                HIERARCH PI Camera Experiment FileNameGeneration TimeFormat='&'                 CONTINUE  'hh_mm_ss_24hr'                                                       HIERARCH PI Camera Experiment FileNameGeneration DateFormat='&'                 CONTINUE  'yyyy_Month_dd'                                                       HIERARCH PI Camera Experiment FileNameGeneration IncrementNumber='&'            CONTINUE  '1'                                                                   HIERARCH PI Camera Experiment FileNameGeneration IncrementMinimumDigits='&'     CONTINUE  '1'                                                                   HIERARCH PI Camera Experiment FileNameGeneration SaveRawData='&'                CONTINUE  'True' /true or false                                                 HIERARCH PI Camera Experiment OnlineProcessing CrossSection Enabled='&'         CONTINUE  'False'                                                               HIERARCH PI Camera Experiment OnlineProcessing CrossSection Direction='&'       CONTINUE  'Frame'                                                               HIERARCH PI Camera Experiment OnlineProcessing CrossSection Method='&'          CONTINUE  'Average'                                                             HIERARCH PI Experiment OnlineProcessing CrossSection FrameCrossSectionSize='&'  CONTINUE  '10'                                                                  HIERARCH PI Experiment OnlineProcessing FrameCombination FramesCombined='&'     CONTINUE  '1' /frames                                                           HIERARCH PI Camera Experiment OnlineProcessing FrameCombination Method='&'      CONTINUE  'Average'                                                             HIERARCH PI Camera Experiment OnlineProcessing Formulas Enabled='&'             CONTINUE  'False'                                                               HIERARCH PI Experiment OnlineCorrections OrientationCorrection Enabled='&'      CONTINUE  'False' /true or false                                                HIERARCH PI OnlineCorrections OrientationCorrection FlipHorizontally='&'        CONTINUE  'False' /true or false                                                HIERARCH PI OnlineCorrections OrientationCorrection FlipVertically='&'          CONTINUE  'False' /true or false                                                HIERARCH PI OnlineCorrections OrientationCorrection RotateClockwise='&'         CONTINUE  '0' /degrees                                                          HIERARCH PI Camera Experiment OnlineCorrections BlemishCorrection Enabled='&'   CONTINUE  'False' /true or false                                                HIERARCH PI Experiment OnlineCorrections BlemishCorrection DefinitionFile='&'   CONTINUE  'C:\Users\Jessica Lee\Documents\LightField\Correction Files\BlemishD&'CONTINUE  'efinition.csv'                                                       HIERARCH PI Camera Experiment OnlineCorrections BackgroundCorrection Enabled='&'CONTINUE  'False' /true or false                                                HIERARCH PI Experiment OnlineCorrections BackgroundCorrection ReferenceFile='&' CONTINUE  'C:\Users\Jessica Lee\Documents\LightField\Correction files\Backgrou&'CONTINUE  'ndReference.spe'                                                     HIERARCH PI Camera Experiment OnlineCorrections FlatfieldCorrection Enabled='&' CONTINUE  'False' /true or false                                                HIERARCH PI Experiment OnlineCorrections FlatfieldCorrection ReferenceFile='&'  CONTINUE  'C:\Users\Jessica Lee\Documents\LightField\Correction files\Flatfiel&'CONTINUE  'dReference.spe'                                                      HIERARCH PI Camera Experiment OnlineCorrections CosmicRayCorrection Enabled='&' CONTINUE  'False' /true or false                                                HIERARCH PI Camera Experiment OnlineCorrections CosmicRayCorrection Method='&'  CONTINUE  'MedianFilter'                                                        HIERARCH PI Experiment OnlineCorrections CosmicRayCorrection KernelSize='&'     CONTINUE  '5'                                                                   HIERARCH PI Camera Experiment OnlineExport Enabled='&'                          CONTINUE  'True'                                                                HIERARCH PI Camera Experiment OnlineExport Format='&'                           CONTINUE  'Fits'                                                                HIERARCH PI Camera Experiment OnlineExport CsvFormatOptions DataLayout='&'      CONTINUE  'Table'                                                               HIERARCH PI Camera Experiment OnlineExport CsvFormatOptions HeaderFormat='&'    CONTINUE  'None'                                                                HIERARCH PI OnlineExport CsvFormatOptions Matrix IncludeFormatMarkers='&'       CONTINUE  'True'                                                                HIERARCH PI Camera Experiment OnlineExport CsvFormatOptions Matrix XAxes='&'    CONTINUE  'Column'                                                              HIERARCH PI Camera Experiment OnlineExport CsvFormatOptions Matrix YAxes='&'    CONTINUE  'Row'                                                                 HIERARCH PI Camera Experiment OnlineExport CsvFormatOptions Table Columns='&'   CONTINUE  'Region,Frame,Row,Column,Intensity'                                   HIERARCH PI OnlineExport CsvFormatOptions Units ExposureEndedTimeStamp='&'      CONTINUE  'Microseconds'                                                        HIERARCH PI CsvFormatOptions Units ExposureEndedTimeStampPrecision='&'          CONTINUE  'Full'                                                                HIERARCH PI OnlineExport CsvFormatOptions Units ExposureStartedTimeStamp='&'    CONTINUE  'Microseconds'                                                        HIERARCH PI CsvFormatOptions Units ExposureStartedTimeStampPrecision='&'        CONTINUE  'Full'                                                                HIERARCH PI OnlineExport CsvFormatOptions Units IntensityPrecision='&'          CONTINUE  'Full'                                                                HIERARCH PI Experiment OnlineExport CsvFormatOptions FieldSeparator Selected='&'CONTINUE  'Auto'                                                                HIERARCH PI Experiment OnlineExport CsvFormatOptions NumberFormat Selected='&'  CONTINUE  'Global'                                                              HIERARCH PI Camera Experiment OnlineExport OriginFormatOptions DataFormats='&'  CONTINUE  'Matrix'                                                              HIERARCH PI Camera Experiment OnlineExport IgorFormatOptions DataFormats='&'    CONTINUE  'Waves1D'                                                             HIERARCH PI Camera Experiment OnlineExport FormatOptions AlwaysAutoScale='&'    CONTINUE  'False'                                                               HIERARCH PI Experiment OnlineExport FormatOptions AutoScaleContrastMethod='&'   CONTINUE  'OptimalScale'                                                        HIERARCH PI Camera Experiment OnlineExport FormatOptions FrameRate='&'          CONTINUE  '30'                                                                  HIERARCH PI OnlineExport FormatOptions IncludeExperimentInformation='&'         CONTINUE  'True'                                                                HIERARCH PI Camera Experiment OnlineExport FormatOptions Axes XAxis='&'         CONTINUE  'ExposureStartedTimeStamp'                                            HIERARCH PI Camera Experiment OnlineExport OutputOptions CustomDirectory='&'    CONTINUE  'D:\Sophia\20240729\zero'                                             HIERARCH PI Camera Experiment OnlineExport OutputOptions DataPartition='&'      CONTINUE  'OneFilePerRegion'                                                    HIERARCH PI Camera Experiment OnlineExport OutputOptions ExportedFilesOnly='&'  CONTINUE  'True'                                                                HIERARCH PI Camera Experiment OnlineExport OutputOptions Location='&'           CONTINUE  'ExperimentDataDirectory'                                             HIERARCH PI Environment WorkingDirectory='&'                                    CONTINUE  'C:\Users\Jessica Lee\Documents\LightField'                           HIERARCH PI Environment ScratchDirectory='&'                                    CONTINUE  'C:\Users\Jessica Lee\AppData\Local\Temp\LightField'                  END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             òß  ù”îàîèí¶ùrïçÿ!ò”ñíwü8üÌñ)òÀíäşiñ]ìuïÎòyşWëø÷¼õëùı]éƒçñ9ğ“öZõ¯öŠû@İíómğTğ·ú×õúKæ®õòhıÕêúşwë³ïyïõµö:ôè”ó&õøç$ø`ø óTğö?ù³÷²ù›óƒîñª÷"ü	õ4ñßó@ûPïHğû!òÿÉókîLëğ÷€÷³÷øöúÌññ«ÅóÃñï]ò1ô?úî4múpüÅ$ø”ûŸû2ê)ò	úÆü<òï÷&õùÂúîûAù?ùÖïIó›ı 	ÓúNóüõ!øTVêµûÀíyÿó°pùaüí)ë‡øÉòuú#ÿú»úÿÓûÄéıòŞ÷{ò²ûsó ú8ó+ş6ø›÷şó$÷.ôäêßñyşH ğ„öø‹êmúòú}î¨ğH÷hÿ± dï[ö‡ o÷ü‹úBşuÌ $ğùÆâçÿ øv
+aJ+ë%üïpÿç)ı÷Èı‹şùÊûi¯ù²÷œÿ„&Å
+µ	•ğÁ÷.úûaÕïºş$€ Œÿ°wûDù@ıXù~ }ˆÿDTÿH	¸õmı¬ªûvóúÓab\ùéşåøßÏøPù`õlñ/ÿÃš"ù¹ñ¼ùbû"ıE÷-t	ı»ù!ì(	bÿÖËâñB	¢Çÿcö<ÿKø(ú.ÿB¯ıû	ùış»+öÓÀûı©ì¾Köóı3¹™|‚ F Êş¯U×ù8îK&ïY•âø
+ü¸ñæÄZ
+†îÌöËş&
+3æòÿı¬öï,÷üŞ¶.şÁ'ûÏš›qô¿ÉcŞ &ô¦„Æ
+¦	w	<ñÂöz	ãè	=úÚÿ,½v®Oø«„¹;
+ÚÿVFª\	zÿ«j›ûeDYÄøÄ°ú ı í:{l% ÷*÷,ƒó´	{·õ 
+Òû’
+7Zú^ôÃŸllÿÙü@ÑÏû1öt÷O÷œùúï`Øş¡ùı¥‹R¦ërÿ¹y-ùø½»şZBßşWû_pöqÔ„&
+Å ùøºû	º$
+÷şÀ¡ı*]9ıÍñìù	‘Àıê
+
+{ûöşÂÀŸs,Lü\)õe“ûÈÌ¸ı>ógü÷ÉÑ	Í*ÿÓıÊú”«ıÿÿyşš­şÉ÷ñı±¿
+ô+ş)ö	ùs¨$ªúÿÁ!ff-ú­ÂúQ“’I÷©óûüĞèRüÃ
+ÿE‡ü'ıù÷üé	Å  Iºÿ^ˆ
+múªõå ƒ µè`§íñÜÄşåúíøÀHõ³eúDß\õÿh}şšúõÅ¥ ¶RùnóZü şXıùY´ü§c•A	Mòíÿ³ø^ÿKÿDeø÷¿ °õÖñÃõô’ôÇ3ûFğ 
+ãõï´ğùõşºû[ÿ~ó×ş<÷ îÈûGúçú\íÇ jşÑë¶è÷øòü—÷sşÎ÷óèÎìB÷ğû|ğ*üå$ówíVúûÊû€ ó`åƒö`óåêÜë0èüêPî2àfìAğšìîşÍñçµëwì"á[õ§úÀõíÔò¦öâø°÷úúôJçcôœímò§å“íqõ»ü;ü"òbìÙô´ã‰ùúãZævïQîñ?èñèø,õ2ô¯èÜñ!üôö/õ~è¯ùûünñªôäëä²úvç"ÿRõ9êçŒ÷Èî[õ¤ôæê“î·ÛóîBë–üOí«äÃï‚âvû‹ğ¸î³ôØñDîÖ÷–÷ë<ò8ö4ìŒëïŒô2ò2ı8÷añ^ò°ı2ó ñZójñºúøüWë"ğ¼éâõÏùlğTøç™ù.í\¨î&íëéßöàÌôíë_ìş—ğpú\íÚøgÿÿ÷ôì÷›î ğgíòıõuõ¦ïÛôêç°êğ~úÚúÎãwïñjîìóÀòşâäñøèõ‡ñwç]ê~æ”ãÄìïïÓêòã¢ã,êı¢äwô‹è³ëˆéªï(ì3ïAğhò-ù.÷Øñ÷êfé—ï€ñÖæ¦şı^Õó¹àé«óìéŒÅë#õ@í1øbø[ş¤îŞçíö ù òFâçïßîƒñó2ìsìëpø'ìïêäìÚíì ùÑ÷EñEç¡öÔø5ò·ï„ñâÜ÷öîßù£î!ùÆ!é<ìşõvîòó}ööélê9óúù-ñnì1óç‰óúèòmçóú?õæ¯ê´ê¸ñîëqí°ôLñˆíìÛñ‡óËí–èHêïÿò û>ïeíèê;ë±îAë×ë8ë(÷Xñ§ìåPØ[ôŒà'é<æÖòéìßİ^ñXìˆõ/÷#ö_ãÂğêò3õäò(å¢î°ó0éÊîÃçCæºğ_ücæhó7äNæfõfûŞîû“ëìóÚæ÷#ö€òPõSäãâöåäçüšî÷íÂó¬èfõvêléîíåñ­íhöûëÚìô!ëqæ}ìZêğøÀï…ìœíÓõ:înédúÙWîXğı ÷ç4ä	äÂùî÷ø¦ùLä—ö#äJöÚìxé/ï¤êõ°Üõë‹"ì­îÎç^àyåïåÀíõÄãòğÎæ(ïú2ì9ïKã“ï¥æ›æ„ğ6÷¾ïµçêÁëôŞâ›Ş‚ñÏöBì-ıæsëÒõOé}êéãßÙï	èî¦ñ¤ã·ñÄéOì›íçíHŞ¦ôê›öEñÆàIı~æ|æ~îÆïòé
+êçğµõÊñyæãë@ò×ç´õSézããï“êø±îWììé¡èøéçy÷ÙñïüğÜûjì©òèó*ï7ãÑî¯î¸âøèkéßòsì<ì÷àãğĞõ¾ïVèğşwä}â£ö®â/øêæºğì|ò]ú¬æ¡ášî¥êÄåçâÈôñHè-éÎíùğÅììÉğIçğîDëºíÆíÌíŒè çvçaáÙè§èßå_ğIŞ³è•íğòlã	áİã–ÛkéÖåeéÓæ)ê7ùúîêèŞtéâŞ›ñ'ãïãâ–òªå³ÿèé³óãîä¬âíÓã&õèñåñ'ù Ûxï¯õ¡êÌçUğî¸ãîæÂàùïÃìïğ‹å#áÚêKùøêqô»ñÇöáìß†în÷XãmçBô×ŞìñÜîvçøéÈó õÉñµîRå&õ}èÆó4åUå*æ†Ş¼ßCìô÷÷VõæôëáBà€ïãŞíó•ê9æ¿ê†òÇğNşùå¤äîøòêÈä3û¹ğ ê¬åoêÿæ·ìúèVßùê²è-é!ñ1æhß ò/æ®ŞVêqŞ¬èßä£á‚è©êeí´ìéá«ëç¯í…ÔØø4äŸò`é]÷í.êhúğtëÜ€êšì*éšç;ì2ğ¯ôvëlÛ›ïÈæößğôå´çÑî÷áìííèâøãğAìCö&è,ğ·êîœùrè1ôzê’BìuôXëIíöEù
+úKô•úKøàõTò·øïˆõıÛïlø¯öı¼ó”öáÿóõ¨çWó	ò®ø7 xÿçıuö|êKì1ôœíØô¢û+şõ³øµòrúKõNı.şƒşîüºúAû¸ìË½ñœüœò#ò õ” õãH0MöXù:ŠôlùqıÍòú!üåı©÷#MöZ÷mş˜ü„üösùÛñ6ü5üùàñö¹÷éøßô¹ÿUóĞïo0óõ	õ´ùmñ’ô7ù
+ì˜úæüÅøõü{÷3û|ê‰öVõ)øL²÷¡ö Aé<üaòÊõ=Œï÷8ö¢ğüõÊëµö,óı9úäø¡ù(üD•„óYñ’ô‚ö•ø€ö²øÕüÖèoñ„ø|öâ_ğî÷˜	úëÕR	¼ 7ı
+õÑë¡ídô»ù%òÁóó÷Y÷Ëùaış‹öGõ2ğ’‚ı…ö™õšü|õø!û6÷àı$ôB"ı\óÉñî’øòøÿú*ıUöüfN çıXò6óÖù	ô›ñşñ°ñ‡òíï9é$úUÿşïÿüÃù§ôókûîïN¶öèöŠõ²şºğ5øÑôúÿ‹wı:÷Tû“üòïñı`í˜÷ˆïÅ/úkş›ñhêBó¦ğı›üö÷cçåûZò# ªõ.
+÷Óì¨öÓøgüIüÎù^÷\ğâö3îèLÿçäğÖóóô%úŸûtôıòdñ(ñ›Ÿó×ôÂöˆñ éó2ôÇúó7ğøôìÿéúî íôWòØ>ğ€ı­é¯ó£ù`û}ú	ô¯`>şïîĞıö ÷&şJü8ğ¿ö5ü¡y£ø¿ô»ûSü%ôÑøÁò.÷Ôì»ùrö·ê¿ğNóşäùÜVò÷øê÷—ò5ûDÎódóÇşú§ï§ï'ğ#ùDü±äYø2ôzöì<òœèYñ¼öåñkõøBíîöæ_ò‰ñüAûÒ÷?ô™ïÊës÷¦•ñLöşñğtÿ”çéã¹ôMğ+ô\ó®ñ¾ğ³ì_õôøıòıÂókæ³ñ¡æzéî!ıñæ	ìı÷íòTíÔóì÷µòZ²íUòñò–ñ›ïWöfãtïÖù	ğİ÷ôê(á´èøõ€åŠå” DÍ·õ(óÕîoğÙí¥ñúšïÑîÕ÷ìöNğõûõôî¶õâèÁô6ëOñOñõÇîìğæèôüVî×ôdæİõôÆúeğ©ûªôŸõŞïAñó’øåá
+÷bğ¾ş‰ígíÈö[÷ë5¯è»ïö,ù†èéıËğêá_÷!íEõ?èı:ï•øUïtsò„í1ïBì¥æš-ôÆãËòÕğğò;ï*öşóæpõhò–ë”ü&èøöÓô©ùKóÅø•ù'ô¶öùû*ôÀügøWí7ú;ıtã7ï\÷Ğå½èî;öèéTçØåwëVêøŠóbğÔûêÖôöÚéñ¶ğhõRâ©î÷>û‹íNå˜çåÇéê‘îPïê8æbäiğ&õ8îêSæ%óßçÌñtå!àyê@óÃëùgåßåxå!ôáøèõìFñÜè.çVêu÷@óçÕé¥ê0ò@èæßôèÒô´ë5ñ“á`æç–à¥ìVä=æõé)çàò¤êÁêDòUï±ïãà;÷¡øÿŠ÷ÛûğfúG
+
+ïÎüÒòGü ù½úÌ ©âù| Ş‰íCù»ó«ù¾÷úñ{ø‚ó›ÿğñùù>ñPş·úÒı-lÆ³ıƒòWÿöşõúù×ğúÜûÖá" úû­ó£ıçõùÿË€òKöëÀõNúw ¼ş}ä¥ûÊöMÿü ¨ø*Kùı	&ÿCû] öoøõûÏ }şú
+–ÿ
+müÿÙŠ1 \	Î8ö¡ëªÇôEªô²ííFÜïõšüù/
+võ˜Ç Äbüß Óó€ù›«»õ“%–@õÿ^ı‘¬ôBÿ–ıš÷‹ö’JğúX2ûağÙíªızô¹	ıÆ˜ÿûæœ†
+«cşßLûş­ş±hùOQ7ÿ®²	µ3xöo
+Ö¨ö#
+zş'ô¿Ğ
+gûCş'Jù:ïiôçVFû!îûĞû¬
+8ı‹ı$Œ¦ÍiùË ¦ÿÀúÓ	2½oNRÿ[Ôe!·	ı¬ (üo~~ùËş/j•üÃ
+CU~ø$!„ 	{.	VsşõHÄÀè ª|tëÉz	4
+É¦Tÿ4	õxşX‹	H«Âº	ß¡#@	èãgîf10ÊgıÓV›åÚYû;ı·BÈ@	tâaÿı
+Ho4ûª²Ğ{§N	¹s¸õ{ûìÕÉáŒ +Š¯´Ë7‚şìøŞ„>ü£¿Ú:`	ü«õÿqXšÙú½ÚÊKsşß	âüÌÚÓJÊÿ‚„%.	
+ĞI±;z•m3£T
+ŠFc‡ú
+ª&›½3ùQi#Î	Û÷1…×g$æn	ù	Pæ*Ê
+V	1:Z±G0sç­+Dz‡•-2‡Xøş_ë
+4^°8Ëşƒé}›
+ş	“nä¦
+‚³4˜8#-èt üX1'ÉÂeÿçeÅ
+/[üLK	S¿×
+zMù¨…ÿ½ñ
+%Í•XXXOİÔEn
+0™üÒp0 {âûñS>
+yMÿe}	|	õaşì
+T
+s	0«ª	Ug–¶ÏıÃ“şÊÿ÷Àı¥oL g1›ş.ş'bÂix• õşU²
+/
+ú<<ú$ş Ÿle
+&‰ı÷Á©­’Tü6–úÓ€ ş™Qû·ùò\ıışöüñU^ fõ¥Wı	‘ştş+ æşŠñ4 [ş¡.õ²ûø˜ıîûÆıûÖõÆş^ü”	<í´ş6ÿRüpû/úÂôÂûíŸõ°ïÍï ·ı‚ÿ\ùıîÊúûùÓÚùøïlr÷Ïú8üEù4 5íãíîEüôòâúó¡ííı™î>öÏØøiôiòî?ıë÷nü	Êùİò€ô€ò‡èQø'ÿƒşˆîTóZñSúùZıTó£õ©ñÿ×ñÆñë´õÎı]ì6ëZÿhüGñ†üçô+ëó7üÀï:æÄü9ë¢şÖı¬úØôUõçq ¿ívûÿ;üÑùğúCøüéñï÷ğ2èÚò *öˆı±ë\ózì}ñZôp/?ı`÷ëó±ü”çıöƒîmõ›îãöó÷Œê¥ó.ô¦ò×ğãıbû˜ÿ×Õú	ÓşµÇıùëôYş”ñ¥ú‡í¥ş&ÿ?îô“ı‰ğXû#î*ñ$ñZö{ïöDõ”î%ı¸¿ìnäŸûóSøãğ#ôíáäk÷†÷+ú ¢ö)üœç	óéùÚå “ÿgø’ÔûÙù†AèÊ÷ù  åÿè¦ëÌñÈñ÷¿û/ûçıRèÃïêwó!öÌüÿğ4ûCõ³îtûéííìè÷ì/õ®ı û[ñÿölïàúÂğ<ñzúdöú¬øSûàûVó—ö.ı&ú7êpüîêz²§“şçü^ò¬ù$ğèQÿK	=•õÿÜõpğïøyò-ıòôÀíküõ–÷æñÏõÉíìñYîZî şMí®ìêá7é’ó«÷5óıë	ù¹ûŒø¾ü5ø}ïwôöìíú6 RğEıøşû÷xı¯òxöîë¸÷ÍûRü¸ôê¢òrøñFèŒúMïÖè‘ù“µêîèj÷iğÆèÈéLöúù?ö\ì–ñ
+å¦ù™ğ%éšôù…úLíLñİú^òLğ¥îúÛğ>÷şø›íTõ«ıÎ=ûö7îúlğÎêuíhğ!ñóùü¥õ¯ôâôòIí°şÿ—é&õ’\÷ÎöEûúó¢yùËëj÷ÉîËôZğvûªôèô[ğ€Í{ô83÷ëøğ)ó#óòåîéc‘ßJ÷íç°â¿è×ïYønñ¬í»öÚ÷‹ôî+õÌû¿ïá÷±ğlşgäåêdûôTóŒê5óíˆø®ò:í³ùÉ÷9ãVó!íô;õWó[ílòíò½óu÷Tó5ğïÄîü]½p÷‡éuï’ïñ‚ó¤÷ õùÒø•í¯áş½é§íléèùwäUéŠè•ênğbëR
+şéÿVèêè˜õ?êlê2òeïYçRã1à›ö	ô¹óë˜ê8Ùƒü­ïØáÉõ˜ñ(öŒëèñ+ûÌåTê~öÁ÷¡õZù»ìÚøjóUû+.ñé„åõï¼ãËúÍíçêEéãêO÷»òïçóÊó3åéçõïIî’€õGóÄğßî%ïï“ò
+	«îÊôœÜañ…óXïhæIæïúò³çsñ›çêOçgîeí.ëpò¨ğÎóÒìíûú0éCê–ô÷éì,ë¿íõğÃé`æÙóšíXñpô0ï?ìPöáöyíùõíñõ:è!ëŒï·é0âøé¸ğÈş]ï°î´õjìì°öcü¢ï¸çÆö²î­éØíFégõ±ğbıHæĞ÷d ÉñbíåïïÊóUæÔûÚìpáŞâ^ôXñšåuûÄó¯í—ãPõå)ôıæªòûëYùÒë7ôbé–ç©í€ì¢ğ@ôĞöéğîòMê„îŞë`àœó¥ôCï—÷€òØóö¨ãëâğáøÙéµíÍõí"÷dúğBö?ù¹ï©éSğ+õƒè°ïAılê¯êízì5çÄñÂğvégàìé ï3îÁú+êœégñóëóqé•óÈú|î=éºïËòÍôí*ùÍífó´ôâçõaëyö°é'òOéÉï‹ğg÷Úî`î3î*ğ7ğOõ´ìÂ÷ôıçuõöt÷!ø£òpölúöú‡û”øªñ`ôlÿÈ÷P
+ı$ıgï<ú0üâú‡€	êı ûIû ÷Eşøñô7ıòo ¤òû™øUş—üôüwıó6üyîÅôOˆú® «û=÷p,û#zıÍ8÷¯÷XöQîƒ	3ù¦ö§ıëşFúú÷ÿúôõm $ûüı£ÿ«…©6ÿòûıëúêş‡ùX ¥ï¯÷èÿ2æûö@ğ‹ü¬î¸ö# ~ñ¥ñÍ ÿÑúsúw1 ûğıî÷Ùıçô+:ızúiş²ú…îLîàı-øk÷LôWÿ&ÿ/ıÉJıÊ{şäò™ìÛûÖÏùwñ½şbüôÈàüù—ï éá"û”ÿ~;óüÆò•÷ºú´òû§û”ó¤ìğäë§øy	aí—õ%üS 5qô¤²ørÿI­îÀş¿êÅıÑü)
+OúÉ× ùşcüĞùûİjõ>R÷øğpüÉıkAïóë{øNú&“	bû¦óš™ò@úHŠøoö‚1üïõ¾ŸşUòÚşCøÙü~åüÖöÛü+õµ»XúæùøRı8 ş÷ãûæöbM„ÿ?ú(\ bï ñóÿÒñïñôùı'øaş¦÷VïÓ÷PÔöæıÈ÷ä~ò!„ëğş’ûNü6Ğğûå÷@øiûÛüÚüâõÏı\	àÿ/ëøñ&ò-ö	
+		°úRğ.õÛùrõ kôÕü¤ıvüfÿ+døÅ šúFúúµøâõñ´†şòÊÕ	÷óı˜÷µùÍ÷Sûÿ
+¹ü õ+Q¿húPôÓıíın÷­ÿåßöŒûl›\úXjõ7ıGûn÷"ö°öºı¼÷Aıœöcğ‹ù9ş3ôyöŸ ,óıÿ>õ{ïŞóıhüFş
+ö´÷ Ñô×ğ¡úûê„ó™şíø‹ğ`ëó…ùµŒïúõoÈô.õ=ó—ì[é¨ñ ñ<û$ö÷æù\çø€÷î@ä÷ñòşºôõJúóXüjü¢Hö@ğCù`ıóïFôRñòLó¢ò ú”î›ùJô­øŠû‘üSüNJíBîÎğìñ1ñ>ı3 ®÷-ş~ócö©óñÔı®ğdòOıñåÃüÕúç„øüáğSğÿu,øËôùşô[e÷Ÿë^ö¯]õÿÙüÒó Úñƒğ“ûu÷ìõ÷°õôñºõõÉû(ñbõøû?üqğ¯öèôÍüˆ÷KüPıIìØ¢÷	üğàı_ûåğëğ¤|ñmé’îÏõ×ñ]òÂõnñ¸û”úüû*÷áõóògÿò]ñ;ë€õ&õîñšûTóéúğSì‹ö)ş”üñéùµ÷¦òùÄñ¬ç_÷ˆõı¡õ¶ûÅì€ú‰ñ»öìöoö-ôCñÒğ
+ôøñ<úôûÙûkü'÷ÔòùhïLäEşdë;ïì1îKñ4ë|êìõ9ğè2ô“àU÷øìıëDêèóôNêûü÷qòçõ~ê£ê(ó.õÊëèçïdíÇğ?øjüáìjïWé ğÌ×åä îŠêíåGñ·öêìPêÚê¼ë÷ãğéÙûãæ_ñÕŞ7îìòÍãßêØùeğ%ç‘úõµwïl#ú+õñvñmõ¤~åúîë{ûäÂÁñ“ŸïXÿzôÍù ıÿß÷›ı( ªö’ké¾òUúæ÷ùmü¯ ùO }ú^û·ô¯ŸßıY ˜ùp^1	ñ“ïMùÆö:úÿZı2ôü 2	bÀù%ù7
+¦Wôó	¿ü¹ûãZı]õ&ÖĞğ¬õòòí\Ù }´›ÿ$Ò
+®í ªıcŸøÎ™üùŠöúĞÙı£Cò¬dı‹øŠ·
+È-şFlÿıİ+ôıôÿ÷øššıĞ
+ØÂıÚüòõ¥ùõø¡şó÷õäÿx „ö§ùù’İŞ‚
+búXõjö#ÿ2Uÿ Mşşì
+öPz­ª]Æ gÿy>SeâúGo Yow
+wıÓŸú	.ïµ”‰ƒ»û{ü¤Ù[Øp®ñ‘£»ûHù²	Y/
+é*x ù
+(Êöğ ­bü:
+Ë”£ n› "êŞ	vMüûÿÂ?ëqf@"Óßà ı" æ{nılBhíútŒÿ(øåŸÇù	¶&Šøıü ‚ûÍÆ\ù®ªş	>íHFA^¸ ­	œxj*™m
+%PJú=ª’
+ ­	f’vü,0V—ª’Áº¸ùı)àş=	D«ğ	WúrÃüè#¥
+9Ü£¹µi¤
+&	ıiYô×¬1VHD	v ÿ0üw–ÿ–úm
+3	o_Â÷´#÷ƒˆPq
+ £	ZLN
+,
+üÇ)µ	G¢ÿ;ÅÏp0 &) ïÇ¥ÿ|ı|ÈÄŞf	UZBõ	ş…cêï /RşH/F·Ir‚eøÚ4+'ÿˆ(/é¼Ã¶ÑóI#7)XU=—şëÊúÊ-şœä¤®o(éğ4yÍXÈí™ª	S„èˆÑ* š¶æÂ)QúGnÆñ%Åë¿fòTu†4²V	 RüûÆz 	İ;8&ğ:iëÿGH% İæ Ñzù)²EË©(j§QÏå®ÉÔíÀ„Ì–íâC–¢	JHi	“Ckªv3ı˜ûÿä"âHc*÷ú	
+l$Š	¾ şh¼v†Wñÿ{Ødaş}1
+P¨Åò|ş-
+‘CCƒ ÕÏ ıÅJöĞµpıL›ô=ú]VÿA¿lüşw¥ş:aø°_ù Î$…ù şLúµö¬Ö	óßìAõñú`û¶şóı¼ùSôÓı!ñæø9îõ\ûèöÁñæğØ
+UşğñIŸûô®õ:ıíºúÀô-ó«ÿgûœú÷ïcÿPú‹1ô’ı|û‡ù^ô<ı¡	×ÿxôQóÚî6î@ÿ1üúŒóÇõ¥û„æ“ú‘ø;÷°ßù3û¡‡ûêû¼û—õëñ‡ñúmñ>ëù|ıûæ tïö*ùDùO÷4÷-èvÿÅõ¼ıñ ‡ùké¥óGù^ü6ğøéôåàş¥ö2ïtş%÷Tÿ·ü³ı0úÂøşÀõÈ@ûôùÎÿô|øéòù*ˆ£ğ^?ÿîÀóF#ÿ1ø”ş¿õ%úòòøöÏ\¡ñüø• Eö)ñİÜû‡÷ñBüÀô~ôùùC şõ?øÍûHõøôñõ‡òôÅ
+ÏìîŸûû4û] l÷½ï˜æLò«ôÿt äû›ôœü¢ûÑÿ}ü÷öî ıõ~öí$ôIï™û÷Søùûı…éSRûúıó"÷êRğ!òíøJíüôçñö¡ÜèğÌıçgñõí.çÓîäø}õsúÃ÷O\ùJô'ıÕğ¶¯ó˜ô©ğkısèìqıMöÌLö$ğ’ôËìä7ôûLíaú¢úsïŸñqú— ^ó¡ıCüópñÚûîüÙúZş°îÎ ‰îuóˆñ¼î<ı’ätù9ú:ë }î¤ô'óúçÿ>ùÖşÖğLíwømü™ğ/ùQğ_ä÷eørù˜ø!ò§ ¡îJòâğ¢ğÎÌúyõ„ùyüªZı‚ôú·òüûìªóÁõúÛï
+ä»ï’%öÄñyó¥÷ùPë%ö³û@ú,öôUÿƒùëÿ÷Xê{ü(æ×u÷£ødü6úÍõì 	}úpúHë´ó)üıõ4ö÷Ì
+Zïsílô—ò/öüò ûÿúù¡ùEğüîb÷×üp´õ*ö9öš÷Çï–úÓøb÷ü›ü¤ö`Êï'íTô5ùKïĞ5îYï‰ú;õ9ÿDögûÜ ›^òÓîºìé©öÁöõ˜	ƒñÑö¯ïæê‘ùñÊù öh÷¦ Tûoú÷‹öîÿà’èÁí÷ê1úıŞòüâô+éûöãú£öªìMòfğdå ïWğ–ô÷^òêú¾æú÷å[ê®ılîrç•úøºò§î´ô@íé1	ï%ö)ó¶ñ!õhë/ô*ç çóÛMâùêèò‡ìëó÷ãè§úW]ñ ïVúàòúİí†åóŞöä4ó¥ğïûG
+¦ó5û¯çü¢ï­û9÷Lğqì~ò­ùíï“éşü”óYìÍöWíÖûú·îµö–ğÕ Àé{áğ!õÙòòÇ =÷ûõ#ùÃúıîpúfû ù]ìğ¡ğàí:ò»öòú‚æmó^ô[ò¬úğ¯ëŸıèµç?÷Oò.öòÅõ´ù}ùcûUùgç<åëúòıéqç_ö·èáâ”xíİì_íÜÑõÀşK÷Éõö"íîäí?ë»êèóó"èsç8íñ:óJğòö\ì5ğÌîˆïìÕå	éÒÿ¾õêñÈò8å¼ùÅè¿ñ½èòÈõtûÓúQîTîÉúòğ÷åâgçĞò®ñ{örî4å?ûZùlì¯èêñÙ bŞCõBínøóò@ó™âeîóö»ìgôøğÊôFğzìëÙlòğö„ô_à+í€å–ùJôŠ
+µïcëÖúïõõ†ï¬îMê‚ñøé‡ú%3éÍë\éLğï÷rñîô×òëî&ñsïÅøîğòÖô
+ôQ÷Ôıüê>øïœï¬à<îêì÷ñ’ò¿ãtõ¬ëâğ0ñöú­îsô¥õ_áaûËòtïéç÷‡æ¨å"øùøKòğcî›öäîëóìdíŸú@öéøêò	ñ)ùWôô §î?ışıL qış9şœ bõ­ —…öÕîYö¹ÿ“í! Âõ|şnpÍ±ıjûƒóGÿÈ.ñ ÷ ó—ûQı9‘ ønıú	õñüóÓí[	üú)`şghÿ­û™cù·5Ç ßu£ş]´5 •ò¹NúLı# ÿş´¼1ıP~ÔüOc#ŠõD] ’ı
+û˜<ÇûUìúï÷—ö!`ıö-¸ş`öğ÷ZîU÷YùüıûÿaüÒQ
+ıö¹`ş5IüÆÊôøûõ÷°	ÿ’öBø/şnÿ ıèò|ô3	ˆŠøô+
+úDö±òÇ
+5'÷x ·í'ë²ş‰¬óÿÕù|	HûÖ÷Øøæ.úóüÔ
+=Í÷Sü!ı0ø«ñ‰ë­‚Cú¥™ù	  ?¥	ºùDı#û_í zƒúrğ¨	üø²–ù”óXúxøú+
+fşnL÷	ı£ùLı%zûÁ1ÿĞü
+«ô£	yûÃûùûıöûòøÚ	zÿu‰ «Uú7ıª\ æözïÎ{özùôûÓızÿéRıÇğñ÷Çüıù¦ù©óúÔøıüü`òÅíûQúˆír,õÂüEı¤õ0õ‹ò:ü7 Ì‰² ¹şğéñQ÷;ûÙó„áôKóô äÿãYşôº 1û“û‡ÿ*ÿìñÃÿ‡öÙø"öúıâşï*ù¤ı'ó8úKúi÷„ûgc SöşÈ™ù ú—ö( |ğºø¸ùÎüg ıùê	oı™û ö9ñü•ì›O $
+‹ğfşKBôàÿ÷(tùšøB üVöóø„öòüöÊõ-ıÎÃöÒùú q÷üñøß‹ü'‰úâø·üRüQ	NøöôÔõ,óŸøJúæõTûwñïØûrùsGøûÿUşÑ÷¬ûiö8ú´|ù#éıòñüıóxüûlôæ‹ÿ÷ù–ü Šğ´ñmö?öíÃa÷³kú‰åøö€úéÆîâùóœéóí¡ñÙü§û1şÿÔşáèßì@	ò¯_ó¹ùºíIğNÿ{õËüRõµìÁúıcëòÇÿµõğÃôÑı"æí‡üÚó;ğ÷ì7ı™ìø Ï úö;üŸù6òïúÃğıÿKûT@ûšğ9è«ÿMêŠ óè•úùì˜ [­ôáÛï^õqÿåñlñ8ıoò×üı°ù@øsğé	ù>)øŠñËğôYúÏ[ù²îâïöøïçøòûÙòáú öÛú‘õdú=÷ı#õùûgó÷ñrí´Ëè¿ï“÷—ûĞô’íˆö6ùšIùªú‡ Yò'óäïãî±ëõRøTşÓû¾è€ñÒìÚô7èWíÒï^ò#úïğ’÷"ï¼ğ!ø¯öèôIø-òŸñ`ò°ó[í®ôşî’õ4ıHıñNğ›şªî÷ãFønìëî2çqçÚê;änåûò}ñÑùrìmõ[ôìé¢éñ,ú*è6ò£÷é
+òÄä8ò‘ñFíÏòâìÈğfï8ì3äÉéô’ïİğè÷üÚï!á—ŠñWâDémèäî¨÷Äê}ó°ò]çâò€ãåpíò hí üûeÁû‡ÁùüV÷‰ Rö®ÿ.ú\ [	2ıŞî\Šïš÷ŒAü:ğ2ò¹÷üÀşèPöVŸşv ÙıÊÿ£ƒô§rü?ó™úı‚@[öòıFøò|ú{Úüšû=	Êü\ÿq±öıyÿ¥4~şİ$Dı­ğCAö÷Qôûóómöbù1÷·ôx ¦ø×PÖTh ½¯şèN–“	¬  ûZÿ*	´íúÇhøQe Õo	şÖWùg¸oú…ü„¢½WÍíö‡åjın›ûVı}w5ÿäÍ¼G	•öY'¿>NHÿ©üî^÷îü‘ıÿ¡	våışşÌëşTÿ¾¬ÿuÿ RÊ~	G
+jÇ f×şÄ­ùÊáÿàéğbûô @	øçû/ €¾Tşÿ{ù  ³	¡	ºğQ*óÿ`|µúË™t¹ÿbè I è
+Íû†ÿ'ÿ¦ı$õ·üµˆ	Vú˜ Ì ZùVàª ğ@úğ	€õû¨ùÿ×ûş¼Ñü)
+á‹ M§ù©%Àü %hÇ˜'S€úÀŸyıM¿w	Ô/ˆ'b,lö¬#3Œ×
+î‹Í¤Ù¾
+e†Kj9m]yy~Ş
+Ü¼
+¹­Ø[HÄ¶†£Ûş@ëxÕÏÒ`)Ó
+ˆRı	"ş†@màúL	¶5HÎÒœTøjòœ¤ı¼1ûOKˆÀı•^m
+PÛø™ş©V1n_ıÀ&ßíÿ5
+Oß×°HÕ
+®q	ò 'Ì†¥ÿğş"•Í
+ÄÎ»©ÌZÿXÖØ-ğ‰
+gî/	Ãş!Eş×(Ã^³Ä&)k¼e½şT7Ë'}Â¥—`
+¼Bå
+şÊw«ñæ ã+©ã'»T©ÌAÚp
+‘ÊÿÙm1á,ÖuÍµı3 œ{Oı§äŞº1	 âáòJ¤Gıcı|ÙajñDq‘ü»_õ	â
+‹\ñ
+÷	@*/¹T‰ÿMÅ[©Ç©zá©ÈT¯æÓYgø¬ PfÿÆá xÍ¾ã‰øÁh7ş£õ½*é Œÿ`"¶å<ù
+VqdL[ N
+Q‚6	³
+AA½ µÇ
+aÖL=¾:	T›ıŸÌ
+JúEµõ±·ÿù §„ øŞRıÌ²wı°ú-µ÷àû…î»úıš¨J‰ı‰ø¡íœ»ø¥üŞ	û@bş+÷–â
+í@ñôııø–1-ûCùu€ÿÉüï,¥öqÿ™ûx÷aõŞòoô/ô§öcü‡úğïgÖë2ûBÆú¸õzğûáğóÿ²ô³ñwøT èôÿ÷ëú‚ò5õuğ*ßıÛöVóáì*úÈ
+d÷yòyö@ıü2ì½óùùwÿÄœrìÄø¸ıá÷2÷¬÷½ûÖ‘ğTë’ôÛüú¯ ‡ö$ûøµü>û[ôİòôLï›	¬×‹õZõrıJú…ÿ”úê:ô+ø³ù5÷%ùø”Wõ?ö>ü óÊúY}ûnÿ™Îñÿ¸ñpøÃúÛ›ûîï­Âúkù>ğ°îĞ&í¸üî<·
+ùt`û
+ó¶úüü?ø5ıòM_ğÍú¼@ó©ò<‡úîMí¯îÖø3ì0üàúöÖÿWù›¯şˆµû9 ÄÿFç“ôµğ•ñùÛø¯ù†÷’òÄ9ıÿïêœørêDéÉ÷ıfõCCõâõøòÏıŸşÆûéşÎşCû 7ø.ÿ£ƒüëş-ønõ"ÿ_ ËññÙö¯ıÛê7î«èœôŠûiû¤øãşôöuö;şÔ÷íùñŞôº|Ïÿ¨ğy±ÿFèÅúòLôíï¯ı‚ş2–øİô;ç¬ÿÎè¬õ{øëğöÛèãÿFù.õQóòùëüÍñ¼ı¥û%+ûùòèõ² ÀöMÿxóşP
+QÿB “ ûêõKüšî¹ûnúüÿÂıÜ8üöŞúõöø1öé÷ëáÉîq ñüã®õuş|õıÓ÷ôŒşşsÿ}ì»ó5÷gò(Íø€ò ëò^ö	öCójöÎêuïòÖô|ÿ‹úGşÿÓì9ÿîÄò ò/õğìşÏìÀó;õÀî‘ÿ9øvòJô`øçõbôí@ñd÷X÷ôìßøÀóÏîÃö:ñV]ıü}íÊmôs÷ ú—öËìÎşDÒümí{ó‹óXøÂò¸÷ZÔçöş&ûfêÀóşËğJögì-æõwùmñŠğ–êRõıGêjıçaşPô“Ãîoõˆòï0òJïôòîvñÓ‹ïróbæÚñ"øğüövşğ•èèñêğêfíñ¢èyôóğ…öKíÏè…ômğ(}í3í‰î)ö±õæñÃğëÿğÂ÷¬åıŒù’úÈûÛò^õOü4õ—ø®
+ìşôä ò”ô«ôèò	ølïğië(öIû¦ïÏí}÷ûïë­ ŞÀæ5õıÿú¬öëñäìxğşù’ømòîğ¤ëù§ğAü!î—ööŠğg÷;êÜæ×òëôğèåğèøGóåùsêRú©îFğùõÆæDôvù	õÇèÃıSòşuê2ñç…ïDøø.üWşêÚó®ñ¼æqïã›øœî.ö…í+ôTòKñoìšî¿ŞÇïfòêôíïƒöJğµò¢úøïÂ.ìöò'îôğØñøõGì‚îmùéËö|îˆøTìNğ’ôøÑîäì¦õŠêNúô·êéøÁî~ïgí÷öúïmé^ú-ıtç ûö´õ+ó¾ä±ïå°ç~ù}üéXÁêrÿnõÀé°õîèÜâ$éĞû6îõºõWó…ï;õ¿ı_òáò¢ìvõşDë£òÕü¹Üê,éFî.ï6ìRüøÖıvèPä£ùJúçéè÷,éúìàDéÿ—÷Íì~ñu ûòæãvìõõ÷WæëénïFë÷‘íBïˆõ˜û@ëßô2õìQñwüøQğ®ô¢ùßø ø|ênöáşí§ç#öîúëó§ë†ûèÔõ‡ÿÌø3ø´ğåù5û	]ø öúñZôIüôş¯é“ó”üâ÷àşCö¿ñRÿÉóœò”é;õ1ñ-÷ùğí¿ç+ô{ø ú?ö^ÿÊñ©ü¸òæû.õlÑöôë”ìŞhëDôKür×ù%{øuø´óéiùl	Rú’şÅñêû2›œøç—Êò¿ş“ö9êõ N^ıxıüGûÍş…ş{òìFøf ùıéıAùÓìşpÕü&ı!ëPû|ôÖòî—û¥åıºıÁóïô«şƒÅö!­_úL±ûlÿDõ?÷S^õ®û3÷¿ü	ùĞ\şvèû(ù¿ŞèR
+uÿøÏôeı3XòxøÔõø† ÷©£õÄõ›öƒúğsöÅşrû¸ õøâû³ ­•óáùmû»HüıÌÜ•öOıÛ¾õ”üûôƒû_şø`ğ8ş¯û;%ş.³÷¡Öıéº %úÖh†ü¦‰
+r–ö2úV	Í¸Rí6 ±[ÿ“õ`õ%ôíóú©¥şªş:ÀøÏ"òßEû[dÃıÙ×úûïˆü§hÿŠû¬ÿõ|õ|ùãñôÿÜøåÿò0ûúÉ÷múˆÿ•ûøøêÿÀŠÑş¨»ò÷sû/íªı–îZ= Õnú5ñÎ úÃgÿù[öÒ ö‡üBøûq
+ü®ı-&ÿ;÷ûúûŸ÷àùégÀı,şıø ù/ğ3ÚêóÌúûdü?˜õqïfşKğ³òïŸ¦îèõ
+÷çı®ø|õ¦	KøAùåènıEş¼õ·ô†ô„ürú<	äÃü{ÿ#ãVıEú×¨úíõ'øÕù}	¾úğó^Dèó7õí‘ñZşƒúœşïõ\X  vöé÷7ş+üı“ôñy÷øÿî ®ú™¢úbú“ıÕû€ô´ï«ù™ôú—ñjú2ı”ü~÷ÑòÓºùö|Sö`÷~ïª÷dş0û²ÿOõôk]÷~õhğµôíôÂêÌıòÂôkìÜpöTô+	­CúêğAûÒø¶øÙğ.ïøğ÷åşïxú)û{ô°÷’ø¥Hùßü+ïû÷ğaó¼ìÆı¾ôÛñ®£û¡ëı{óûñÖş(øöiş"õIõ‡õìñ-ùƒïèìòõjïºïÁü’õ•íéö]ú³û–3ñ¯ñäøÏøAùàúøfñ_ù‘ù™òı­ğ÷ÿúœâ^ë7ósğ ˆìÌısûI÷Ÿ4üÖçúòıö°ñVüøò?õıÓíûòç¥øÚõ8ö1èœğ`ügø\õäõ ï>ô7ği÷#ù$ôàéŞ€øHøßú”öNø”ğ úãóVùú'øróMõ×ğ¸•ÛjğkùAóÕö õöÂïıôTîpûªôàş1ÿKòófğİü$ùeğêõ_ö÷íôôM÷	øJòï6÷ø„õ¹ôöğ0ùÓÿGñ>ı¼òøê"û÷pì÷õó÷vıüúìsıèÈûöêÒîóõÆ÷İùIç‚ö¸å«ìKü'öÒòÙ õ:ô\çÚåSòõ/îı½øˆúˆônïëòEüŞøú…ôëó¿ôˆì’óAëìCôßüçöBñïğ%ñ†ëåGòsÛ÷	ïè¿ *èËìgßtälè3ï@ô„í™íàéëéö¶î2÷íê•÷ úå“òğ[ùqéïÿö»ğtú'üÜxóÄöÖüyı-ü:ù{ı—	÷ˆüà{ÿa>ø!MîæòÜ(ı[Ÿş¼úæôD›j ‘+|Œòfü€øûÎ¯ÊËùÅû¸óOüM	Úöşxõö$÷Ñ °4guFkøË	êÛşôëêùm¬ø¯û­#ÿÿ \U°ÿWZ	ğ"ü)íôUñq	µ°şvõqì<ºóãšı×ş: Õ “ó–CüÇû¤ùø
+@ƒío	ŞùÛ8³¹Ö  ¶ıÈtûQşÃw÷{»HKü×şÑíc
+6ó$ú°ù]QúŠ
+-Øø_ıËèÿò)OşşR4úøÃF[ûÊiqƒ
+ff
+úû-{ş®4øæ
+è
+)sÿ¹
+7ùDûÇı)ÿOşn	_ÿàÌı Ÿ÷<è\	’úÕoú-7	}ûs$_
+|Æy`Ğ§®ôÓFPıÙ¯ +÷¶
+ '	aâ`õ3¿«uî	e ·=ó¢÷Ïû¸
+š´Sş$üåR '}‚	Á	"U„Œ @2
+´ -'Ç‹ùÇn
+‡
+zpå’Òÿ[[ê_%şıgÁùb|½×üvz	Œ
+ù
+¡ÍŸØÂ	Ùhc:9‘ÕyÛŸ~ˆ€ŸÑõÏ
+²÷RıÛs ¬ß)Ÿ¢n¤˜]ıKÓqÕ	¯ —‘k¶SÒÖoÀT$t‡ >}€Vºß| VO4!©¢/µNØ¿şÁ¹Å Vhq¬
+ Õš x¤ê¸	)*z¿ÛşcQ.Îx
+Æı’
+Ú	ô¼ïÇa!‘¦
+Gsı²×n%Yúè58(ß	tJn¯*ø¥ı.ÿÃúàLM	ä :Œ&IWŒ7Aj>úucƒÜä	T™ê”§©û(áåà»Ÿ”ê '¼–‡ö/
+	›07­‹:ÎC_	…•ƒà&ª¦°
+>{	ÿ€Õû³n{å—–D	g	©*Ş‹í·¥ a~\² Ğü™§Jçû3Ÿ
+wªÚ¡Qü—‹ş•=xªQµ.	ºTÉÎ#· 0!+‘ìÌ\øš½z#ùêq ;ß…Š7
+¹ıÿü»1öÿ
+ÏT
+üÌu±»	Fô;òm/ÿóöKüíşgò¡Búí	?ûÌıtL›ñÑÿùğ¨øıÿyÿˆDÿÜ‚óŸùÏû<â»û{ yû‹ûñó£ş3ìÅ%Gòfû§úÿ pøß;îì=î[û†ı$ñı ôèôzõ|÷ÉILùÆù;÷÷õš®ş
+ûró¦ÿKøÄòÂöí°İ úøhëóÌÑ ,õ-ÿĞı¿ü: ûfh6ÿå-­	ìBìæıûı4
+öş‘ü­Áõ)ù€ŞhÿÿÿõHüMïKı5úRóşM÷û)÷0úEùÍ÷Çş_ü#	Ç
+øfûÙùàôëõóZ÷’OÿzûæøÚbú¼çù@è3úgÿâù(úÿô
+¼fö]öKRö®ıÙ¬şç•şDõG q§ú[²ÿÊ÷ıûê"øGn÷ûñ’üúïîïgıYò«ó~ó$ñkÌğ¬öª øâö…ıİ÷ı Š _¶ôOüËû¯LúGøYù\üí÷røËı×üOüŒíı«ó7õÀú	ó9òİöºô±õ2ü¨êø¨ûüØ 5ìc÷fø4ügıºşÜúñı+{œöõF÷"ö…÷æ
+aíŸïxö×ü²şW»ñ®üŸıìó÷jú&ü¦øPú‡òŠğÍ4œî˜ú@ô©öğñ	şáğjş óÒø"ÿ?*Öúo÷`ó¶øÊûÔùñ€õÓüUÿlÿ¨êĞôÌû¬å¦ıêù
+Ãó…÷ßîA÷ò/óFûÍ`jğÏ\Ø	óÙésúÕüVù»şƒ5ú~öTûóü0ûıèîIúşOêÄòûü óô ï)î$ıtùGûdğ'ôÓñesş	ô–ı3 Ö	øtï×ğ©ôû;÷6ñVé…öÃêoØñÖøöö“úˆêãøîûGí´ÿ
+çZÿ|ğ=ëóòZ Õødñô+ÿßïµü¶JûDóÑêf÷¬û}îÇïQğ~ø ï¨ıQï»üüíötæúàûY÷æòƒğEì.ë‚òwûvßIòÔøÃú÷ì›»ıEıMüÍûxø5ÿõôÌì5íôø=ìşkõ/ööuô1òEí/øLÿvèbõÊí&¹ú<íãô@ù×ğßñ^énòÌğò“òÁô´ê=ızğÉ  éŒìÃóaşñù±ü,ìMöh†ñªìĞü-÷¿öYğØñâî„ïgûÑìòûòaúYóÚõÇñ%û4øS÷^ûlø~¨ëQî‰é±òÀìúMõ_íĞô¤ıáVøZÿû·÷ÁúRú`Úò4ìÍìIìMöí…û»öÏğ‡ûÆ÷×íÇøõ¢ép÷ºû& …ô7õ|ô®òİï×îÖéuö·ñ›÷õÔ÷øw÷)÷Çõ5óSñÚúêùêAëœö†ò„çÜğ™ñŸôõ«ëñ»ûô¥şVìïÿøè:ö=ïüâóÔï:îâÿOëböóşĞøNùÑã¼ìÚø;ïÈïíîfùùôóÃõ¿íØ cño÷òÌëÙıˆûxåÁòdïùóáóôñúÄæ›í?ü%ål÷íùöÃéÌø„î½íÿÿ>üüøYë§üTõ™ìÏûQôæ¯ê*÷óê)şBô0ø“òæñrì¿ù[ğ‹å÷îâíê(ö‹ónü©ó*òmë”äáì*îÉõş÷±å øcësğşäóøû™óõ$÷wì¥ìsñÁùòäÿñFèA÷Ìèû!ûóôgì¡ğñˆòõé«ûkïšúòóó‰èŒùñƒãQæ²ô"ö)ù!ü§è¬ïEôhô:qı›ëÊùêõëûîËñ°ûíì‚÷	õ–ìağ½ïJ÷ë.íæó«í'ó×í¦ü¬Oê~ı¾óÆô×ñUéVõ¹õ}óÊôFô¦öõóoé'é¨ıåè2òAïõùşü‚ôßñÑóZ ï íöñæøú
+ù`ò2üËö'úåøàêÙùôE =ıoóô¥ÿ{ [Ùü¡ı8ûıöûÌø¬İõÛóÆúª	lõsûG¸	ø0ûºö‹WúôõÔÿˆø =ìûôBñóºÿÚqñ¢ş2ú¿õy¬QùúòÏéı8öğı’MòÆøÅÿuşDû«	XğÔ÷zú–õôîóçüö<|ıÇ÷ì
+Ê
+ıóÿİò0üï?ûûıJG"şDûİ–ûuı%øşüú^ş‰…ºı÷<ò5óõùõ&ş*ïÁóXÚ ¬üşö
+ş…òiG‰·úÆ7!ûíÉ
+µûü;ãÓsüuøïûšõ4ıîı‹'üúöø³‚ù.ì÷-ûù¼úPü/
+JiûÛ³ÆüA"ô§ó£øWüÈû’½ı~	ürTq)üzŞüà¦ıg·şaKşZÿÒôÏ<üâuùÖTbü=ÿ›ûDhúMö;ı¨şàøòúgó;Ÿğò—÷øî ‘ÿ= , ´íQÿşjü¿Ûó¥ûÖóŒ³øòÎ•úîş] omîğà rùù:ùşÙùtğœø! göå‰ íı	ÇBÖÿ¦õ²şòGØûşûó…&ó“ñĞùØõóö™ÿê÷-ˆş½ü€œû<ù|øÂñ€®³û	ù.ùÕø›ù· ¶ó4ú0ï›ûÿQüuòzûø÷åùqıØøØÿ'
+Ûü3şÕûFğŠú ÿ¸ıôäúeøZŞÔËô»¨ş üÎúíø[ş€×ş‘õ÷µÿLùÜúKüFúVùe²ü§û«üàı"Ìöæñ—ÿ ªü-şØï
+óvú‘şPğşéï^ôJ!üíû ıbú¦şêåêyşú¹ø­õpüˆ:ñ òKÿ¤ú%ûÔı$ôyú÷[õ Bøö÷)8ø:û*hùÇñş÷¾úÅùÁèùTó%ùJö9÷ˆÿÇı»ÿÏ‘ïvùVì÷óQùĞô£õú)ğºBê"ùÆùÒîWoéìùìıd:ù´_ùaôOë0ûûòïeø`øtñûAñ¡ùmù+ıéÿ\ı|õûÊíbıZãÿTöñçïºùWşÂğ•ùî›ú_ò%öîD÷€P8ñHşAë(õœÂşİó/öúô¹şaş·üdô¹öÎöOúõâø’õ½ıíRû9ö`óÆş§ı”ö‚ğàòwÿìOÿĞôï\ñã†ò@½öĞûUôøŠ‡ø¯üâó†şáùJü;¡ø¿û\ıJüìu ”è ø{÷× éôşû+ı>şu÷Çy ñüúkó)%ù ıË™ôRø~ÿ¸ö*ï$'ú‹õŠ÷ó&ù¾şöôÁõùèøü´÷§Ì#òQçôéıPñ¨ äÿHî‡øªùû÷åÅ÷Íó.şcñ-ô(èhéÉìèõIùáğ¼öîëıağ÷zòğÀ÷æù¸ôô1øòØğŠòÔîáí\êîTígò5øßşçğö|÷b÷sòìùùıêêéÔèüòYøû§ñHñ~éğçøÔæİÿíğ±ñÜíhß'à(íñ:÷ıóæîÃ÷ìú+òhíŒîùöåñ&ğ¬õvéøÕætûúuï•óàçÿãôşíü'Ÿ×øôû5ñ~g
+ü·ÿµã~ıÛúÚşëÿâÁôZûäùsúçøŸı.·ñ?øÊãYıÀüÅ9üsôÌ!1ô3ø‹n
+KşÙŞÿ ‰ù¾ >üÕ	†ü Zøh3ÿ?şÈü–,	ÆùµİùÕ.ÕÏõHêÿµ `õ/÷Œ		 +ª Sî@ ò¿:IşqeÃSÀÔ›
+í­ $öc[%ß4ÿüÉ”÷Võp³áÿu¯ôü[û%H	0ıŒ	ı90ûg#»t Á©›üıÛ-ğØú¡8>¼ù@ôäJÿZı¬
+: ¶  “şNMÄô
+ ú t±Y›
+ KÂ –úaaìPı‘2 ıÿè­Ù?!Ò Îÿjë	RË³e§“%$õÿ[ì	ˆ:ÉàS6ı•şQ7ş
+èİá3 ‘Y.ÿ¥…­m«ëÒ ¾ó}
+¾	Æû†
+	tAüÿ—Mÿ+Œg‰üpèüÆğ4T"ß!€ƒ	gıÎ5dRış&f^qº®Ö]Bÿ&.J9Ó}	á]5ø¹üYäx;%j£±	Éãİ ä		Ë¾gß¢b*DÜ	H^vXmMå9…ôõ °ãú]3aƒ
+ŸşïÎù÷ŞıOı-M²x9”Úÿ=¹]	ÿ­ù]·	};ùEğ3•ÆY)ÆÔz<Äpş
+	t2¦ivûSÿ«	fÿv‡$ÌD8”b)Û, ÖÑ&ò
+ÈŒ»ÉÕë"	iıpÔ•Ï"¾‘¯Æ{iQ
+Ğ*P%9	vİ
+jß!z-ü’ü>ÆE
+KÌƒ„7§		fJ,Uòìÿa©™ÒÑoµùh8‚
+s5k¢{H‘ Âl_ 	WÅè^€ßÌ½)¶rÅ± ]P
+Ë	g|üğSİAã	"+n²rÃ
+	%d
+ÏÌó ÆB	X>7³
+D
+}
+nOTµ
+¯2J‰½úxq©á7ö€Zm²O
+½ªhp\Ú[yş6“
+Ù!×˜°IiûĞ÷·*[˜
+jÜ‚Ñ#©¬üı´`İ
+ğşÂŒbR"ËrıN£Êhlù'üªşt	Œşïyù–È÷Kå™ı…ûC—û†ÿë|²%ÿâ <ÑõşùlÎÿŒúû†
+ß—ôò_òÎ÷õşü `"ì´ ü	i
+ï6éY¢RTYúŠû¯ø “ Fù(ôÇótïı‘¯
+şÕüù:ñP Œïè~ô	 ‰õ)ÿæîDõˆøğÜòö®ø!ïLì)ôÿaû—ëÌ!şzûuøtäæöµÿ‘ú-ù‹û•şõø}ûgüŠıõ€úÁøTüz÷‚óÓ	ùµıéÿXşÎÿôÓø›ù)ù˜'óÆó¢óıışú#ÿ-öüóøúáÿz
+mõoø<û?àúrõü ø±öøSõûq{õùïOülüûü÷àªûXù–ûæõáøùcğ Fõ7üHøğ=ï¤÷Yqû¼÷-
+XûàúÊñ@ğø\ !û¥òü¤û‡ôÜüCöºıØöPüıù#™‘gş=íù4ñ°û ÿ¸ÿ© jùÍùj÷°ó% ø3÷±ñòü\ñ ú³øŠ	ãÎîıã÷ÛúsüÍ÷SñòøƒÿÕöLø5÷¼÷îñJíôãñX.ú`®xıÎú½¥ê‰ÿ’ööõlìäñØııü‡ô±ô£ù2ùKıº=
+ê€óé % ÊòöYù3gıìÔîåÿ^5óøh§ô§÷€ú.ûÔıúıù÷Õ…ú:÷ñcüÎû¾ú‰ğFMø1ëş<şi÷€úgóñ€ğ Dùóôå6ü_ïÉñıñÿ¸ó‡ hõq \îìîFÿmxõcûùó ólñ’üüÿÿeõÏ nôŸö:ş<øMğ Nø~ü™í`è
+îÇ÷@íáø<ñ)÷ä"èÈövò®ùÉúüùéùòÅúÉÿGï]ù–UñÛ
+ñ0E„ù)÷èöÎÅësó§çïó²ú1îãì0û¶ïTó'ø;ÿ5û2úÈü® hôóñ©şÇò¿.8öaÜ;ş$Bø¹ó±öWôİöÄûÓ@LËòòôèùQû÷î¥ôKòÅøÅÿáôëü<ø÷öù ÷½öo÷‹ï6õû±òôÍønô6ş¯şcì¿ãpò­ô!ô~ñû1óÔıGãuüú÷„ü¤öuõ´ğçïÏíŸö)ıkùçïŠøæûëÿIóXñò”ìš[ãûş%ìÇñ×ñŠ óyñbşäş>÷Fï£ï-ï¿úfùÒûúÂîeúëı$ïÛïõ†ódºííåÃé2øeğåòTÏÿ÷œñ¹îö¥û'ü8óºéó–èîë¶ô]85û‹úuûNôôlÿö*õœû;ìVø¦ôÈó&ã·ô+?óëëdó;øLô¨û¿íï7õğÃû¿îöùíğğñÈøvEñt÷-ùãóø¶î7õ—÷¢üTñmî÷ãïâÍöÎö+ïğó¯îÔÚğÖí™úIı•ûÆ÷Qù7ÿòÒñêíÅôíÎèúğóÓïóŒúäôåöúÅó7ø¯ì]íêôçò ğ÷ôƒöğ[íìÿü
+ö!ôNã ù…çÚí¹ö1æ•üSıgú²òAû0úù-íËöEæóã­ô;çÂ-âVí+ãÈìçé»ÚúIø+rğcã1ò2íÕçñ:úŸñùøG¡ğ`ótù&ú îêø‰öiïÛõ`÷‰é–êaójú{6ğ ïƒúşèƒğ@ïìgü°ñUş4û0÷pöèÉîÇøóşÂõ±ñöşvíóŞñNù;şÈô®éPïVõ3öUå“íÔşÿø"ø*÷èù¥ê¼ô7ó¯æûı½øFñüÅı3öØö‹øúî¥rîcêùû8òîü4íKó›ìQìNõz´éÚBƒHñü’ùgï¦óÖõ«  øòJğïäòğNôÆ?óq÷âñÔóbÔdòèTøÚüÃ Üôôë-ıUøîó=åU÷~ø}í‰÷8 °Ü[šÿøöŸòLùèôéì[+N÷±ş8÷S |ó §ç±	ßÿKğ¡5ıXñî WøøøpøcüıbüøY<öø–ÿøøI9ô0ö õ´÷%èaûeótõ‹ p½ù’÷è÷ÜÔ"`Ãå~ş ü}üÃeügú’ğ¤¿ßøwÿ >ø'ÉÿÚ©öxOïŸ	ºùn¥%åó¹¯ò|úò‹¡õÄ÷Xı!şTü›	º°	•ùZû8ü¯]íÍQ(øŒÿi 	ö’úú"!û8üûÄû­şáû üaûpğ3ùÈ	Êü¤ı³Wù™ïã>öÿ°ÿyûaÿ¾jæsî½ïv!ÿÖË ›xÿıà>úöƒÓú	È —	¤ÿ±ó9
+Íı ŠuøÚ°üõÙùÉçãıMÿ€÷/ÿ†ñ{&C÷»A	m÷“úu/ sş 6ÿkâQ	C	X¦ö¥øú(óKùI	ÿ	ß%ô> ^Õüä ó*ùÖö_ş-÷xùxş4úœşJúÄöå Öü÷Áóí	÷ù¹òô=øş¿ìcô÷pøùúGñ½ğ³şøç ¯lø±şºà÷r÷ùÿ=´ç÷ŠSôë÷e C
+ŸıÜŞûGï¤ıö€ÿIú ÷Ä Z÷\ûú‚ôøñuíıö	!ÿü½ú†ï­Òõ·ÿÃøCìº™ düJü=Áî]ùo] ‹şöÀòïeœ÷òv7ùòùøœı7î¸õkşÿ…áèóPüÅùÖøêï3í|0Uôè÷gùö	 kköØø[ø;ŞönùòÑîÊûñö˜ôÿıËõ»ôãşÊÿäù5õIêjN|Èê!^‘Sô'ïÂıù½÷mæÛëšòèğ!ú$óQõ:øËûsøÿVıXğøö—ö&ÀûğÔİùıú¿ôÏóˆõ%úÃíğûõüø†ì¶›ò¥ô)úËí¶ôwö{ï÷ó,íër ìúyïYôäùôğıûò%úÖ 7ù5òSùTÿœÀù7ñXúŠ¥ ›)òı¼ñ9ğõ“õàéÒòeı¬÷e÷&ıµì' ;ê¿ñhƒÿõOú¯rûú¥ì†õş&öºõ»şò2÷‰ü÷ğ]òMûLøãõ.ôàôğú°ıpñàyôïÓå³ş¬ö_ûXõıfú®úiñrïñ“ñ<ôoöëpğtó¶ü´ø)úµìÕ°ûğøìqôYøÖüæû¢ôhùuòş}ôxêù!ıÌşş#ø,ïa;ûù]ñh Ûöı~úÙı¯ô¨ğ{éGöÁğÛòåNõIìéù/òšógìkõVü±ğÜòœñîªx÷iöû/ôßé²ëáõó­ïõ{øJå_ö[ğBíøùøÇôSöÑöì¤ñ­ø øGï˜ôı’éê÷½ ï
+óö\ëÁøé“øÉñˆìWõKúñù£øéşíñ=•çXììîLôÒôşîûè’óuöïuğˆï×îìïıëéZ íüwíëîşı†"ÿ ôöõ¸úğW ÖÖÿ-R	ãûSÃ Ëø.ûÑü­÷ä1	©h9Dış‘ô|æ
+Kş	Àú³ûù å·¢ş#óBõyïõïĞ~ó“døè
+bo:óşÃö‘Kù‰ü1¥ ÎO Túˆ®	èúy|şÿ°oûåıÛÑ	B$ÿØõpı…k)zEô²)_	ÃT¶£ülëJy
+€ ½Šı@úÍ÷ˆö·Æôì^òPã°æ<6ivŸşK§G =ÿÀûy¥’ı:y"	Õ<HØ‘óğ|ş§’ï'ÿ¥ÚøŠ‹şv!÷G`ì†ù†À÷8×:üp‰ûı`/
+T
+z
+-òûÑ¤şÖş$BO÷ rœOş÷û‚ô	2ÿ®ÁÉ8ûşIÿõöY	Gcşé
+‘	RZûHoÿ K'ûAû…ı¡úÑ0èÂ ôıÙ"mû-¿	g Ùÿ¡ ú’•u
+	æİÍyÿÌƒ#
+²õ
+¡kQ*x­ÏñFüŠ¿¶ıâÂÿäş,Úì]š>ç×AşmÅâ\¶Rût4ÿ¬Ò=	zë €â
+²ÅN.¤	[µj%	v	dUŞ`á ®™úû®L|~8½ã§è ¨
+÷?uNæÍş£2ÿò6Ë÷¼
+‘bÆá¯è	^<q 	Òıú¯
+·
+à@¿¥qlw¿mœ¬ü½	~¤vÆ6
+™Næõ‚ü¶ş¤© ÊßR
+Ÿ†I
+|	(Z  <â	¿™!×(IH›­6²êœë³ÒÙ÷Éäªg%bzáø
+e<»	‹OµcMÑµ)ÿø{Ä¹_†Únş»ÿ 	±‰°ÏKD‘ìå‰ú2
+.µärƒow
+´Í‡AL
+hÈ$¦	z|
+¾Ä*x·§ û5£ò¸	$%,şÌ"	5PÿÔy
+ıÀ	&PÑ¡
+é¡tªÑ¹ù`Ã
+üV	û©&‡ßœÜ¿ÿñ
+ôíÒş;2øÛßÖ	ò	Ou’£¸Vâ¹ù@Çş½¯ó†ğÏq•˜CN²Ñ
+”¬	È
+G½¦"İÑ¾~ÔñÜş»ª#üqÚÔêÿ;•m'†ş[F2nUıÎ RFé
+£ş{'¹ Sı¥Íç‚:ı¥
+«jTøSÿ®û Î
+‰’ @O	Z!ı‚“ûDµú¸üÃ“nı@_ÿ ú#ù²ûˆûµş÷kÿe÷|ü_ş„ûö%øhùà« èë_û/ËûIõlıwEı©+ù+ÿªôŠüdù
+ü» ûZ÷Û ‚20îØÿ(ƒ÷~ö)ş[D_÷5 >5™ÿkû/ø!°Ôı†Zü)ö–E ÿ¥úùˆí@îX
+ ñÿüùş¬óıfüú«ñ>B Úü¬ø÷GúoõJü{ï|9ıXùfôÏîCüşÇ ƒûcş[ £JöpşDíÃøyïÀ Éëõ¦öêûı¸ı¾/ï:ùêı˜ıtõAğÏĞÑıµıjüÕÿ©ğú şqú«ë—ÿ{ñ*
+±úÿüöaÿõX	<ù’¢÷Vü^	óğ[ÿïÓ€ "úvóşïóö£ùGÃõ°öñ[ü¶êæüÕ…ü;£ûl	±/ÿø÷ğÿ)ùôÿròÊù¶úÃŸù|õCËùôòÜüƒöl£şLë‰ót ğÈó?ğøıú¸üKº—û,xÿfğ?õÈôğ\î3ó^ü_ö'a‹õbìÔùñÚú-
+öC3 ŸòÎØğXt¹õ?û§şàı	ô `ÏøšÍ9 Œô„ºûiº¡øúøŒş¹£ö®úAûÕ÷¤GÿÆúÌ÷à İ E‡ù÷§ø#ôÉ ü|m$÷±ş•¥ÿ[ô¼óY(÷wó‰şÉ÷Şï(ÿ?í-øçìgğK3Ñö‹ò„ùùÙø½ö#ÿ}
+¶üx -ùÓ^ô–ùæ ôÿô&áÅ;ù2òBışaúòó»û ú÷ë£°ğuìköõ÷I‰ñŠ¥ò’şÇ ìİõ>ùôiş^şÄõ ˆò[Æ ÔïZôùø„ò©-úSáùëµ{şµeôZã1ÿøØÿùò¥òü˜ıàûº ÉüÿCö;î@ğMóQsş/ü xzòùÿt ûß÷?ïÙîé7ùÏ0ùÈë-óAıdö4tï-ÿbüOIğ¯ıRó7 ú¢áğvè±QëHûbìÄïşT÷`¶îHù³ø&è©ô¿ÿGû-Í)ûèñ3ë\ëåÚöYî€ò©ïÃıeó’õªò†üjóœû=övìıù¾óæ·øGıÄìuı: % &ùŞô½ö<òó}ñ*ù-ñÕğ&ô4óôòı‘óûôìúTÿùñiü}ñã÷Şğ.”ô¹êJò•û›ü éõüÄşdÇ=yú!íåµñ^ó ö“úLö`ò Ãô øÒåŠı%îóÏø½ó8ó“„ù3óPë[Äöæ .óıø(ø~ólò£4ïğ$ùõî¨ıŸô÷	è6ğ#ñşïëŞò'ûRïù ÷üóıò³Ññ…òæôıò‘î÷(ÿÿü&ü4ş}şïè‡õsú¼ÿê[ğªíYéZôÄüéóCùJõ¨ê5÷ÍçÀö"ñıøÀôïñübúšï8ü=õ¢÷™ÿ,ù…õöGrcõçòZê2ıjîøúóöï(eõÏîºñHô6í-ó=ø-nïI÷päÿ& êèù}âö ş8ù½æ}ùüùû<Ï÷îé/ò’íùöoæàô0çá÷ì÷™ó|ëïvù‡ôÿôù{ğß „íüîëqô !ô€ñcú õwıGïÒú–üøD’öÅ÷·óeîşëpí—ú*ğÄéùüEöyû ëÃöŠ ·ş¸úÍîoşûòúÕõşpù»öwîâúımÀìmë¡î÷³òÄ÷ôùÅõÆídìRóëğ¯ìÊşıò	²ìí éö5û¾ğBñìüI¯ö¶û¥¶ı\î¾øøqíírÿ'÷şbôäıÜ÷¶ğğØş„û·òzúğMşnı`/	{ÿµøFü4 ü ùcöqç‚õ ïŒS
+ùõnâ'íû Úîÿ8ÿ#ş;ûôkğòüø	€ú
+õfîŸ9ò/ø®Íÿ±ò›>ı5ş¦ •
+ĞîšÙôº«ö–ùÓ
+úkÒ÷'Oú‘ põÑóíÊQ ™ùSùÜøBıL÷÷şÙü¨ú£ ı ùñ	üîlÿáı{şº3û@•CùÏûÿìï‘´ø™ıV
+Ç´û, !{Î=Ğÿ½Şı!ğ Ö İş|ú ÙïÃ	[úÀ
+S ;LôxòZõ˜şe ]öšøú&ı›ısõÚı¦ÇÿfòÎõŞMùæ¢
+_şe	µû¼ı—ü<şû~ûÑÿÎ;úîî™ü¤øtÄpşù	ü&Yşn ú¬	Í 6ı‰ıÙır¯†ı÷£5µß`ùóşTôR.Æq÷P
+­ÿ“ÿ±û¢fËø‹ş‘õó	Şÿi	Oû¼ö'ü†úŠŸ³ø#­”İıà¯õÖ˜ÿ>şÙö¤'Fyûóz
+ßùR‘÷ü\¿ ’ÿû»üâ#Ì	÷Oúõò)ımèùñú@óûöøıx ™ÿŒ‰mù³Tü®ÿ•zışÆ¤G ¼ªıç ûü	¨i ,üúıø1	úÔ÷¶«|½ïêò÷ä ¸ı|úÈşåııÙıT÷Ïè	ø'ÿÅù ıÀ÷øØô“ÿ&ò£ÿèıbõê&õùûwş÷Çğ2ù° ¬ùJÚÓìÅúË ùÚòı¼z:˜ıuùnìmö|ş¥ÿÍñcíiÿLûrgïÓù şXõáñ±+æ¦ù®Œö­ş–ú¨ıá2õ‹óbüˆùø1ì[ï*ûñê—ùœ "öB6şHOúûdìQü `ò3ÿñ‰ı/ûÛó ÿºü‚şXú}ôúú]şdó[ó*íÑñ ù=÷"ü±ù½ôÏ	­ÿÃò^ø2û0¨ş>ìE÷.ÿÙì/ıNúŞûşµìÃøİú÷ö©ù°ùáìMù½÷{øIşåõõUôÂşÖ§ş³ÿŒøB²ø¢ì$÷›óíKñ¼ÿëï­ûÿöğ¾©÷-ô£ùzÄûzñ¾ñ?áÿwô*ó"ıĞú”ûËöOAûó*úYñêşÁö5ôû[úZùRûïğØüÓñ-ù™ğìÿ(ñÉø.ú[óá÷êî1ö! „ıWôÒòdÿº®÷õ\ôìèÁı¶üCñ=ú òÌ ™ü_é^mğ¦ìçøƒöÕşöeğ{ñ«öÿûñö]öõñå÷~û¬ø>‘ğ5÷¤ô÷‚ë‚øOı½ú”Fù¿ú ÿóŠõ)¥öºğá÷“°øq¥ğ¡õ6õş ú2ü`õÜòŸ÷HíïUñİõ`÷Tøxûüì÷òõ5Vö[ûÿõ÷ñ{ó†òQô‰øñ±ó×óŞğmñ£óK Bìì"ùş÷fø'ò|‰çßí™÷Íïóò¾ñäò>ôÂñéòEóéôïêõQö|óS÷‡ı·å.ë ïñúíRêoù[èóWü˜î;æˆìøä7ô`ïAïÍşpõåè!ê”‰@ ØÿF^ ı$õ&úSóSÿ*`÷
+WdúıûĞÿnnHûøRú¾úü>íPc	»Bœôc ;	ğ…
+Àş8ş¤Ÿú<å /÷Éø˜öw-ù` Û 	j
+ûø éõgşU>ÿEúŞ©­ÿù]öK¾{
+KæWò4üâû–´\ıºÏm¢	‘işÃóş(1ú³hÿ£–ˆ‘úxıÀš2Kü·…ÿ´Şõ
+9CıOş:¨ñÿ5y¥¿Mí?+ —dÿÙş}–«„÷eü'O			Js
+ÌÕóü@ËÄOÈşqcwàÆ-øgd½©	GZÿÒG·å~ Â¦ûzş”Ç0Ê sø"Îi÷vòü	Z>·× †g5ˆ/sµ_ü²> 	£ü>Á=­o
+®ú
+û à¿™ÿıIü›=ı'Çb
+{·bşC3òşî­%@i—MˆÀp÷ŸÊ Ş «_şn:ºÿ½
+>ß»øŸÿ’÷m
+§ —tUşš¥¨¥brL5>@)"†$\ì	ŠH	ÀĞ;m°)ş`	|ÂÜ¯
+V'¨°	Œu"P
+ ¹’Y|üã²1Œ	œıuÚ
+Z
+eY!Õ"î²
+·ûÙÜ HŞ ò$9TÊöû ‚KYYÙDí3	ÔÔ<l56•m$	Ù¤"ëÁ6]
+İß‹
+nLÀ»Š':îW	 ï
+åoïpaÍ û«fèåRV
+F”"–Å"àï	dÀúÖ®93%3Ù8E‘‰EÚbsÓ½O¼+ig!Yšy¿RÛ ã¯ù
+fw<^ r	¿“Rª(ù	Áb&åjÁaFsòı	ñBEç¶V¿×µ©>Ãï	÷"{¶ù‘ÿ»
+ºF6Úb°¿š¤*B
+'†t• p„ú	â Œ!r'Áøp\ÿj1äÇ|&´!6ÀÅæß•
+h[µæ‰h«Y° ú
+8ŞŒ3ÿÉ ş9¾ş
+©î
+=ñOë’
+…[ ıÑŞøx''\ èŸü7	ªqJ-`õEşá(õøşıûzí!U 
+¥ø¹Òõ û–û¦®2oş¤¶µDø³ûmı³¶@şaı[ä„ûCàûEÿ,ªèû@ô\ ˆı{¸RóÿOàõ›©0úŠ Aûj¤ıEü×³	÷iNñúô“şbş„úó^ûñ¶ ò­4­ôzešó¤Ğz	³ù>ú— ÓõÊÿ‘ıFæønşª ¢ ÜõSöoö	o{(RïâÌ÷\ú5õî÷mØığÊşÍö»IşBšş³]ıõí÷ö™ø’éˆv?ú		Éû»îäõ>ÿÔ£üıñ¶ÿ8÷õ8ş^ÿ}Bü‹öNoôäîÜ‰xó.šìÅô™ı ó-üÁğ–üaiô½»ÿ÷ï™ıõ8ûû}şÿbWíú@çÅö-ıQğ^ûDúòÓ÷LşPøµó ôİùû¥W øÊRÿ«óoÊËı—ùBú]şœùHô[ §ğ¥òšâ¼øBşVüƒìñ/ú#õúŠû±ıÚÀóoöŒóÏÿ`üğñ‘éíï+õÿ
+â…g·û¥÷øô°ôƒøğ÷ù·ò¼ù úğFşÕ i±ùÿöÿÜ­úæıZö6˜(ü\ñ{÷µçú×ìÿ1ïÖóŞ÷Fû©ùóï`õM şWø9×ø=öDöâşdõTö!ı•ğû^÷ ù,õôúÍì"ø'Æòìåı,îòûXøuß Hóbù"BGöp Îûë*ïïı´óèø_~Ğû|éûıõ,÷Jí&ş6ı¯÷àíöı…øı/ÿ,söc eÜóÖş.ÒßúB÷eş°VşÃûöìúşíş¾şF
+;û›üÎ kûô’úñû÷ö<ñ¦ıYî–üw"úê÷‘÷ı–)øú"ô›ÿe÷Óñ\÷”õbû2úÈ}ù^ùµûÑûxâö£ş§úŸôÇgò# 1ÿ}õÆ	Uš[ÿwõ€­ÚúˆşöGş¯úıjø¸ô%öa…ù­í÷²ú<í ÷ìùfüñò³öäşr 'ùí ÷ŒşKñ±öFøûõäåAú.š	,÷Ñı\ııûáı¯ş®õ-tòYø*ş¼ş‘õËë¦åğŠğ˜ ÿü¨R÷íôíyæ*ùCôÜó¸öÚì  CÿŞò‹îÕôÿü" õî
+#öáñ~ó#õ\ëäõhAè‹öãí-ø&ì»óCó$ÿµöÒùKøÅó8× †úwêVøßùùúwì$¾ì(ì°ùöúœæáYğòÁó, ı@íédş…õQójõ|òC÷pî"èQö¸÷C÷ı±€õúîş.ñHô†óÆğî.ìï è~ûqvjóºòòîËóÆñ oğ¾úKõñ'ÿâü÷íÏîNê	òSıÌözïĞöµò›ø|ëzïØş–ñrlø÷üPüÌğ½ônş
+üjñ_÷¬ïèÿ…øîÙïoø¥ğ©ñıøò¨çßèóîÎêí<÷uı÷‹ç±ê•êşñSïìôÚîÛ Úü(êõ£ó»õˆûjë5ğ‡üñó³êòhû+ğ‰òøñî8îşVïùDõNï©öfí)èµò!ño„÷ïëDñ*Jğ±î­ï>ïGô÷ŞûñêñFüeô§çÙú­÷
+ôÒô¦şâóĞú™÷ÉúÚñeîĞö¨î
+îEó_ìœè;ü$ñ‡ì¾íïõmíI„ømòXğôËèØóõ ïFñãªüĞñNíõ­™ÿöıÙø‚õ˜ô,D÷³ü«ğmø:êËˆó(úÀíüƒü|ïÊ÷èô|ıüŒóJüöõfôûûõ©ğMî?ó+ñ€şsı­õı?÷Šúºî£á
+²ı÷íèû ñmğÖÿÅøFùıõa÷äôCéñ«ñ¤üxö?ÿ‹oõÚõT]ó+úŒÆèëò1ûqú â÷7ü‡ø²şµõ%½ùM;P Eş³Ó
+íûÿró‡ü2¼ïFş¡} fş ÿ ’ğ¬ğÈı=úè×¨„şwZ!·Zõğñá‰ú?÷Ñö³Tü^íØù–şè  óÉÿëĞh
+mÇµyÿèş4†ß ‘îXöSşÆüëWú‚ûDøùÿE¡ü³êı7÷¤8ş§uı|	dúü3ÿ­ú×¼úçìAõ4ó‚.$NÿTşó‹húuµ
+.ùíôÄû¨ÿœòRùÈø@ı™úÈï8’ZùeÏ
+Ãú 	÷´C
+°…kíş»ôëõ˜ûÔ­û½óPª
+û³ /ñúº÷HÿøóF³	gÿ4ê ‚ò¨òÑÜÜYøÁb «ÿŒ>V
+×ñşÿOÿóù¯
+Áü÷ÿôwø¢û&ı#5şŸßönÙü «v„ùÿ~	,ş—üñ•÷ŞMùŸÿ•Ö(t»ûNôÿø[ù5ÿÅù¨ı|şÎıj÷¦ùï wë÷® À7ğôŸ±şlÿ  ‚ùÁÿ¿ÿ¦®÷²ş^ùèıB.àü,ÏöùWë3ñyJğ¸ıÖñ(ûñşº ³¶ûó
+jÿ’úx÷CıGö…ù úïDò– ºôEø0Ğ²ù8òÄìøÿóüV3 –û@ôcñ¢ş`ëÓ  ş0ûâøÕù¶ı8øEúìüŸ‰óuõ}ötùqôáùË
+é2÷ò~ ü¸ø=şı6M
+LúeùøEüq1
+ø"6úLûŒoúÌ<ë‰ş: º mKîIN÷Â;ùò÷ÍüYõıİğâ	W
+^^òğ	~ñÚü+ûÜCöDûàÿ(şLş¿ú­ûAşùùŠ ş
++õ±şSõöÊú¨ñÎô¿ù`ş«õî[ö“î3ñ ñò¼øÄéş÷ÚãıÌîûÿó§2±õõ÷$ ÷xû¤köïÜùGñØıZüğ‚îÁğ®şÛ÷¬ı¼ıd?ôüõ*¥ñÑ.êñEXû¿Dÿœı+Ìò`ôSğœ¦öpòµë‡  w·÷Ôöó…ùg÷ô	ıôíÔî^eë¹ö£‹üfÚ ×ã(ñsöàöm^÷æ÷'ñ}ú#ìğÿ øäò9şÑ0ó–ùÂ÷ÁıUúüÍòõ¯ñù3÷éò­ ğòÿí‘ùPòÂÍ Ÿı÷û÷à{áî\òKüvúø!ògùÿØ èã¤ûÔúÄtœõ9ñøîó“ü*ôR÷ôêÖõfîÄ”ûsû/µcûêüãı«ù¹çÁñ|ôÑOø­ù.üï>÷Ë÷8øÇòKû÷úøğìµì¥úösé9òø³<ì5 ÷Bõ2ıööYş"üË[ñ2÷»÷Òôõôšê\ø~ê•û‡şàòÊòü@ö1òeéCùæ{ñÎøô8ğJè”ñÒï×ü ñ0úÎòüô‹êÏç_òêúsôùöëÎ÷(ú”ıó÷¥ó¯ğ]éßÚóìNé˜ÿÙñí´ï¨ü>øìúêXù#éäïù}õ]ı\É+üœ ıÿçĞù·ú=üAm(øìú³şğæúW÷“·õI'şÏa>ü°	óüÈ›ábˆ÷
+õÍüÉ3ıÃG¼í_„úõù™ åşşÉPú…"µö¹ÿçü@ùüÖüŞ£û|ë £#ü€L÷ö_«ùÎü`÷hÿW
+O÷6!öK‰ñ÷UyûO— Ãı'Àñ˜í§ıq >/ÿó¥l&÷¶ş4ı¡ú‡öÁHqÿ|õ ü>˜	e!HË²³ù²½
+Àƒ]ã}ûQ
+.ù³ÿş¹s¼tş/İ;_õ±÷–}t¯»
+¡+\ğ–ü9
+ÿv¡Î_ÿr‘˜h	åX@±ûY÷‰ãâÎ
+®/ÿö	÷‡bş0\u‡këó€	Ò>ı	šF¯Vdzÿècõû?ë
+ HFHÏ ¦	³Æ~ÿ_ı*Ñû±ıgÌTÅùÒn[-zı¢„üU#WÇ9} k7Ã¹üD	×
+Ş0@†÷—9¹kggÚ §	MÖ›$
+¡
+Áº“-‚¸k;!a ŸôG•	™üÄ]Õ•HÜ¸ ,	À`«wËF÷gÊsÔôÇÏü—ªyİ¬˜æA²
+lGÙ±.	ûyöë\Amf	ENÎZ6Á1ÿ¦‹Y«ğäÖ‡¹}ÀåmY		°gÆES€åÆ`–	€ıJs'åƒù·+Ó2
+G£ÊL9†Ô	Õ¤ˆ¸èSjáRê_€;P	í•¦†6…	ÔT
+) ê2ÊÎî$„'„ÏÆß	4xÒi
+‰
+7:6»ÁiQ¦Ü)ÌÈ1‰	¬'q’
+¦À3
+=â\£Òbh‰àõ7S¦ïëş&Sx
+‡8":"ë'1È&Èßƒ–şö¨¡kôÿÒ àP¤»6)é	7¨ÿoùVøAœ
+Äœÿf
+îøŒÄG
+%!«í	)‚å(‚ ˜VPáªwµ`WP@0µæåû¨Rúó«	a_Y­Ş
+à¾¸Ëôz¥Ôï
+å!™í4ş‰  BpËÿPbûLbO ‰Õê%‹ıÓmÖ&ÄÆşxå		ìËÿ¬aü¬ÿ3ÀÏVüYşàùµ%L÷òø^üÆ	u‘UF?ı”ı0–íJ 	û ı'±üs	9Fóóõ"ú-Wü·ıZ½ö¦ı)ø‡¢)ø¡úbÕşS*?•ùşÃù—›~	à÷Mş0ûJÀû•÷›ú?û¹ú|ùböGøíûÏ]ú›ø\ùİú™ÚK±÷émc6ûôılù²ÁôØøl÷{ûGüÚ÷ íø&ÿşøJX7úøı¿nïZ+•ù/ù‡ˆ“ıyş.ıûúüTü{èaşz±Ù¯¤í<ï¬öÓşvöŒ~ë	Ô£ôgıì÷¤şPæüÙş%øw÷ôM¸Æ1ö•
+ ·^êš#”ümó2ô†>ú†úOøÃï#õcôQ
+#Äù–ş<M³óco÷ı|õK÷Çºõ¼ÂóÆüVü
+îşyü„Ü ªêzûyôÊúAşÿ ZÿüşËiıß Iş_ô½Êîù›öÿ¨ş6òjâA?ò¯ôïé	îû”õfäœúñRöšû
+ü‰ö%÷ªúYŠöI;zùgıáùòÎıõøØûNéN”¦ücù®÷CşNşï tğQ ­ûÿg	ÏÜû…ó«– øF_Ÿ÷õÇ³ÿı}ê)ıƒôÍô–2ÿA â p	âúˆ>  |üm"ÉöwÇNı-k;	k…şõÏùëş†í7òJ ]ğ–—¥ÿRÿØ;ı÷áŒûvòqóH	–şïüêı•Î@÷çßÿ[BòTõR<øìïïÙ²ôåüRíÍ…ÿçöYÿ>şhñc@
+ÿfı)ûgç[ò”ı«÷'ñU÷YôRù„Üş`óÚõ¶ô©ïòSöëÂûéëù‰ø…ğÛ{‘ûH÷«øI’ù;öĞ ö{Èò´ôZüØï3 ó¯öo6÷ªú4öÆ÷õ…ÿ{û4H _Œ
+šøáìÁÿ
+öGêÒööó÷İıÃùfxşšísÿ«÷ƒ ½³bú¦ñøøÒøÌüŠ„öéÓıñmä÷ZÿƒòÆúŒÿdóŸòØ÷zèÔóCö¢ï2õIÊôDøÜóÃü÷ù=üşzúeóãÿ!âşı$ğYìã}öCì‹øÇï¸íSúÁó}ğßó¦òÅIö‘÷¦÷/ç6ùŞ÷ ğğ¼ôÉ `ıóøòJ³ı8ëaí=ğçñ\óŞôCôÅınğJ÷ÍêBCôBú‘ïş™õ„ú2æíÇ
+bóÃõÆõ¼ên¨ñŸöíö¾övşò¾ğlúúËùˆïZıŒîRğ‚ïæîeğ6õ?ù	ëı»ùÍíödóçğ­è+øIõèü8ıßõdóïìsíö¶÷,òíóµòñêg÷ñÌîÈû ô_ÿöùDú@ñ½şòÿ û ÒêUø÷hôtöÒ÷cú"ê”üe¸ñø÷ûêöcøMòjö{û›ó`ñî@ø$ğìÔò5ı©÷eï,ëÌø~ó­ÿÿ÷9ñğóHï…ğ|íÄêFñÔäåû>ş)èŸüsö/í¢ô÷ùö!şôó¦üğ¬î'øû;ï*ñæï5õÜùàş/ï&ÿ ìmğí‰ç$ü‰ïµ S óî¾õnòl³ú¤÷•õ`õÒìóï}ù†ø¿ò~ìßÖóÉïÀ =ö„î¹ğ,ïËó…ó™òz—ğPù†ú. 7ø¶ü€ú~îqü¼ïéõôé°üŸø*ìËöhÿ¼ù8ùÕø€ú@ø	óoöòkézê¼ôˆîçí‚üô¿ë÷ïüó¹ü|ô‚ø¾ìğÕò`ùæ÷<ò
