@@ -1,6 +1,6 @@
 Nuvu Computer		- 539 140 553	iseeuv123		good
 Solidworks Lab Computer	- 488 597 024	???
-Affy Laptop		- 191 579 336	Hamdenlab (080888)	good
+Affy Laptop		- 191 579 336	Hamdenlab@123 (080888)	good
 Superlotis Computer	- 1 741 108 658	Hamdenlab		good
 Cleanroom Windows	- 922 175 862	iseeuv123		good
 Cleanroom Linux		- 859 083 690	iseeuv123
