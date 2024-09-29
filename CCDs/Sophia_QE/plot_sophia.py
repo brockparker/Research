@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from astropy.io import fits
 from matplotlib.colors import LogNorm
+import matplotlib.patches as mpatches
+import matplotlib.lines as mlines
 
 plt.rc('axes', labelsize=14)
 plt.rc('figure', titlesize=30)
@@ -31,8 +33,10 @@ wls = [245, 290, 295, 300, 300, 300]
 
 in_folder = [['QE'], ['QE'], ['QE', 'warm'], ['QE', 'First'], ['QE'], ['Test']]
 
-vmins =  [[0],     [1250], [1500,  125], [20000,  6500], [15000], [100]]
-vmaxes = [[-1000], [2000], [2000, 180],  [25000, 8000],  [17500], [150]]
+vmins =  [[0], [-100], [0,   -50],  [-500,  6500], [-1000],  [-300]]
+vmaxes = [[8000],     [2000], [2250, 200], [27500, 8000], [15000], [150]]
+
+temps = [['-85'], ['-85'], ['-85', '15'], ['20', '10'], ['-85'], ['5']]
 
 for i, date in enumerate(dates):
     wl = wls[i]
@@ -47,7 +51,13 @@ for i, date in enumerate(dates):
         dark = fits.getdata(dark_file)[0].astype('float32')
         bias = fits.getdata(bias_file)[0].astype('float32')
         
+        if date == '20240718':
+            science = dark
+            dark = 0
+        
         reduced = (science - bias) - (dark - bias)
+        
+        temp = temps[i][j]
                 
         fig, ax = plt.subplots(layout='tight', figsize=(5,6))
 
@@ -55,11 +65,16 @@ for i, date in enumerate(dates):
         
         ax.set_xlabel('Pixel')
         ax.set_ylabel('Pixel')
-        ax.set_title('{} {}: {} nm'.format(date,folder,wl))
+        ax.set_title('{}: {} nm'.format(date,wl))
         ax.tick_params(axis='both', direction='in', which='both')
         plt.colorbar(image, label='Counts', ax=ax, fraction=0.046, pad=0.04)
-        fig.tight_layout(pad=1)
-        plt.savefig(save_dir + r'test.png',dpi = 500)
-        plt.show()
         
+        patches = [mlines.Line2D([0], [0], marker='.', markersize=0, label=temp + '$^{{\circ}}$ C', ls='')]
+        plt.legend(handles=patches, loc='upper left', handletextpad=-2)                
+        fig.tight_layout(pad=1)
+        plt.savefig(save_dir + r'\Science_{}_{:.0f}_{}.png'.format(date, wl, temp),dpi = 500)
+        plt.show()
+                        
         #also gaussian blur the bad images to see if they look like the good images
+        
+#add gaussian blur
