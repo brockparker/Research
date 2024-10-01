@@ -8,11 +8,12 @@ Created on Mon Aug  5 10:49:46 2024
 
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 from astropy.io import fits
 from matplotlib.colors import LogNorm
 import matplotlib.patches as mpatches
 import matplotlib.lines as mlines
+from astropy.convolution import Gaussian2DKernel
+from astropy.convolution import convolve_fft
 
 plt.rc('axes', labelsize=14)
 plt.rc('figure', titlesize=30)
@@ -21,8 +22,8 @@ plt.rc('ytick', labelsize=12)
 plt.rc('legend', fontsize=12)
 # BP Stylization parameters.
 
-base_dir = r'/home/brockparker/Documents/GitHub/Research/CCDs/Sophia_QE/Data'
-save_dir = r'/home/brockparker/Documents/GitHub/Research/CCDs/Sophia_QE/Photos'
+base_dir = r'/home/baparker/GitHub/Research/CCDs/Sophia_QE/Data'
+save_dir = r'/home/baparker/GitHub/Research/CCDs/Sophia_QE/Photos'
 #base_dir = r'C:\Users\Brock\Documents\Git\Research\CCDs\Sophia_QE\Data'
 #save_dir = r'C:\Users\Brock\Documents\Git\Research\CCDs\Sophia_QE\Photos'
 
@@ -75,7 +76,32 @@ for i, date in enumerate(dates):
         fig.tight_layout()
         plt.savefig(save_dir + r'/Science_{}_{:.0f}_{}.png'.format(date, wl, temp),dpi = 500)
         plt.show()
-                        
-        #also gaussian blur the bad images to see if they look like the good images
         
-#add gaussian blur
+        if date=='20240722':
+            blur = 100 # pixels
+            psf = Gaussian2DKernel(blur)
+
+            convolved_image = convolve_fft(reduced, psf, boundary='fill')
+            
+            fig, ax = plt.subplots(layout='tight', figsize=(5,4))
+
+            image = ax.imshow(convolved_image, vmin=vmins[i][j], vmax=vmaxes[i][j]*0.85, cmap='inferno')#norm=LogNorm(vmin=vmins[i][j], vmax=vmaxes[i][j] ))
+            
+            ax.set_xlabel('Pixel')
+            ax.set_ylabel('Pixel')
+            ax.set_title('Blurred {}: {} nm'.format(date,wl))
+            ax.tick_params(axis='both', direction='in', which='both')
+            plt.colorbar(image, label='Counts', ax=ax, fraction=0.046, pad=0.04)
+            
+            patches = [mlines.Line2D([0], [0], marker='.', markersize=0, label=temp + '$^{{\circ}}$ C', ls='')]
+            plt.legend(handles=patches, loc='upper left', handletextpad=-2)                
+            fig.tight_layout()
+            plt.savefig(save_dir + r'/Science_Blurred_{}_{:.0f}_{}.png'.format(date, wl, temp),dpi = 500)
+            plt.show()
+                        
+
+
+
+
+
+
