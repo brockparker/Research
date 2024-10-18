@@ -1,0 +1,40 @@
+
+SFIT: NOAO/IRAF V2.16.1 brock@tel.uwyo.edu Fri 14:27:39 14-Jul-2023
+
+Line 1 of pk27.fits:
+
+      coeff           value
+	1	 -7.5414E-15
+	2	  5.0798E-16
+	3	 -1.1993E-17
+	4	  1.2878E-19
+	5	 -5.6548E-22
+	6	 -9.8057E-25
+	7	  2.4041E-26
+	8	 -1.3114E-28
+	9	  4.0244E-31
+	10	 -7.9370E-34
+	11	  1.0445E-36
+	12	 -9.1501E-40
+	13	  5.1288E-43
+	14	    0.0000E0
+	15	    0.0000E0
+
+
+END: NOAO/IRAF V2.16.1 brock@tel.uwyo.edu Fri 14:41:44 14-Jul-2023
+
+
+SFIT: NOAO/IRAF V2.16.1 brock@tel.uwyo.edu Mon 09:56:41 17-Jul-2023
+
+Line 1 of pk27.fits:
+
+      coeff           value
+	1	  4.8989E-14
+	2	  3.5518E-17
+	3	 -5.5383E-19
+	4	  8.3366E-22
+	5	 -3.5785E-25
+
+
+END: NOAO/IRAF V2.16.1 brock@tel.uwyo.edu Mon 10:42:12 17-Jul-2023
+
