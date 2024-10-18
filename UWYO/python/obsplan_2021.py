@@ -8,7 +8,7 @@ from astropy.utils import iers
 from astropy.visualization import astropy_mpl_style, quantity_support
 from astropy.coordinates import SkyCoord, EarthLocation, AltAz, get_moon, get_sun, Angle, ICRS
 from astroplan import Observer
-iers.conf.auto_download = False
+iers.conf.auto_download = True
 plt.style.use(astropy_mpl_style)
 quantity_support()
 
@@ -35,7 +35,7 @@ epoch = 2459363.82778 #58765.6206 + 2400000.5   #t0 ref point for event such as 
 period = 2.204737   # period of orbit in days
 duration = 4.0398  #transit duration in hr
 file_loc = '/d/www/brock/public_html/HatP7b/'
-end_date =  2459420.50000 # look for transite between now and this end_date
+end_date =  2460610.50000 # look for transite between now and this end_date
 
 ####################################################################################
 
@@ -50,7 +50,7 @@ for i in range(0, 1600):
 
     next = epoch + i*period
 
-    time = Time(next, format = 'jd')
+    time = Time(float(next), format = 'jd')
 
     # Determine if Calculated Transit is After Today and Before End Date (Will give transits up to 10 days prior)
 
@@ -58,12 +58,12 @@ for i in range(0, 1600):
         
         # Find Nearest Midnight from Given Transit Time
 
-        midnight = Time(np.floor(next) + 0.5, format = 'jd')
+        midnight = Time(float(np.floor(next) + 0.5), format = 'jd')
 
         # Convert transit time to formated time
 
-        transit = Time(next, format = 'jd', out_subfmt='longdate')
-        transit_name = Time(next, format = 'jd', out_subfmt='longdate')
+        transit = Time(float(next), format = 'jd')#, out_subfmt='longdate')
+        transit_name = Time(float(next), format = 'jd')#, out_subfmt='longdate')
 
         # Change formatting of times
 
