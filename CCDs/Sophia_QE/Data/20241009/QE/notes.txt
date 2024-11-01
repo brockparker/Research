@@ -1,0 +1,4 @@
+qe from 590nm to 615nm, good
+pumped down
+cooled to -85
+lamp on
