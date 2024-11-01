@@ -1,0 +1,4 @@
+qe from 225nm to 380nm
+cooled to -85
+pumped down
+lamp on
