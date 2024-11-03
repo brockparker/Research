@@ -217,7 +217,7 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
         
         hdul = fits.open(file)
         hdr = hdul[0].header
-        data = hdul[0].data
+        data = hdul[0].data[0]
         
         data = data - master_bias
         
@@ -236,7 +236,7 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
         
         hdul = fits.open(file)
         hdr = hdul[0].header
-        data = hdul[0].data
+        data = hdul[0].data[0]
         
         data = data - master_bias
         
@@ -251,9 +251,9 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
     for file in dark_bias_subtracted_list:       
         hdul = fits.open(file)
         hdr = hdul[0].header
-        data = hdul[0].data
+        data = hdul[0].data[0]
         
-        exp_time = hdr['EXPTIME']
+        exp_time = float(hdr['EXPTIME'])
         
         try:
             scaled_data = data / exp_time
@@ -279,7 +279,7 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
         
         hdul = fits.open(file)
         hdr = hdul[0].header
-        data = hdul[0].data
+        data = hdul[0].data[0]
         
         data = data - master_dark
         
