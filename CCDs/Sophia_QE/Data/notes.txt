@@ -20,7 +20,7 @@
 20240703
 	BAD
 	Exposure times too long
-	Lamp on
+	D2 Lamp on
 	Fully pumped down
 	Cooled to -85
 	
@@ -34,7 +34,7 @@
 	200 - 245 nm
 	Fully pumped down
 	Cooled to -85
-	Lamp on
+	D2 Lamp on
 	Darks - None
 	
 20240719
@@ -42,7 +42,7 @@
 	250 - 290 nm
 	Fully pumped down
 	Cooled to -85
-	Lamp on
+	D2 Lamp on
 	Darks - -85, -75, -65, -55, -45
 	
 20240722
@@ -50,7 +50,7 @@
 	295 - 305 nm
 	May be water on detector
 	Fully pumped down
-	Lamp on
+	D2 Lamp on
 	Cooled to -85
 	Some warm data
 	Darks - None
@@ -70,6 +70,7 @@
 	Fully pumped down
 	Cooled to -85
 	Darks - -35
+	D2 Lamp on
 	
 20240727
 	GOOD
@@ -95,6 +96,49 @@
 	BAD
 	Test images
 	Cooled to 5
-	Lamp on
+	D2 Lamp on
 	Darks - None
+
+20240927
+	GOOD
+	500-595 nm
+	Cooled to -85
+	D2 Lamp on
+	Pumped down
 	
+20241009
+	GOOD
+	590-615 nm
+	Cooled to -85
+	D2 Lamp on
+	Pumped down
+	
+20241010
+	GOOD 
+	615-705 nm
+	200-225 nm
+	Cooled to -85
+	D2 Lamp on
+	Pumped down
+	
+20241011
+	GOOD
+	230-380 nm
+	Cooled to -85
+	D2 Lamp on
+	Pumped down
+	
+20241024
+	GOOD
+	380-500 nm
+	Cooled to -85
+	D2 Lamp on
+	Pumped down
+	
+20241102
+	GOOD?
+	PTC Data
+	0.01s - 45s
+	Cooled to -85
+	D2 Lamp on
+	Pumped down
