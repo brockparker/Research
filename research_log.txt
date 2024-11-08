@@ -1,2 +1,88 @@
-20241104
-	Updating 
+Monday - 2024/11/04
+	Downloading rest of PTC and QE Sophia data
+	Organizing and making notes for all data
+	Meeting with Shashank
+		EMCCD basics
+		NUVU operation
+		Dark data reduction - same as for Sophia
+	Taking EMCCD darks
+		-115K, VSS 1
+		Machine room light still on :(
+	Sending out poll for lab tour
+		Alex and co available Thursday
+		
+Tuesday - 2024/11/05
+	VOTING!!!
+	Updating Sophia plots
+		Water damage
+			Blurring sort of recreates the pre-damage images, although edge effects make it hard to compare
+		Wavelength montage
+			Creating movie of wavelengths to see how signal changes
+			Signal changes likely due to both monochromator changes and fringing due to detector size
+			Some data corrupted - seems to only be a side effect of downloading the data
+			
+Wednesday - 2024/11/06
+	Sophia wavelength montage
+		Very overexposed at short wavelengths - monochromator seems much less even at short wavelengths, diffuser would likely not be enough
+		Also uneven and overexposed around 385 nm
+		Final movie all have same limits, may want to recreate with limits based on the region of interest we optimized the exposure time for
+	Sophia QE
+		Finishing compiling all photodiode data into one dataframe/csv
+		Need to add the photodiode error into dataframe
+		Of note - photodiode response is not true, but rather a sample response curve from manufacturer, NOT NIST
+	Compiling Caltech Optical Observatories software for Steve
+		Apparently can't get it to work on Centos7
+		Need cmake - Run sudo apt-get install cmake (already have)
+		Need gcc - Run sudo apt-get install gcc (already have)
+		Need cfitsio - Download the latest version https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz
+			     - Untar
+			     - Inside the cfitsio-?.?.?/ folder, run ./configure --prefix=/usr/local
+			     - Run sudo make
+			     - Run sudo make install
+		Need ccfits - Download the latest version https://heasarc.gsfc.nasa.gov/fitsio/ccfits/CCfits-2.6.tar.gz
+			    - Untar
+			    - Inside the CCfits-?.? folder, run ./configure --with-cfitsio=/usr/local/cfitsio --prefix=/usr/local/CCfits 
+			    - Run sudo make
+			    - Run sudo make install
+		Need gtest - Run sudo apt-get install libgtest-dev
+		
+Thursday - 2024/11/07
+	Alex and Co. Visit
+		Lab tour - very interested in using our setup to characterize a few different CCD QEs in as far UV as we can go (down to 100nm according to Affy)
+		They are currently debating two electron production at high photon energies, beginning to see a bump ~300nm from two electron production
+			Want us to see if we see the same for any of our detectors, and maybe characterize some of theirs once they get them UV optimized at JPL
+		Why don't we just use the integrating sphere, apparently it is broken but I am sure we can buy a new one
+		Their QE currently does not include any inherent errors in the photodiode calibration
+		Discussed how we plan to mount the Skipper to the cold finger
+			They have had minor issues with their direct contact, but it may be easier to just clamp it on from the back without any springs or washers and use indium to create the thermal connection - could also copy aafaque and have pressure put on by opposite thermal expansions
+		Very interested in mounting onto monochromator and the `plug and play' ability 
+			Commercial monochromator from McPherson
+			What do we do about stray light? - The slits and collimator help, but we need to add baffles before the slits and before the detector near the diffuser to help reduce stray light, Affy did stray light analysis and it shouldn't be too big of a deal
+		May have some concern about dark current
+			Bulk dark current shouldn't have much of an effect, surface will be a bigger deal
+			Even bigger issue will probably be thermal dark from any IR sources - skippers are much much (>10x ~600 microns) thicker than EMCCDs
+	Need to confirm with Affy how the light actually reaches the detector, is it not covered by the cold shroud, or does this help to properly disperse the light
+	Finishing setting up COO Camera interface
+		- Download latest version https://github.com/CaltechOpticalObservatories/camera-interface.git
+		- Unzip
+		- Inside the camera-interface-main/build folder, remove all files, rm -rf * (don't remove the .gitignore file)	
+		- Run cmake .. (has to be cmake, not make)
+		- Run make
+	To test the Camera interface, inside of the camera-interface-main/build folder,
+		- Run the camera server, ../bin/camerad ../Config/demo/demo.cfg --foreground OR ../bin/camerad -d ../Config/demo/demo.cfg
+		- Run the archon emulator, ../bin/emulator ../Config/demo/demo.cfg
+			Getting error "no instrument specified with -i <instrument>"
+			Can specify -i generic, seems to make it work
+		- Run the unit tests, ../bin/run_unit_tests
+			This file just doesn't exist??
+		- To connect to the running camera interface, inside of camera-interface-main/bin run telnet localhost 3031
+			From here, can run load, expose, open, etc.
+			Everything seems to work, difficult to test without Archon connected, will revisit next week with Steve
+	TODO - Install Ubuntu and COO Camera-interface on my laptop to test with Archon
+	Sophia Data Reduction Anshul
+		Making a few example plots to compare with Anshul's data reduction script
+		Comparing master bias and darks vs individual, plotting each reduced image, etc.
+		Have to be careful when saving and opening data - data from sophia is in (1, 2048, 2048) array for some reason, but we save it as (2048, 2048), make sure data[0] is appropriate
+		
+Friday 11/08/2024
+	Steward Internal Symposium!
