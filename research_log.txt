@@ -84,5 +84,32 @@ Thursday - 2024/11/07
 		Comparing master bias and darks vs individual, plotting each reduced image, etc.
 		Have to be careful when saving and opening data - data from sophia is in (1, 2048, 2048) array for some reason, but we save it as (2048, 2048), make sure data[0] is appropriate
 		
-Friday 11/08/2024
+Friday - 11/08/2024
 	Steward Internal Symposium!
+	Having lots of issues transferring data from steward desktop onto GitHub/my laptop
+		Maximum push size is ~500MB, will have to do only 1 day of data at a time moving forward
+		Other notes, pushing and committing from the CLI requires a personal access token
+			I generated a fine grained token that never expires with full access to all repos
+			Will need a different PAT in order to access the Hamden Lab (group) repos
+	Back to working on Sophia QE
+		WTF was I doing with the photodiode dataframe
+		Adding function to correct the photodiode counts at the side port to counts at the main port - Don't have this file, just assuming its unit for now to retain functional form
+		TODO - Is the error on the photodiode current just the std of the total counts minus the std of the dark, or is it just the std of the total current?
+		Verified photon flux error using the std of the current is the same as the error adding or subtracting the upper or lower photon rate (from the standard deviation) from the average - as expected, just wanted a sanity check
+		Adding documentation to all photodiode reduction parts
+	Meeting with Anshul
+		Going through some of the basics of image reduction - bias, darks, flats, etc.
+		Quick conversation with Jacob about how the QE will not be exact - only manufacturer calibration, different distances, poor illumination
+		Made up an example PTC for Sophia
+			Very weird, instead of levelling off at low signals it plummets
+			TODO - Perhaps it needs to be reduced data
+
+
+
+
+
+
+
+
+
+

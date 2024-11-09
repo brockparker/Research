@@ -35,13 +35,19 @@ plt.rc('xtick.minor', size=4)    # size of the tick markers
 plt.rc('ytick.minor', size=4)    # size of the tick markers
 # BP Plot stylization parameters.
 
-path_base = '/home/baparker/GitHub/'
+###path_base = '/home/baparker/GitHub/'
+path_base = r'C:\Users\Brock\Documents\Git'
 
-data_path = path_base + 'Research/CCDs/Sophia/Data/20240607/'
+###data_path = path_base + 'Research/CCDs/Sophia/Data/20240607/'
+data_path = path_base + r'\Research\CCDs\Sophia\Data\20240607\\'
 # BP Directory storing raw data, both fits files from sophia (dark, bias, and science) and photodiode csvs (dark and science).
-photodiode_response_file = path_base + 'Research/CCDs/Sophia/QE/photodiode_response_new.csv'
+###photodiode_response_file = path_base + 'Research/CCDs/Sophia/QE/photodiode_response_new.csv'
+photodiode_response_file = r'C:\Users\Brock\Documents\Git\Research\CCDs\Sophia\QE\photodiode_response_new.csv'
 # BP File location of the csv file containing the current to power conversion for the calibrated photodiode.
 # BP This will vary for different photodiodes.
+#port_relation_file = N/A
+# BP File location of the relation between main port and side port on the monochromator.
+# BP This should be standard for the monochromator setup, although may change will distance of detector from the port.
 compiled_file_path = data_path + 'compiled_data.csv'
 # BP File location of the master database of all compiled photodiode and fits file region data. All plots and analysis can be done from this file.
 
@@ -85,9 +91,7 @@ def get_photodiode_response(photodiode_response_file):
 
     Parameters
     ----------
-    wavelength : astropy.Quantity
-        Array-like astropy quantity of input wavelength. Must be in units convertible to meters.
-    photodiode_response : string
+    photodiode_response_file : string
         File location of the file containing the photodiode response function.
 
     Returns
@@ -111,6 +115,47 @@ def get_photodiode_response(photodiode_response_file):
     
     return response_interpolated
 
+def get_port_relation(port_relation_file = None):
+    """
+    Function to get the correction factor between the main port and side port of the monochromator, used to correct the photodiode counts at the side port.
+    The interpolation is only done once and recalled if available.
+
+    Parameters
+    ----------
+    port_relation_file : string
+        File location of the file containing the port relation file.
+
+    Returns
+    -------
+    response_interpolated : scicpy.interpolate._fitpack2.LSQUnivariateSpline
+        Interpolated photodiode response function. Input wavelength to get out the corresponding port relation.
+
+    """
+    if port_relation_file:        
+        ##############################################################
+        # TODO: Will need to update when the actual data is recovered.
+        ##############################################################
+        
+        relation = pd.read_csv(port_relation_file)
+        # BP Read in CSV containing side port to main port relation.
+        
+        x = np.array(relation['wavelength'])
+        # BP Get wavelength array, assuming it is in meters.
+        
+        y = np.array(relation['relation'])
+        # BP Get photodiode conversion factor. Should be a value between 0 and 1.
+        
+        relation_interpolated = log_interp1d(x, y, kind='quadratic')
+        # BP Interpolate the loaded x and y values. Done in logarithmic space and then converted back into linear space.
+        
+        return relation_interpolated
+    
+    else:
+        relation_interpolated = lambda x: 1
+        # BP Simply return a factor of unity, i.e. no correction, if no file is specified.
+        
+        return relation_interpolated
+
 @u.quantity_input(wavelength=u.m, current=u.A)
 def current_to_photon_rate(wavelength, current):
     """
@@ -131,12 +176,19 @@ def current_to_photon_rate(wavelength, current):
     
     current = np.abs(current)
     # BP Get the unsigned photodiode current.
-    
+
     response = get_photodiode_response(photodiode_response_file)
     conversion = response(wavelength.to(u.m).value) * u.A / u.W
     # BP Calculate the photodiode conversion factor at each wavelength.
+        
+    relation = get_port_relation()
+    port_conversion = relation(wavelength.to(u.m).value)
+    # BP Calculate port relation correction factor at each wavelength.
+        
+    corrected_current = current / port_conversion
+    # BP Convert into main port flux from side port flux.
     
-    photodiode_power = current / conversion
+    photodiode_power = corrected_current / conversion
     # BP Convert photodiode current into power.
 
     photon_energy = c.h * c.c / wavelength    
@@ -147,23 +199,45 @@ def current_to_photon_rate(wavelength, current):
 
     return photon_rate.to(u.photon / u.s)
 
-def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_string_pattern = 0):
+def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_string_pattern = None):
+    '''
+
+    Parameters
+    ----------
+    data_path : string
+        File path to the folder containing all photodiode data.
+    compiled_data_path : string
+        File path to location where compiled data frame csv is stored. Typically inside of data path.
+    string_pattern : string
+        Unix wildcard style string to search for photodiode csv files.
+        Standard is 'picoa_???.csv'
+    dark_string_pattern : string, optional
+        Unix wildcard style string to search for photodiode csv files.
+        Standard is 'picoa_0.csv'
+        
+    Returns
+    -------
+    final_data : pd.dataFrame
+        Pandas data frame containting the final compiled data from the photodiode and camera regions. This is updated every step of the reduction.
+
+    '''
     
-    df = pd.DataFrame(data=None, columns=['wavelength', 'ch1_mean', 'photon_rate', 'sophia_region'], dtype='float64')
+    df = pd.DataFrame(data=None, columns=['wavelength', 'ch1_mean', 'ch1_std', 'photon_rate', 'photon_rate_std', 'sophia_region'], dtype='float64')
     # BP Create blank dataframe to store data.
     
     photodiode_in_list = glob.glob(data_path + string_pattern)
     # BP Find all picoameter csv files.
     
-    if dark_string_pattern != 0:
+    if dark_string_pattern:
         dark_in_list = glob.glob(data_path + dark_string_pattern)
         dark_data = pd.read_csv(dark_in_list)
         
         photodiode_dark = np.mean(dark_data['Ch1'])
-        # BP If a photodiode dark is provided, record its mean.
+        photodiode_dark_std = np.std(dark_data['Ch1'])
+        # BP If a photodiode dark is provided, record its mean and std.
         
     else:
-        photodiode_dark = 0
+        photodiode_dark, photodiode_dark_std = 0, 0
         # BP Otherwise, set the dark rate to 0 since it should be negligible.
     
     for idx, file in enumerate(photodiode_in_list):
@@ -177,19 +251,20 @@ def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_s
         
         wavelength = int(file[start:end])
         # BP Extract wavelength in nanometers from photodiode file name.
-        
-        ch1 = data['Ch1']
-        ch1_mean = np.mean(ch1) - photodiode_dark
+                
+        ch1_mean = np.mean(data['Ch1'])
+        ch1_true = ch1_mean - photodiode_dark
+        ch1_std = np.std(data['Ch1']) - photodiode_dark_std
+        # TODO: Is this correct
         # BP Photodiode data is the mean of the first channel, which is the only one plugged in. Subtract from it the dark/bias level which should be a separate file.
         
-        compiled_data = np.array([wavelength, ch1_mean])
-        compiled_data = np.sort(compiled_data)
-        # BP Compile data into array and sort by wavelength.
-        
-        df.loc[idx, ['wavelength', 'ch1_mean']] = np.array([wavelength, ch1_mean])
+        compiled_data = np.array([wavelength, ch1_true, ch1_std])
+        # BP Compile data into array.
+                
+        df.loc[idx, ['wavelength', 'ch1_mean', 'ch1_std']] = compiled_data
         # BP Update dataframe with wavelength and picoammeter data.
-
-    final_data = update_master_database(compiled_file_path, df)
+        
+    final_data = update_master_database(df, ['wavelength', 'ch1_mean', 'ch1_std'], compiled_file_path)
     # BP Update master dataframe rows of all input wavelengths.
     
     return final_data
@@ -336,52 +411,64 @@ def reduce_camera_images_individual(data_path, bias_string_pattern, dark_string_
         hdu = fits.PrimaryHDU(data = science_out, header = hdr_s)
         hdu.writeto(science_outfile, overwrite = True)
     
-def update_master_database(compiled_file_path, df):
+def update_master_database(data, columns, compiled_file_path):
+    '''
+
+    Parameters
+    ----------
+    data : np.array OR pd.dataFrame
+        Array-like set of input data to append to the existing compiled data frame.
+    columns : list
+        List of strings containing columns to append new data to, e.g. ['wavelength', 'photon_rate']
+    compiled_file_path : string
+        DESCRIPTION.
+
+    Returns
+    -------
+    master_df : TYPE
+        DESCRIPTION.
+
+    '''
+    
+    
     # Helper function to update a specific row in the master compiled data csv.
     print('Updating compiled data.')
-# =============================================================================
-#     if os.path.isfile(compiled_file_path):
-#         final_data = pd.read_csv(compiled_file_path)
-#         
-#         return final_data
-#             
-#     else:
-# =============================================================================
-    df = df.sort_values('wavelength', ignore_index = True)
-    df.to_csv(compiled_file_path, index = False)
     
-    return df
+    new_df = pd.DataFrame(data = data, columns = columns, dtype='float64')
+    # BP Calculate corresponding photon flux and save it into new data frame to add onto total compiled data frame.
+
+    master_df = pd.read_csv(compiled_file_path)
+
+    master_df.update(new_df)
+    # BP Update the compiled data frame with new photon rates.
+    
+    master_df = master_df.sort_values('wavelength', ignore_index = True)
+    master_df.to_csv(compiled_file_path, index = False)
+    
+    return master_df
 
 def main():   
     print('Reducing FITS files.')
-    #sophia_file_list = reduce_camera_images_individual(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
+    sophia_file_list = reduce_camera_images_individual(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
     ### Reduce raw sophia files. Subtract biases, subtract (and scale if necessary) darks.
     
     print('Compiling photodiode data.')
     ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean of each raw file.
-    global photodiode_photon_rate, wavelengths, compiled_data_frame, photon_rate_df, data
     compiled_data_frame = compile_photodiode_csv(data_path, compiled_file_path, 'picoa_???.csv')
 
     print('Converting photodiode response into photon counts.')
     ### Convert master photodiode csv of currents into total photon counts. Read in conversion and do calculations.
     wavelengths = np.array(compiled_data_frame['wavelength']) * u.nm
     photodiode_current = np.array(compiled_data_frame['ch1_mean']) * u.A
+    photodiode_current_std = np.array(compiled_data_frame['ch1_std']) * u.A
     # BP Extract wavelengths and currents from compiled photodiode csv.
+        
+    photon_rate = current_to_photon_rate(wavelengths, photodiode_current)    
+    photon_rate_std = current_to_photon_rate(wavelengths, photodiode_current_std)
+    # BP Calculate photon_rate from photodiode currents.
     
-    data = [wavelengths, photodiode_photon_rate]
-    
-    stop
-    
-    photodiode_photon_rate = current_to_photon_rate(wavelengths, photodiode_current)
-    photon_rate_df = pd.DataFrame(data = data, columns = ['wavelength', 'photon_rate'], dtype='float64')
-    # BP Calculate corresponding photon flux and save it into new data frame to add onto total compiled data frame.
-
-    compiled_data_frame.update(photon_rate_df)
-    # BP Update the compiled data frame with new photon rates.
-    
-    update_master_database(compiled_file_path, compiled_data_frame)
+    compiled_data_frame = update_master_database(np.transpose([wavelengths, photon_rate, photon_rate_std]), ['wavelength', 'photon_rate', 'photon_rate_std'], compiled_file_path)
     # BP Update the master compiled data csv with photon rates.
-    #compiled_data_frame.loc[wavelengths.value == compiled_data_frame['wavelength'], ['photon_rate']] = np.array([photodiode_photon_rate])
     
     print('Reading in sophia regions.')
     ### Add mean counts of different regions in sophia data into new file with wavelengths and photodiode values.
