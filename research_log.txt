@@ -103,7 +103,34 @@ Friday - 11/08/2024
 		Made up an example PTC for Sophia
 			Very weird, instead of levelling off at low signals it plummets
 			TODO - Perhaps it needs to be reduced data
-
+			
+Tuesday - 11/12/2024
+	Reading Janesick PTC Section
+		Sounds like we may need to plot differenced images
+		Also should be using one fixed region across all frames
+		May need to include some dark frames for the smallest signals, seems we didnt go low enough with out exposure times
+	Sophia PTC
+		Going to retry with the reduced PTC data
+		Running into issues again with buffer size - redownloading data seems to have fixed the issue
+		Apparently broke my reduction script in the process :(
+	EMCCD Darks
+		Starting new set of darks for Affy
+			-115 C, VSS 1, taped up a couple more light leaks
+		LIGHT IS FINALLY OFF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		Next set in the morning
+			-100 C, VSS 1
+		Everything seemed to go smoothly
+			Temperature control laptop had a forced windows update, but the cryocooler is still at the same temperature
+		TODO - Run warm up darks tomorrow, base them off of file "run regular darks"
+		
+Wednesday - 11/13/2024
+	Sophia PTC
+		Found issue with image reduction for 20240607 - all darks are bad, they are all just biases
+			Adding additional case to catch divide by zero in the dark exposure time when averaging darks - shouldn't be an issue for individual file reduction
+		Adding in the darks (that are actual darks) gives the low signal needed to see the read noise floor
+			I'm not sure if we can go shorter in exposure time - need to ask if Affy uses darks or if the EMCCD just has lower counts
+			Will have Anshul fit actual data once Affy confirms
+			By eye, looks like a RN of ~5.5 e-, gain is close to 1 - consistent with ~100kHz-1MHz speed and 1 gain mode
 
 
 

@@ -1,9 +1,9 @@
-Nuvu Computer		- 539 140 553	iseeuv123		good
+Nuvu Computer		- 539 140 553	iseeuv123		
 Solidworks Lab Computer	- 488 597 024	???
-Affy Laptop		- 191 579 336	Hamdenlab@123 (080888)	good
-Superlotis Computer	- 1 741 108 658	Hamdenlab		good
-Cleanroom Windows	- 922 175 862	iseeuv123		good
+Affy Laptop		- 191 579 336	Hamdenlab@123 (080888)	
+Superlotis Computer	- 1 741 108 658	Hamdenlab (lotis@553LAB)	
+Cleanroom Windows	- 922 175 862	iseeuv123		
 Cleanroom Linux		- 859 083 690	iseeuv123
-Steward Desktop		- 449 954 968	SchanemanUW!1009	good
+Steward Desktop		- 449 954 968	SchanemanUW!1009	
 Aldebaran (Laptop)	- 1 965 064 582 SchanemanUW!1009
 Altair (Desktop)	- 1 997 254 040 8955

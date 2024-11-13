@@ -35,14 +35,14 @@ plt.rc('xtick.minor', size=4)    # size of the tick markers
 plt.rc('ytick.minor', size=4)    # size of the tick markers
 # BP Plot stylization parameters.
 
-###path_base = '/home/baparker/GitHub/'
-path_base = r'C:\Users\Brock\Documents\Git'
+path_base = '/home/baparker/GitHub/'
+###path_base = r'C:\Users\Brock\Documents\Git'
 
-###data_path = path_base + 'Research/CCDs/Sophia/Data/20240607/'
-data_path = path_base + r'\Research\CCDs\Sophia\Data\20240607\\'
+data_path = path_base + 'Research/CCDs/Sophia/Data/20240607/'
+###data_path = path_base + r'\Research\CCDs\Sophia\Data\20240607\\'
 # BP Directory storing raw data, both fits files from sophia (dark, bias, and science) and photodiode csvs (dark and science).
-###photodiode_response_file = path_base + 'Research/CCDs/Sophia/QE/photodiode_response_new.csv'
-photodiode_response_file = r'C:\Users\Brock\Documents\Git\Research\CCDs\Sophia\QE\photodiode_response_new.csv'
+photodiode_response_file = path_base + 'Research/CCDs/Sophia/QE/photodiode_response_new.csv'
+###photodiode_response_file = r'C:\Users\Brock\Documents\Git\Research\CCDs\Sophia\QE\photodiode_response_new.csv'
 # BP File location of the csv file containing the current to power conversion for the calibrated photodiode.
 # BP This will vary for different photodiodes.
 #port_relation_file = N/A
@@ -68,7 +68,6 @@ def log_interp1d(xx, yy, kind='linear'):
     -------
     log_spl : scicpy.interpolate._fitpack2.LSQUnivariateSpline
         Interpolated photodiode response function. Input wavelength to get out the corresponding conversion factor.
-
     """
     logx = np.log10(xx)
     logy = np.log10(yy)
@@ -98,7 +97,6 @@ def get_photodiode_response(photodiode_response_file):
     -------
     response_interpolated : scicpy.interpolate._fitpack2.LSQUnivariateSpline
         Interpolated photodiode response function. Input wavelength to get out the corresponding conversion factor.
-
     """
     
     response = pd.read_csv(photodiode_response_file)
@@ -129,7 +127,6 @@ def get_port_relation(port_relation_file = None):
     -------
     response_interpolated : scicpy.interpolate._fitpack2.LSQUnivariateSpline
         Interpolated photodiode response function. Input wavelength to get out the corresponding port relation.
-
     """
     if port_relation_file:        
         ##############################################################
@@ -200,8 +197,7 @@ def current_to_photon_rate(wavelength, current):
     return photon_rate.to(u.photon / u.s)
 
 def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_string_pattern = None):
-    '''
-
+    """
     Parameters
     ----------
     data_path : string
@@ -219,8 +215,7 @@ def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_s
     -------
     final_data : pd.dataFrame
         Pandas data frame containting the final compiled data from the photodiode and camera regions. This is updated every step of the reduction.
-
-    '''
+    """
     
     df = pd.DataFrame(data=None, columns=['wavelength', 'ch1_mean', 'ch1_std', 'photon_rate', 'photon_rate_std', 'sophia_region'], dtype='float64')
     # BP Create blank dataframe to store data.
@@ -264,7 +259,7 @@ def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_s
         df.loc[idx, ['wavelength', 'ch1_mean', 'ch1_std']] = compiled_data
         # BP Update dataframe with wavelength and picoammeter data.
         
-    final_data = update_master_database(df, ['wavelength', 'ch1_mean', 'ch1_std'], compiled_file_path)
+    final_data = update_master_database(df, list(new_df.columns), compiled_file_path)
     # BP Update master dataframe rows of all input wavelengths.
     
     return final_data
@@ -300,7 +295,7 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
     # BP Subtract master bias from all dark images.
     for file in dark_in_list:
         outfile = file.replace('.fits', '_b.fits')
-        
+                
         hdul = fits.open(file)
         hdr = hdul[0].header
         data = hdul[0].data[0]
@@ -319,7 +314,7 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
     # Subtract master bias from all science images.
     for file in science_in_list:
         outfile = file.replace('.fits', '_b.fits')
-        
+
         hdul = fits.open(file)
         hdr = hdul[0].header
         data = hdul[0].data[0]
@@ -341,14 +336,18 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
         
         exp_time = float(hdr['EXPTIME'])
         
-        try:
-            scaled_data = data / exp_time
-        except:
-            print('Temporary issue with dark measurements')
-            scaled_data = data
-        
-        master_dark += scaled_data
-        
+        with np.errstate(divide='raise'):  
+            try:
+                scaled_data = data / exp_time
+                master_dark += scaled_data
+
+            except FloatingPointError:
+                print('Divide by zero error encountered in exposure time. Double check dark files!')
+                master_dark = np.zeros(np.shape(data))
+            except:
+                print('Temporary issue with dark measurements')
+                master_dark = np.zeros(np.shape(data))
+            
         hdul.close()
         
     master_dark = master_dark / len(dark_bias_subtracted_list)
@@ -362,11 +361,11 @@ def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pat
     # BP Subtract master dark from all science images
     for file in science_bias_subtracted_list:
         outfile = file.replace('_b.fits', '_bd.fits')
-        
+
         hdul = fits.open(file)
         hdr = hdul[0].header
         data = hdul[0].data
-    
+            
         exp_time = float(hdr['EXPTIME'])
         
         data = data - master_dark * exp_time
@@ -410,10 +409,11 @@ def reduce_camera_images_individual(data_path, bias_string_pattern, dark_string_
         
         hdu = fits.PrimaryHDU(data = science_out, header = hdr_s)
         hdu.writeto(science_outfile, overwrite = True)
+        
+        ### TODO: Need to save these files to read in 
     
 def update_master_database(data, columns, compiled_file_path):
-    '''
-
+    """
     Parameters
     ----------
     data : np.array OR pd.dataFrame
@@ -427,34 +427,39 @@ def update_master_database(data, columns, compiled_file_path):
     -------
     master_df : TYPE
         DESCRIPTION.
-
-    '''
-    
+    """
     
     # Helper function to update a specific row in the master compiled data csv.
     print('Updating compiled data.')
     
+    global new_df
+    
     new_df = pd.DataFrame(data = data, columns = columns, dtype='float64')
     # BP Calculate corresponding photon flux and save it into new data frame to add onto total compiled data frame.
 
-    master_df = pd.read_csv(compiled_file_path)
+    if os.path.exists(compiled_file_path):
+        master_df = pd.read_csv(compiled_file_path)
 
-    master_df.update(new_df)
-    # BP Update the compiled data frame with new photon rates.
-    
+        master_df.update(new_df)
+        # BP Update the compiled data frame with new photon rates.
+    else:
+        master_df = new_df
+        # BP Save blank data frame csv.
+
     master_df = master_df.sort_values('wavelength', ignore_index = True)
     master_df.to_csv(compiled_file_path, index = False)
-    
+    ### TODO TOtally borken
     return master_df
 
 def main():   
     print('Reducing FITS files.')
-    sophia_file_list = reduce_camera_images_individual(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
-    ### Reduce raw sophia files. Subtract biases, subtract (and scale if necessary) darks.
+    sophia_file_list = reduce_camera_images_average(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
+    ### Reduce raw sophia files. Subtract biases, subtract (and scale if necessary) darks and return list of reduced science files.
     
     print('Compiling photodiode data.')
-    ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean of each raw file.
+    global compiled_data_frame
     compiled_data_frame = compile_photodiode_csv(data_path, compiled_file_path, 'picoa_???.csv')
+    ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean and std of each raw file.
 
     print('Converting photodiode response into photon counts.')
     ### Convert master photodiode csv of currents into total photon counts. Read in conversion and do calculations.
