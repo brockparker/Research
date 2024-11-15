@@ -156,7 +156,32 @@ Thursday - 11/14/2024
 		Had to updates some filepaths - everything should be installed to /usr/local, NOT /usr/local/cfitsio or /usr/local/CCfits
 		Make sure to update absolute paths in demo config files
 		All working just like on Desktop - some issues with timeouts, maybe just be laptop artifacts
-	Sophia QE
+
+Friday - 11/15/2024
+	Testing Archon with Steve
+		Putting all files (waveforms, config files, acf files, python files, etc) onto skipper github repo in Hamden-Lab organization
+		TODO - Need to get WDL installed and working on laptop
+			Need for .acf file to control the Archon
+			Steve changed clock names in skipper.signals
+				Haven't been changed in skipper.waveform, commented out
+			Some functions changed in skipper.seq
+			Have to verify
+			Need to grab ReadPixel.h from wdlfiles-master
+			Have to add / to beginning of skipper.waveform
+			Verify all paths in Makefile are correct
+				GPP = /usr/bin/gpp
+				GFLAGS = +c "/*" "*/" +c "//" "\n" +c "\\\n" ""
+				WDLPATH = /home/baparker/code/wdl
+				ACFPATH = /home/baparker/code/skipperfiles
+		Couldn't get WDL to run, using dave.acf (renamed to skipper.acf) for testing
+		To run the Archon, need to download all python files and specify proper IP (10.0.0.2) and port (4242)
+			camera_info.py, qccd.py, qccd_hosts.py
+			Aslo need qccd.cfg and skipper.acf - all in /camera-interface-main/Config/skipper
+		Steve is able to connect to the Archon using direct ethernet and the GUI
+		Both of us are unable to connect using the adapter - is it just this adapter or any adapter?
+	Meeting with Anshul
+		
+		
 		
 
 
