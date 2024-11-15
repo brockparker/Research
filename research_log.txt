@@ -41,7 +41,7 @@ Wednesday - 2024/11/06
 			     - Run sudo make install
 		Need ccfits - Download the latest version https://heasarc.gsfc.nasa.gov/fitsio/ccfits/CCfits-2.6.tar.gz
 			    - Untar
-			    - Inside the CCfits-?.? folder, run ./configure --with-cfitsio=/usr/local/cfitsio --prefix=/usr/local/CCfits 
+			    - Inside the CCfits-?.? folder, run ./configure --with-cfitsio=/usr/local --prefix=/usr/local
 			    - Run sudo make
 			    - Run sudo make install
 		Need gtest - Run sudo apt-get install libgtest-dev
@@ -131,12 +131,36 @@ Wednesday - 11/13/2024
 			I'm not sure if we can go shorter in exposure time - need to ask if Affy uses darks or if the EMCCD just has lower counts
 			Will have Anshul fit actual data once Affy confirms
 			By eye, looks like a RN of ~5.5 e-, gain is close to 1 - consistent with ~100kHz-1MHz speed and 1 gain mode
+	Running warm up darks
+		Simply shutting off cryocooler - Final cooling time was around 2 hours
+		Take darks and biases as it warms up
+			Chose 20, 60, 120s - should only warm up ~2K during one cycle
+		Have to get temperatures from temperature recording script via image save time
+			Changed from 120s to 10s fidelity, should be able to pinpoint closely - TODO - check how much the temp changes across 2 minute exposure
+
+Thursday - 11/14/2024
+	Meeting with Steve
+		Testing COO camerad on Ubuntu
+		All seems to work, need to have both serve and emulator open at same time
+			The emulator is the Archon, server controls it, connect to the Archon with telnet (or others)
+			Have to edit demo.cfg and demo.acf to include absolute file paths, fixes error opening file
+			Once connected, run open then load to connect to Archon and load config file
+		Some commands unavailable (all of the commands listed in the emulator section of the documentation
+			Still have to run as generic instrument - possibly why Archon commands are unavailable
+			Can run basic commands - open, load, expose, exptime, etc.
+	Installing COO on laptop
+		Make sure Ubuntu is fully updated!
+		Issues installing cfitsio
+			Need zlib - sudo apt-get install zlib1g-dev
+			Need g++ - sudo apt-get install g++ (not installed by default?)
+		Had to updates some filepaths - everything should be installed to /usr/local, NOT /usr/local/cfitsio or /usr/local/CCfits
+		Make sure to update absolute paths in demo config files
+		All working just like on Desktop - some issues with timeouts
 
 
 
 
-
-
+	
 
 
 
