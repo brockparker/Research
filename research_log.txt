@@ -155,7 +155,9 @@ Thursday - 11/14/2024
 			Need g++ - sudo apt-get install g++ (not installed by default?)
 		Had to updates some filepaths - everything should be installed to /usr/local, NOT /usr/local/cfitsio or /usr/local/CCfits
 		Make sure to update absolute paths in demo config files
-		All working just like on Desktop - some issues with timeouts
+		All working just like on Desktop - some issues with timeouts, maybe just be laptop artifacts
+	Sophia QE
+		
 
 
 

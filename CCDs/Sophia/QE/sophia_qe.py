@@ -18,7 +18,6 @@ import astropy.constants as c
 from astropy.visualization import quantity_support
 import scipy.interpolate
 from astropy.io import fits
-from matplotlib import colormaps
 # BP Necessary imports.
 
 quantity_support()
@@ -258,10 +257,10 @@ def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_s
                 
         df.loc[idx, ['wavelength', 'ch1_mean', 'ch1_std']] = compiled_data
         # BP Update dataframe with wavelength and picoammeter data.
-        
-    final_data = update_master_database(df, list(new_df.columns), compiled_file_path)
+                    
+    final_data = update_master_database(df, list(df.columns), compiled_file_path)
     # BP Update master dataframe rows of all input wavelengths.
-    
+        
     return final_data
 
 def reduce_camera_images_average(data_path, bias_string_pattern, dark_string_pattern, science_string_pattern):
@@ -412,6 +411,14 @@ def reduce_camera_images_individual(data_path, bias_string_pattern, dark_string_
         
         ### TODO: Need to save these files to read in 
     
+def extract_regions():
+    
+    
+    
+    
+    region_mean, region_std
+    return region_counts
+    
 def update_master_database(data, columns, compiled_file_path):
     """
     Parameters
@@ -431,9 +438,7 @@ def update_master_database(data, columns, compiled_file_path):
     
     # Helper function to update a specific row in the master compiled data csv.
     print('Updating compiled data.')
-    
-    global new_df
-    
+        
     new_df = pd.DataFrame(data = data, columns = columns, dtype='float64')
     # BP Calculate corresponding photon flux and save it into new data frame to add onto total compiled data frame.
 
@@ -476,7 +481,11 @@ def main():
     # BP Update the master compiled data csv with photon rates.
     
     print('Reading in sophia regions.')
+    region_mean, region_std = extract_regions()
     ### Add mean counts of different regions in sophia data into new file with wavelengths and photodiode values.
+    
+    compiled_data_frame = update_master_database(np.transpose([region_mean, region_std]), ['sophia_region', 'sophia_region_std'], compiled_file_path)
+    # BP Update the master compiled data csv with photon rates.
     
 if __name__ == "__main__":
     main()
