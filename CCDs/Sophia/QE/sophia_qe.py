@@ -37,7 +37,7 @@ plt.rc('ytick.minor', size=4)    # size of the tick markers
 path_base = '/home/baparker/GitHub/'
 ###path_base = r'C:\Users\Brock\Documents\Git'
 
-data_path = path_base + 'Research/CCDs/Sophia/Data/20240607/'
+data_path = path_base + 'Research/CCDs/Sophia/Data/20241102/QE/'
 ###data_path = path_base + r'\Research\CCDs\Sophia\Data\20240607\\'
 # BP Directory storing raw data, both fits files from sophia (dark, bias, and science) and photodiode csvs (dark and science).
 photodiode_response_file = path_base + 'Research/CCDs/Sophia/QE/photodiode_response_new.csv'
@@ -216,7 +216,7 @@ def compile_photodiode_csv(data_path, compiled_data_path, string_pattern, dark_s
         Pandas data frame containting the final compiled data from the photodiode and camera regions. This is updated every step of the reduction.
     """
     
-    df = pd.DataFrame(data=None, columns=['wavelength', 'ch1_mean', 'ch1_std', 'photon_rate', 'photon_rate_std', 'sophia_region'], dtype='float64')
+    df = pd.DataFrame(data=None, columns=['wavelength', 'ch1_mean', 'ch1_std', 'photon_rate', 'photon_rate_std', 'sophia_region', 'sophia_region_std', 'qe'], dtype='float64')
     # BP Create blank dataframe to store data.
     
     photodiode_in_list = glob.glob(data_path + string_pattern)
@@ -411,13 +411,44 @@ def reduce_camera_images_individual(data_path, bias_string_pattern, dark_string_
         
         ### TODO: Need to save these files to read in 
     
-def extract_regions():
+def extract_regions(wavelengths, file_list, regions, compiled_file_path):
+    df = pd.DataFrame(data=None, columns=['wavelength', 'sophia_region', 'sophia_region_std'], dtype='float64')
+    # BP Create blank dataframe to store data.
     
+    for idx, file in enumerate(file_list):
+        hdul = fits.open(file)
+        data = hdul[0].data
+        
+        wavelength = wavelengths[idx]
+        
+        for region in regions:            
+            region_data = data[region[0]:region[1], region[2]:region[3]]
+            
+            region_mean = np.mean(region_data)
+            region_std = np.std(region_data)
+        
+            compiled_data = np.array([wavelength.value, region_mean, region_std])
+
+            df.loc[idx, ['wavelength', 'sophia_region', 'sophia_region_std']] = compiled_data
+            # BP Update dataframe with wavelength and picoammeter data.
+                        
+    final_data = update_master_database(df, list(df.columns), compiled_file_path)
+    # BP Update master dataframe rows of all input wavelengths.
+            
+    return final_data
+
+def calculate_qe(compiled_df, compiled_file_path):
+    photon_rate = compiled_df['photon_rate']
+    photon_rate_stde = compiled_df['photon_rate_std']
+    sophia_rate = compiled_df['sophia_region']
+    sophia_rate_std = compiled_df['sophia_region_std']
     
+    qe = sophia_rate/photon_rate
     
+    final_data = update_master_database(qe, ['qe'], compiled_file_path)
+    # BP Update master dataframe rows of all input wavelengths.
     
-    region_mean, region_std
-    return region_counts
+    return final_data
     
 def update_master_database(data, columns, compiled_file_path):
     """
@@ -457,36 +488,64 @@ def update_master_database(data, columns, compiled_file_path):
     return master_df
 
 def main():   
-    print('Reducing FITS files.')
-    sophia_file_list = reduce_camera_images_average(data_path, 'bias_???_2.fits', 'dark_???_2.fits', 'science_???_2.fits')
-    ### Reduce raw sophia files. Subtract biases, subtract (and scale if necessary) darks and return list of reduced science files.
+# =============================================================================
+#     print('Reducing FITS files.')
+#     global compiled_data_frame, sophia_file_list
+# 
+#     sophia_file_list = reduce_camera_images_average(data_path, 'bias_???.fits', 'dark_???.fits', 'science_???_2.fits')
+#     ### Reduce raw sophia files. Subtract biases, subtract (and scale if necessary) darks and return list of reduced science files.
+#     
+#     print('Compiling photodiode data.')
+#     compiled_data_frame = compile_photodiode_csv(data_path, compiled_file_path, 'picoa_???.csv')
+#     ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean and std of each raw file.
+# 
+#     print('Converting photodiode response into photon counts.')
+#     ### Convert master photodiode csv of currents into total photon counts. Read in conversion and do calculations.
+#     wavelengths = np.array(compiled_data_frame['wavelength']) * u.nm
+#     photodiode_current = np.array(compiled_data_frame['ch1_mean']) * u.A
+#     photodiode_current_std = np.array(compiled_data_frame['ch1_std']) * u.A
+#     # BP Extract wavelengths and currents from compiled photodiode csv.
+#         
+#     photon_rate = current_to_photon_rate(wavelengths, photodiode_current)    
+#     photon_rate_std = current_to_photon_rate(wavelengths, photodiode_current_std)
+#     # BP Calculate photon_rate from photodiode currents.
+#     
+#     compiled_data_frame = update_master_database(np.transpose([wavelengths, photon_rate, photon_rate_std]), ['wavelength', 'photon_rate', 'photon_rate_std'], compiled_file_path)
+#     # BP Update the master compiled data csv with photon rates.
+# =============================================================================
     
-    print('Compiling photodiode data.')
-    global compiled_data_frame
-    compiled_data_frame = compile_photodiode_csv(data_path, compiled_file_path, 'picoa_???.csv')
-    ### Compile all raw photodiode csvs into one master photodiode csv. Take the mean and std of each raw file.
+    compiled_file_path = '/home/baparker/GitHub/Research/CCDs/Sophia/Data/QE/compiled_data.csv'
 
-    print('Converting photodiode response into photon counts.')
-    ### Convert master photodiode csv of currents into total photon counts. Read in conversion and do calculations.
+    compiled_data_frame = pd.read_csv(compiled_file_path)
+
+    global sophia_file_list
+
+    sophia_file_list = glob.glob(path_base + 'Research/CCDs/Sophia/Data/QE/*.fits')
+    sophia_file_list.sort()
     wavelengths = np.array(compiled_data_frame['wavelength']) * u.nm
-    photodiode_current = np.array(compiled_data_frame['ch1_mean']) * u.A
-    photodiode_current_std = np.array(compiled_data_frame['ch1_std']) * u.A
-    # BP Extract wavelengths and currents from compiled photodiode csv.
-        
-    photon_rate = current_to_photon_rate(wavelengths, photodiode_current)    
-    photon_rate_std = current_to_photon_rate(wavelengths, photodiode_current_std)
-    # BP Calculate photon_rate from photodiode currents.
     
-    compiled_data_frame = update_master_database(np.transpose([wavelengths, photon_rate, photon_rate_std]), ['wavelength', 'photon_rate', 'photon_rate_std'], compiled_file_path)
-    # BP Update the master compiled data csv with photon rates.
+    print(sophia_file_list)
     
     print('Reading in sophia regions.')
-    region_mean, region_std = extract_regions()
-    ### Add mean counts of different regions in sophia data into new file with wavelengths and photodiode values.
+    region_array = np.array([[[0, 2048, 0, 2048]]
+                        , [[500, 750, 500, 750]]
+                        , [[1000, 1250, 1000, 1250]]
+                        , [[1250, 1750, 1250, 1750]]])
+                        
     
-    compiled_data_frame = update_master_database(np.transpose([region_mean, region_std]), ['sophia_region', 'sophia_region_std'], compiled_file_path)
-    # BP Update the master compiled data csv with photon rates.
-    
+    for regions in region_array:
+        print(regions)
+        compiled_data_frame = extract_regions(wavelengths, sophia_file_list, regions, compiled_file_path)
+        ### Add mean counts of different regions in sophia data into new file with wavelengths and photodiode values.
+        
+        print('Calculating Quantum Efficiency')
+        compiled_data_frame = calculate_qe(compiled_data_frame, compiled_file_path)
+        
+        qe = compiled_data_frame['qe']
+        plt.plot(wavelengths, qe)
+        plt.xlim(250*u.nm, 1050*u.nm)
+        plt.show()
+        
 if __name__ == "__main__":
     main()
 
