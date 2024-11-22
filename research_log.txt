@@ -180,7 +180,56 @@ Friday - 11/15/2024
 		Steve is able to connect to the Archon using direct ethernet and the GUI
 		Both of us are unable to connect using the adapter - is it just this adapter or any adapter?
 	Meeting with Anshul
+		Interrupted by Aafaque, discussing Skipper specifics
+		Working on PTC
+		PTC seems to be okay using reduced data, although this is incorrect
+		Need to use differenced images
+			Is this difference between sequential images or all images?
 		
+Monday - 11/18/2024
+	Sophia QE
+		Finishing QE analysis
+		Data from June looks okay - relatively smooth with a few decreases, although it doesn't really seem to match the curves from the Sophia data sheet
+		Data from October is even worse - significantly more variations and practically flat at longer wavelengths, doesn't match data sheet curve at all
+		
+Tuesday - 11/19/2024
+	Working on HW
+	
+Wednesday - 11/20/2024
+	Working on HW
+	
+Thursday - 11/21/2024
+	Working on HW
+	Archon connection
+		Borrowed different ethernet adapter from Noah - still having the same issues
+		When connected to telnet, use Ctrl+5 then type close to close connection to Archon
+		Both adapters let me change the manual IPV4 address - have to use 10.0.0.2:4242 to connect
+		No commands are ever received by the server - still works when connected to the emulator
+	Meeting with Steve
+		As long as we set the IP address we are able to connect to the Archon
+		Turns out everything was working, we just need to connect to the server, NOT to the Archon
+			telnet localhost 3031
+		The server handles the connection to the Archon using open
+		Most commands still have errors, but those are expected and we can fix them (missing/renamed commands)
+		Having issues using the Python interface
+			Need to enable verbose modes, seems like the code never makes it to __send_threaded_command()
+			Perhaps this is a python version issues, although not likely
+			Code never seems to actually send the open command, although the server recognizes and accepts the connection, just never sees the command
+			
+Friday - 11/22/2024
+	Meeting with Erika
+		Sophia QE analysis
+			Verify all steps of the process are correct
+			Plot photodiode current versus wavelength, photons versus wavelength, sophia region counts versus wavelength
+			Figure out which step is causing all the variation and large jumps - these should not be there, it should be relatively smooth
+		Mentoring Committee
+			Carlos, Erika, Eiichi, Jared
+		Focus on QE analysis over PTC, keep having Anshul work on PTC
+	Meeting with Anshul
+	
+	Meeting with Shashank
+		
+	
 		
 		
 
