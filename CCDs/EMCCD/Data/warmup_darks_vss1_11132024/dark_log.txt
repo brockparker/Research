@@ -1,0 +1,394 @@
+Starting PTC data collection 
+Saving data and log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Start time=2024-11-13 18:23:44.029376
+Log file does not exist.
+exptime list: [20, 60, 120]
+Entering loop for taking exposures
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 18:25:09.764609
+This exposure took 0:01:25.734749 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 18:27:55.584730
+This exposure took 0:02:45.817741 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 18:32:41.301088
+This exposure took 0:04:45.715248 seconds
+This exposure took 0:08:57.274041 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 18:34:06.935957
+This exposure took 0:01:25.623744 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 18:36:52.639173
+This exposure took 0:02:45.700895 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 18:41:38.317098
+This exposure took 0:04:45.676968 seconds
+This exposure took 0:17:54.290060 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 18:43:03.979487
+This exposure took 0:01:25.648860 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 18:45:49.612742
+This exposure took 0:02:45.630850 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 18:50:35.292603
+This exposure took 0:04:45.677407 seconds
+This exposure took 0:26:51.265355 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 18:52:00.943324
+This exposure took 0:01:25.637338 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 18:54:46.605758
+This exposure took 0:02:45.660024 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 18:59:32.279341
+This exposure took 0:04:45.671240 seconds
+This exposure took 0:35:48.252640 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 19:00:57.962711
+This exposure took 0:01:25.669831 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 19:03:43.653825
+This exposure took 0:02:45.688767 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 19:08:29.353328
+This exposure took 0:04:45.697202 seconds
+This exposure took 0:44:45.326290 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 19:09:55.019980
+This exposure took 0:01:25.652855 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 19:12:40.695488
+This exposure took 0:02:45.672998 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 19:17:26.431696
+This exposure took 0:04:45.733963 seconds
+This exposure took 0:53:42.404634 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 19:18:52.139223
+This exposure took 0:01:25.693988 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 19:21:37.883328
+This exposure took 0:02:45.741750 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 19:26:23.623285
+This exposure took 0:04:45.737514 seconds
+This exposure took 1:02:39.596292 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 19:27:49.307430
+This exposure took 0:01:25.669761 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 19:30:35.050789
+This exposure took 0:02:45.741048 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 19:35:20.745075
+This exposure took 0:04:45.691848 seconds
+This exposure took 1:11:36.717219 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 19:36:46.444558
+This exposure took 0:01:25.688182 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 19:39:32.167033
+This exposure took 0:02:45.720156 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 19:44:17.837514
+This exposure took 0:04:45.669914 seconds
+This exposure took 1:20:33.810500 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 19:45:43.504351
+This exposure took 0:01:25.660805 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 19:48:29.199735
+This exposure took 0:02:45.692934 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 19:53:14.868738
+This exposure took 0:04:45.668360 seconds
+This exposure took 1:29:30.841682 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 19:54:40.558111
+This exposure took 0:01:25.675666 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 19:57:26.351331
+This exposure took 0:02:45.791076 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 20:02:12.063751
+This exposure took 0:04:45.710227 seconds
+This exposure took 1:38:28.036056 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 20:03:37.763206
+This exposure took 0:01:25.691441 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 20:06:23.439723
+This exposure took 0:02:45.673946 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 20:11:09.184231
+This exposure took 0:04:45.742365 seconds
+This exposure took 1:47:25.155408 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 20:12:34.866383
+This exposure took 0:01:25.679259 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 20:15:20.553699
+This exposure took 0:02:45.684943 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 20:20:06.282755
+This exposure took 0:04:45.726779 seconds
+This exposure took 1:56:22.255690 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 20:21:32.021760
+This exposure took 0:01:25.726066 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 20:24:17.725077
+This exposure took 0:02:45.701004 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 20:29:03.446910
+This exposure took 0:04:45.721137 seconds
+This exposure took 2:05:19.419860 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 20:30:29.148589
+This exposure took 0:01:25.688560 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 20:33:14.805881
+This exposure took 0:02:45.655081 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 20:38:00.482945
+This exposure took 0:04:45.675992 seconds
+This exposure took 2:14:16.455858 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 0, exptime 20 ended at 2024-11-13 20:39:26.203847
+This exposure took 0:01:25.707606 seconds
+Exposure time is set for 60 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 1, exptime 60 ended at 2024-11-13 20:42:11.901858
+This exposure took 0:02:45.697277 seconds
+Exposure time is set for 120 seconds
+Taking pre-bias
+Taking dark
+Taking dark
+Taking post Bias
+Exp 2, exptime 120 ended at 2024-11-13 20:46:57.611909
+This exposure took 0:04:45.707753 seconds
+This exposure took 2:23:13.584646 seconds
+Images saved in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/
+Scan complete. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
+Exposure time is set for 20 seconds
+Taking pre-bias
+Saving data log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.csv
+Scan ended. See scan log in /media/nuvu_setup/Data_Volume/wl18d10_data/warmup_darks_vss1_11132024/dark_log.txt
