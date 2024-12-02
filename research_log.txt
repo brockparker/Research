@@ -226,12 +226,56 @@ Friday - 11/22/2024
 			Carlos, Erika, Eiichi, Jared
 		Focus on QE analysis over PTC, keep having Anshul work on PTC
 	Meeting with Anshul
-	
+		Finishing up PTC analysis
+			Using the difference images seem to give us approximately the correct solution
+				Following https://www.msss.com/http/near_cal/robinson_stuff/ltc.html
+					Generate average dark frame at each exposure time
+					Generate average science frame at each exposure time
+					Subtract two above averaged images to get signal frame
+						Calculate mean of nxn region
+					Subtract each of two science images from signal image and take STD of same nxn region
+						Calculate mean STD of the two
+						Need some noise correction for the number of average frames (divide by sqrt(1.25) for 4)
+						TODO: Find where this value comes from
+					Plot these values
+				The shape is still a little funky at high and low values
+				Using small regions on detector to weed out any variations from non-uniform light
+			Fitting a line to the traditional PTC seems be a slope about 0.5 ADU/e- (2 e-/ADU) in log space as expected, with read noise of a few electrons
+				Fit also gives a gain around 0.5 (2)
+			Trying variance method instead
+				Using variance instead of std, fitting the slope in linear space gives a very similar gain of about 0.5 ADU/e- (2 e-/ADU)
+			Both seem to be in agreement with Sophia data sheet mid-gain
+				Default on the software is high gain (4 e-/ADU)
 	Meeting with Shashank
+		Quick discussion about processing the warm-up dark data
+		Had to find the temperature data
+			Doesn't exist for the detector?
+			Extracting from the HTML file - Shashank knows how
+		First calculating raw dark rates from each exposure
+			Should also try calculating dark rates by fitting the three points we have at each temperature
+				How much does the temperature vary across one set of exposures, can we do this?
 		
+Monday - 11/25/2024
+	Working on ISM HW
 	
-		
-		
+Tuesday - 11/26/2024
+	Working on ISM HW
+	
+Wednesday - 11/27/2024
+	Working on ISM HW
+	
+Monday - 12/2/2024
+	LTA Shipping
+		Got FedEx number from Deborah and sent to Garth
+	Mentoring Committee
+		Sent out emails to all members
+		Eichii only available 12/2-6
+		Carlos only available 12/16-20
+	FINESST
+		Need to attend meeting on Friday
+		Will have to prepare almost full draft over holiday break
+		Minor changes from last year, new biographical sketch section and templates for CVs and current and pending support
+	Working on Instrumentation Project
 
 
 
