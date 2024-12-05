@@ -277,6 +277,21 @@ Monday - 12/2/2024
 		Minor changes from last year, new biographical sketch section and templates for CVs and current and pending support
 	Working on Instrumentation Project
 
+Tuesday - 12/3/2024
+	Working on HW
+		ISM Lecture, ISM Review, Instrumentation project
+		
+Wednesday - 12/4/2024
+	Catching up on ArXiV papers
+	ISM Review
+	Starting thinking about skipper CCD simulator
+		SCIC, PCIC, Bias, Read noise, differential dark current, brighter fatter effect, others?
+		Going to try to model it off of the Fermilab ones we have data for, but all parameters will be modifiable
+	Instrumentation Project
+		HII Region flux calibration in NGC7331
+		Can I use HBeta, is there a connection between HBeta and HAlpha if we assume a temperature of the HII region?
+		
+Thursday - 12/5/2024
 
 
 
