@@ -292,8 +292,25 @@ Wednesday - 12/4/2024
 		Can I use HBeta, is there a connection between HBeta and HAlpha if we assume a temperature of the HII region?
 		
 Thursday - 12/5/2024
+	Meeting with Steve cancelled
+		TODO: Run py archon controller with verbose mode
+	Studying for ISM Review
+	Found a very neat CCD simulation paper
+		https://github.com/craiglagegit/Poisson_CCD
+		Numerically solves Poisson's equations inside of the CCD to model numerous effects: blooming, brighter-fatter, charge diffusion
+		May be neat to plug in hypothetical skipper values to see what it predicts
+		Not sure if it simulates theoretical images - probably, but the focus seems to be on pixel distortion effects
+		Currently designed to simulate LSST CCDs - ITL STA3800C CCD and the E2V CCD250
+	Still want to try to get pyxel to run to verify my Skipper simulator (that has not been started)
 
-
+Friday - 12/6/2024
+	Meeting with Erika
+	
+	Meeting with Steve
+	
+	FINESST 
+	
+	Meeting with Anshul
 
 	
 
