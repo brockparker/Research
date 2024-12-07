@@ -1,0 +1,376 @@
+Monday - 2024/11/04
+	Downloading rest of PTC and QE Sophia data
+	Organizing and making notes for all data
+	Meeting with Shashank
+		EMCCD basics
+		NUVU operation
+		Dark data reduction - same as for Sophia
+	Taking EMCCD darks
+		-115K, VSS 1
+		Machine room light still on :(
+	Sending out poll for lab tour
+		Alex and co available Thursday
+		
+Tuesday - 2024/11/05
+	VOTING!!!
+	Updating Sophia plots
+		Water damage
+			Blurring sort of recreates the pre-damage images, although edge effects make it hard to compare
+		Wavelength montage
+			Creating movie of wavelengths to see how signal changes
+			Signal changes likely due to both monochromator changes and fringing due to detector size
+			Some data corrupted - seems to only be a side effect of downloading the data
+			
+Wednesday - 2024/11/06
+	Sophia wavelength montage
+		Very overexposed at short wavelengths - monochromator seems much less even at short wavelengths, diffuser would likely not be enough
+		Also uneven and overexposed around 385 nm
+		Final movie all have same limits, may want to recreate with limits based on the region of interest we optimized the exposure time for
+	Sophia QE
+		Finishing compiling all photodiode data into one dataframe/csv
+		Need to add the photodiode error into dataframe
+		Of note - photodiode response is not true, but rather a sample response curve from manufacturer, NOT NIST
+	Compiling Caltech Optical Observatories software for Steve
+		Apparently can't get it to work on Centos7
+		Need cmake - Run sudo apt-get install cmake (already have)
+		Need gcc - Run sudo apt-get install gcc (already have)
+		Need cfitsio - Download the latest version https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz
+			     - Untar
+			     - Inside the cfitsio-?.?.?/ folder, run ./configure --prefix=/usr/local
+			     - Run sudo make
+			     - Run sudo make install
+		Need ccfits - Download the latest version https://heasarc.gsfc.nasa.gov/fitsio/ccfits/CCfits-2.6.tar.gz
+			    - Untar
+			    - Inside the CCfits-?.? folder, run ./configure --with-cfitsio=/usr/local --prefix=/usr/local
+			    - Run sudo make
+			    - Run sudo make install
+		Need gtest - Run sudo apt-get install libgtest-dev
+		
+Thursday - 2024/11/07
+	Alex and Co. Visit
+		Lab tour - very interested in using our setup to characterize a few different CCD QEs in as far UV as we can go (down to 100nm according to Affy)
+		They are currently debating two electron production at high photon energies, beginning to see a bump ~300nm from two electron production
+			Want us to see if we see the same for any of our detectors, and maybe characterize some of theirs once they get them UV optimized at JPL
+		Why don't we just use the integrating sphere, apparently it is broken but I am sure we can buy a new one
+		Their QE currently does not include any inherent errors in the photodiode calibration
+		Discussed how we plan to mount the Skipper to the cold finger
+			They have had minor issues with their direct contact, but it may be easier to just clamp it on from the back without any springs or washers and use indium to create the thermal connection - could also copy aafaque and have pressure put on by opposite thermal expansions
+		Very interested in mounting onto monochromator and the `plug and play' ability 
+			Commercial monochromator from McPherson
+			What do we do about stray light? - The slits and collimator help, but we need to add baffles before the slits and before the detector near the diffuser to help reduce stray light, Affy did stray light analysis and it shouldn't be too big of a deal
+		May have some concern about dark current
+			Bulk dark current shouldn't have much of an effect, surface will be a bigger deal
+			Even bigger issue will probably be thermal dark from any IR sources - skippers are much much (>10x ~600 microns) thicker than EMCCDs
+	Need to confirm with Affy how the light actually reaches the detector, is it not covered by the cold shroud, or does this help to properly disperse the light
+	Finishing setting up COO Camera interface
+		- Download latest version https://github.com/CaltechOpticalObservatories/camera-interface.git
+		- Unzip
+		- Inside the camera-interface-main/build folder, remove all files, rm -rf * (don't remove the .gitignore file)	
+		- Run cmake .. (has to be cmake, not make)
+		- Run make
+	To test the Camera interface, inside of the camera-interface-main/build folder,
+		- Run the camera server, ../bin/camerad ../Config/demo/demo.cfg --foreground OR ../bin/camerad -d ../Config/demo/demo.cfg
+		- Run the archon emulator, ../bin/emulator ../Config/demo/demo.cfg
+			Getting error "no instrument specified with -i <instrument>"
+			Can specify -i generic, seems to make it work
+		- Run the unit tests, ../bin/run_unit_tests
+			This file just doesn't exist??
+		- To connect to the running camera interface, inside of camera-interface-main/bin run telnet localhost 3031
+			From here, can run load, expose, open, etc.
+			Everything seems to work, difficult to test without Archon connected, will revisit next week with Steve
+	TODO - Install Ubuntu and COO Camera-interface on my laptop to test with Archon
+	Sophia Data Reduction Anshul
+		Making a few example plots to compare with Anshul's data reduction script
+		Comparing master bias and darks vs individual, plotting each reduced image, etc.
+		Have to be careful when saving and opening data - data from sophia is in (1, 2048, 2048) array for some reason, but we save it as (2048, 2048), make sure data[0] is appropriate
+		
+Friday - 11/08/2024
+	Steward Internal Symposium!
+	Having lots of issues transferring data from steward desktop onto GitHub/my laptop
+		Maximum push size is ~500MB, will have to do only 1 day of data at a time moving forward
+		Other notes, pushing and committing from the CLI requires a personal access token
+			I generated a fine grained token that never expires with full access to all repos
+			Will need a different PAT in order to access the Hamden Lab (group) repos
+	Back to working on Sophia QE
+		WTF was I doing with the photodiode dataframe
+		Adding function to correct the photodiode counts at the side port to counts at the main port - Don't have this file, just assuming its unit for now to retain functional form
+		TODO - Is the error on the photodiode current just the std of the total counts minus the std of the dark, or is it just the std of the total current?
+		Verified photon flux error using the std of the current is the same as the error adding or subtracting the upper or lower photon rate (from the standard deviation) from the average - as expected, just wanted a sanity check
+		Adding documentation to all photodiode reduction parts
+	Meeting with Anshul
+		Going through some of the basics of image reduction - bias, darks, flats, etc.
+		Quick conversation with Jacob about how the QE will not be exact - only manufacturer calibration, different distances, poor illumination
+		Made up an example PTC for Sophia
+			Very weird, instead of levelling off at low signals it plummets
+			TODO - Perhaps it needs to be reduced data
+			
+Tuesday - 11/12/2024
+	Reading Janesick PTC Section
+		Sounds like we may need to plot differenced images
+		Also should be using one fixed region across all frames
+		May need to include some dark frames for the smallest signals, seems we didnt go low enough with out exposure times
+	Sophia PTC
+		Going to retry with the reduced PTC data
+		Running into issues again with buffer size - redownloading data seems to have fixed the issue
+		Apparently broke my reduction script in the process :(
+	EMCCD Darks
+		Starting new set of darks for Affy
+			-115 C, VSS 1, taped up a couple more light leaks
+		LIGHT IS FINALLY OFF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		Next set in the morning
+			-100 C, VSS 1
+		Everything seemed to go smoothly
+			Temperature control laptop had a forced windows update, but the cryocooler is still at the same temperature
+		TODO - Run warm up darks tomorrow, base them off of file "run regular darks"
+		
+Wednesday - 11/13/2024
+	Sophia PTC
+		Found issue with image reduction for 20240607 - all darks are bad, they are all just biases
+			Adding additional case to catch divide by zero in the dark exposure time when averaging darks - shouldn't be an issue for individual file reduction
+		Adding in the darks (that are actual darks) gives the low signal needed to see the read noise floor
+			I'm not sure if we can go shorter in exposure time - need to ask if Affy uses darks or if the EMCCD just has lower counts
+			Will have Anshul fit actual data once Affy confirms
+			By eye, looks like a RN of ~5.5 e-, gain is close to 1 - consistent with ~100kHz-1MHz speed and 1 gain mode
+	Running warm up darks
+		Simply shutting off cryocooler - Final cooling time was around 2 hours
+		Take darks and biases as it warms up
+			Chose 20, 60, 120s - should only warm up ~2K during one cycle
+		Have to get temperatures from temperature recording script via image save time
+			Changed from 120s to 10s fidelity, should be able to pinpoint closely - TODO - check how much the temp changes across 2 minute exposure
+
+Thursday - 11/14/2024
+	Meeting with Steve
+		Testing COO camerad on Ubuntu
+		All seems to work, need to have both serve and emulator open at same time
+			The emulator is the Archon, server controls it, connect to the Archon with telnet (or others)
+			Have to edit demo.cfg and demo.acf to include absolute file paths, fixes error opening file
+			Once connected, run open then load to connect to Archon and load config file
+		Some commands unavailable (all of the commands listed in the emulator section of the documentation
+			Still have to run as generic instrument - possibly why Archon commands are unavailable
+			Can run basic commands - open, load, expose, exptime, etc.
+	Installing COO on laptop
+		Make sure Ubuntu is fully updated!
+		Issues installing cfitsio
+			Need zlib - sudo apt-get install zlib1g-dev
+			Need g++ - sudo apt-get install g++ (not installed by default?)
+		Had to updates some filepaths - everything should be installed to /usr/local, NOT /usr/local/cfitsio or /usr/local/CCfits
+		Make sure to update absolute paths in demo config files
+		All working just like on Desktop - some issues with timeouts, maybe just be laptop artifacts
+
+Friday - 11/15/2024
+	Testing Archon with Steve
+		Putting all files (waveforms, config files, acf files, python files, etc) onto skipper github repo in Hamden-Lab organization
+		TODO - Need to get WDL installed and working on laptop
+			Need for .acf file to control the Archon
+			Steve changed clock names in skipper.signals
+				Haven't been changed in skipper.waveform, commented out
+			Some functions changed in skipper.seq
+			Have to verify
+			Need to grab ReadPixel.h from wdlfiles-master
+			Have to add / to beginning of skipper.waveform
+			Verify all paths in Makefile are correct
+				GPP = /usr/bin/gpp
+				GFLAGS = +c "/*" "*/" +c "//" "\n" +c "\\\n" ""
+				WDLPATH = /home/baparker/code/wdl
+				ACFPATH = /home/baparker/code/skipperfiles
+		Couldn't get WDL to run, using dave.acf (renamed to skipper.acf) for testing
+		To run the Archon, need to download all python files and specify proper IP (10.0.0.2) and port (4242)
+			camera_info.py, qccd.py, qccd_hosts.py
+			Aslo need qccd.cfg and skipper.acf - all in /camera-interface-main/Config/skipper
+		Steve is able to connect to the Archon using direct ethernet and the GUI
+		Both of us are unable to connect using the adapter - is it just this adapter or any adapter?
+	Meeting with Anshul
+		Interrupted by Aafaque, discussing Skipper specifics
+		Working on PTC
+		PTC seems to be okay using reduced data, although this is incorrect
+		Need to use differenced images
+			Is this difference between sequential images or all images?
+		
+Monday - 11/18/2024
+	Sophia QE
+		Finishing QE analysis
+		Data from June looks okay - relatively smooth with a few decreases, although it doesn't really seem to match the curves from the Sophia data sheet
+		Data from October is even worse - significantly more variations and practically flat at longer wavelengths, doesn't match data sheet curve at all
+		
+Tuesday - 11/19/2024
+	Working on HW
+	
+Wednesday - 11/20/2024
+	Working on HW
+	
+Thursday - 11/21/2024
+	Working on HW
+	Archon connection
+		Borrowed different ethernet adapter from Noah - still having the same issues
+		When connected to telnet, use Ctrl+5 then type close to close connection to Archon
+		Both adapters let me change the manual IPV4 address - have to use 10.0.0.2:4242 to connect
+		No commands are ever received by the server - still works when connected to the emulator
+	Meeting with Steve
+		As long as we set the IP address we are able to connect to the Archon
+		Turns out everything was working, we just need to connect to the server, NOT to the Archon
+			telnet localhost 3031
+		The server handles the connection to the Archon using open
+		Most commands still have errors, but those are expected and we can fix them (missing/renamed commands)
+		Having issues using the Python interface
+			Need to enable verbose modes, seems like the code never makes it to __send_threaded_command()
+			Perhaps this is a python version issues, although not likely
+			Code never seems to actually send the open command, although the server recognizes and accepts the connection, just never sees the command
+			
+Friday - 11/22/2024
+	Meeting with Erika
+		Sophia QE analysis
+			Verify all steps of the process are correct
+			Plot photodiode current versus wavelength, photons versus wavelength, sophia region counts versus wavelength
+			Figure out which step is causing all the variation and large jumps - these should not be there, it should be relatively smooth
+		Mentoring Committee
+			Carlos, Erika, Eiichi, Jared
+		Focus on QE analysis over PTC, keep having Anshul work on PTC
+	Meeting with Anshul
+		Finishing up PTC analysis
+			Using the difference images seem to give us approximately the correct solution
+				Following https://www.msss.com/http/near_cal/robinson_stuff/ltc.html
+					Generate average dark frame at each exposure time
+					Generate average science frame at each exposure time
+					Subtract two above averaged images to get signal frame
+						Calculate mean of nxn region
+					Subtract each of two science images from signal image and take STD of same nxn region
+						Calculate mean STD of the two
+						Need some noise correction for the number of average frames (divide by sqrt(1.25) for 4)
+						TODO: Find where this value comes from
+					Plot these values
+				The shape is still a little funky at high and low values
+				Using small regions on detector to weed out any variations from non-uniform light
+			Fitting a line to the traditional PTC seems be a slope about 0.5 ADU/e- (2 e-/ADU) in log space as expected, with read noise of a few electrons
+				Fit also gives a gain around 0.5 (2)
+			Trying variance method instead
+				Using variance instead of std, fitting the slope in linear space gives a very similar gain of about 0.5 ADU/e- (2 e-/ADU)
+			Both seem to be in agreement with Sophia data sheet mid-gain
+				Default on the software is high gain (4 e-/ADU)
+	Meeting with Shashank
+		Quick discussion about processing the warm-up dark data
+		Had to find the temperature data
+			Doesn't exist for the detector?
+			Extracting from the HTML file - Shashank knows how
+		First calculating raw dark rates from each exposure
+			Should also try calculating dark rates by fitting the three points we have at each temperature
+				How much does the temperature vary across one set of exposures, can we do this?
+		
+Monday - 11/25/2024
+	Working on ISM HW
+	
+Tuesday - 11/26/2024
+	Working on ISM HW
+	
+Wednesday - 11/27/2024
+	Working on ISM HW
+	
+Monday - 12/2/2024
+	LTA Shipping
+		Got FedEx number from Deborah and sent to Garth
+	Mentoring Committee
+		Sent out emails to all members
+		Eichii only available 12/2-6
+		Carlos only available 12/16-20
+	FINESST
+		Need to attend meeting on Friday
+		Will have to prepare almost full draft over holiday break
+		Minor changes from last year, new biographical sketch section and templates for CVs and current and pending support
+	Working on Instrumentation Project
+
+Tuesday - 12/3/2024
+	Working on HW
+		ISM Lecture, ISM Review, Instrumentation project
+		
+Wednesday - 12/4/2024
+	Catching up on ArXiV papers
+	ISM Review
+	Starting thinking about skipper CCD simulator
+		SCIC, PCIC, Bias, Read noise, differential dark current, brighter fatter effect, others?
+		Going to try to model it off of the Fermilab ones we have data for, but all parameters will be modifiable
+	Instrumentation Project
+		HII Region flux calibration in NGC7331
+		Can I use HBeta, is there a connection between HBeta and HAlpha if we assume a temperature of the HII region?
+		
+Thursday - 12/5/2024
+	Meeting with Steve cancelled
+		TODO: Run py archon controller with verbose mode
+	Studying for ISM Review
+	Found a very neat CCD simulation paper
+		https://github.com/craiglagegit/Poisson_CCD
+		Numerically solves Poisson's equations inside of the CCD to model numerous effects: blooming, brighter-fatter, charge diffusion
+		May be neat to plug in hypothetical skipper values to see what it predicts
+		Not sure if it simulates theoretical images - probably, but the focus seems to be on pixel distortion effects
+		Currently designed to simulate LSST CCDs - ITL STA3800C CCD and the E2V CCD250
+	Still want to try to get pyxel to run to verify my Skipper simulator (that has not been started)
+
+Friday - 12/6/2024
+	Meeting with Erika
+		FINESST Draft before I leave
+		FINESST Now dual anyonmous
+			No statements about we did, instead ... et. al. shows
+			Can mention our lab has access to vacuum monochromator as that is needed to prove we can do it, but can't mention more specifics
+	Meeting with Steve
+		Still able to connect to archon through telnet
+			Now having issues opening - resolved with restart
+		Working on connection through python
+			Getting select timeout error
+				No return message from Archon
+			Successfully opens socket to correct localhost port 3031
+					Line 96 - hosts.camsocket[ii].connect((hosts.camhost[ii], hosts.camport[ii]))
+			Camerad never sees open command
+			No issues with multi-threading (for once)
+			Need to also send Enter with each command
+				Add line inside of __send_command() in qccd.py
+					Line 472 - command = '{}\n'.format(command)
+					Comment out line before - command = " ".join(command)
+				Everything good in qccd_hosts
+	FINESST 
+		Section 4.2 details dual anyonmous specifics
+			Verify the FI and PI names do not appear and you don't directly reference any of your papers
+		Cover page
+			Proposal summary
+				Essentially an abstract
+				Cannot include any names
+			Business data
+			Budget
+			Program specific data
+			Proposal team
+			4000 character hard limit
+			Disclaimers must be dual anonymous
+		Format
+			Easy to read font
+			No more than 15 charactes per inch (12 point times new roman)
+			No more than 5.5 lines per inch
+			Minimum 1 inch margins
+			US letter paper
+		Two PDFs required
+			STM + Research Readiness + Mentoring Plan
+				Must be dual anonymous
+			Expertise and resources
+				NOT dual anyonymous
+				Given to a different committee after passing initial dual anonymous review
+	Meeting with Anshul
+		Still working on PTC analysis
+		Gain values from Anshul's analysis following the above links with the std 0.5 slope line fit agrees within error (~4.5 e/ADU) with values published in Sophia datasheet
+		Attempting to follow methodology from Aafaque's code
+			Follows Janesick exactly
+			First bias subtract (offset subtract) each of the two same-exposure-time flat/science images
+			The signal is calculated as the mean of these two images
+				Then calculate the mean of regions inside of these images
+			The error is calculated as the variance of the difference image
+				Subtract one bias corrected image from the other (at the same exposure time)
+				Calculate the std of a region
+				Divide the calculated error by sqrt(2) as the error is reduced by the square root of the number of exposures
+			Get read noise as the standard deviation of the bias frame
+				Seems to be slightly too high (?), around 5.6 ADU
+				Intersects PTC at non zero signal (~10 ADU)
+			Fit line to the bias subtracted data
+				Only selecting points between 2e3 and 1e4, as per Aafaque
+				Gain should be relatively insensitive to read noise calculation
+				In reality varies greatly with different read noises, including 0 - fitting the raw data
+					Sometimes get negative gains???
+				Using the above read noise, get ~0.4 e/DN, far off of predicted 4 e/DN
+			PTC appears to be correct shape, can even see full well ~65k
+
+
+
