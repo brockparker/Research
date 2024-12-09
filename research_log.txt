@@ -324,6 +324,11 @@ Friday - 12/6/2024
 					Line 472 - command = '{}\n'.format(command)
 					Comment out line before - command = " ".join(command)
 				Everything good in qccd_hosts
+		Now need to generate proper ACF file
+			Use WDL
+			Can compile dave, but not skipper
+			Steve will work on working ACF compilation
+			TODO: Need lab computer for Steve to do work
 	FINESST 
 		Section 4.2 details dual anyonmous specifics
 			Verify the FI and PI names do not appear and you don't directly reference any of your papers
