@@ -377,5 +377,48 @@ Friday - 12/6/2024
 				Using the above read noise, get ~0.4 e/DN, far off of predicted 4 e/DN
 			PTC appears to be correct shape, can even see full well ~65k
 
+Monday - 12/9/2024
+	Sudying for ISM
+
+Tuesday - 12/10/2024
+	Studying for ISM
+	ISM Final
+
+Wednesday - 12/11/2024
+	Studying for Galaxies
+	Galaxies Final
+
+Thursday - 12/12/2024
+	Working on instrumentation project
+	Meeting with Steve
+		No real updates
+		Continuing to make proper ACF from sensei scripts online
+		Hermetic feedthroughs are here! - should do vacuum test when I get back
+
+Friday - 12/13/2024
+	Meeting with Erika
+		FINESST - will go over outline next meeting
+		TODO: Write outline (lol)
+		PTC
+			Need to fix the slope to 0.5 - will have huge effect on calculated gain
+			The intercept should be converted back into linear space, currently in log space
+				Doing so gives gain ~2.54 e/ADU - closer to expected 4
+			Instead of using intercept, draw line at y=1 and use intercept of that with line, doesn't need to be converted back to log space?
+			Should really be calculating the gain from the variance method instead
+		Once done with this gain PTC, take data for the other gain values and see if it actually changes as we expect it to
+	Meeting with Anshul
+		Updating with what Erika said
+		Will have sporadic meetings over the break - none planned
+	Working on Instrumentation project
+
+Saturday - 12/14/2024
+	Working on instrumentation project
+
+Sunday - 12/15/2024
+	Working on instrumentation project
+
+Monday - 12/12/2024
+	Working on instrumentation project
+	FINESST 
 
 
