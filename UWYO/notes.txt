@@ -1,0 +1,85 @@
+===============
+REDUCTION NOTES
+===============
+---TOI 1181.01---
+
+   06/17/2020
+	- G, I, R
+	- Good fit, missing out of tranist data both sides
+	- 384, 279, 185 RMS
+	- 1.41, 1.38, 1.49 RJ
+
+   07/06/2020
+	- U
+	- Great fit, missing ingress
+	- 304 RMS
+	- 1.51 RJ
+
+   07/29/2020
+	- G, I, R
+	- Bad fit, only half transit, bad humidity
+	- 10270, 5949, 4833 RMS
+	- 260.91, 84.98, 12.76 RJ
+
+   08/15/2020
+	- U
+	- Good fit, missing ingress
+	- 383 RMS
+	- 1.35 RJ
+
+
+---TOI 1378.01---
+
+   08/02/2020
+	- G, I, R, U
+	- Bad fit, missing egress, very few points, r no fit
+	- 395, 1117, N/A, 690 RMS
+	- 1.32, 1.62, 1.22 N/A RJ
+   
+
+---TOI 1518.01---
+
+   07/14/2020
+	- G, I, R, U
+	- Ok fit, missing ingress
+	- 1077, 447, 672 RMS
+	- 2.07, 2.08, 1.76 RJ
+
+   08/02/2020
+	- G, I, R, U
+	- Ok fit, very few points, i very bad, r very bad, u very bad
+	- 578, 13294, 1962, 1251 RMS
+	- 1.58, 9.89, 1.63, 1.41 RJ
+
+
+---TOI 1431.01---
+
+   07/28/2020
+	- G, I, R, U
+	- Bad data, missing egress, very deep, frost??
+	- 1032, 5661, 2039, 14309 RMS
+	- 14.22, 19.86, 11.10, 51.51 RJ
+
+   08/05/2020
+	- G, I, R, U
+	- Bad data, missing egress, half transit, clouds
+	- 1904, 440, 2090, 663 RMS
+	- 1.21, 1.66, 1.67, 1.45 RJ
+
+   08/13/2020
+	- G, I, R, U
+	- good fit, kinda weird data, transit time off, missing ingress
+	- 606, 512, 590, 265 RMS
+	- 1.44, 1.23, 1.14, 1.35 RJ
+
+---TOI 1425.01---
+
+   06/18/2020
+	- G, I, R
+	- no fit?? false positive, very bad fit on I, R, maybe due to clouds?
+	- N/A, 944, 656 RMS
+	- N/A, 1.64, 0.76 RJ
+
+   07/18/2020
+	-
+

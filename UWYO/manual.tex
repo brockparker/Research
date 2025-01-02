@@ -1,0 +1,485 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{float}
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+
+\definecolor{shadecolor}{named}{LightGray}
+
+\title{Red Buttes Observatory\\
+	Manual }
+\author{}
+\begin{document}
+
+\maketitle
+\section{On-Site Manual Observations}
+	\subsection{Before You Travel to the Telescope}
+	\begin{enumerate}
+		\item Check the local weather station, which can be accessed at \textit{www.ambientweather.net}, a quality Radar and Satellite map, such as \textit{www.weather.gov} and \textit{radar.weather.gov}, and any other appropriate forecast to assess the viability of observing. Observing is only viable if there is no precipitation, humidity is at or below 85\%, and the wind speed is at or below 50 km hr\textsuperscript{-1}.
+		\item Obtain the key (\#955) to the observatory. This is stored in PS 213 --- the Dale Computer Lab. Alternatively, a key is stored at the observatory in a keybox, which can be accessed with code \textit{0127}.
+	\end{enumerate}
+	
+	\subsection{Setup}
+	\begin{enumerate}
+		\item Enable power at the observatory.
+		\begin{enumerate}
+			\item Log into \textit{RBO\_1}.
+			\item Log into the PDU webpage, 10.214.214.205, from any web browser.
+			\item On the PDU webpage, in the \textit{Actions} tab, select \textit{Control} from the side.
+			\item Select \textit{Start Ramp Sequence} from the \textit{Control Command} drop down menu.
+			\item Select \textit{Execute Command}.
+			\item Log into \textit{RBOTCS} computer
+		\end{enumerate}
+		The PDU webpage can operate very slowly with a delay of ten seconds for an action to occur and a delay of one minute for the webpage to reflect the actions performed.
+		
+		\item Check the local weather station, which can be accessed at \textit{www.ambientweather.net}, a quality Radar and Satellite map, such as \textit{www.weather.gov} and \textit{radar.weather.gov}, and any other appropriate forecast to assess the viability of observing. Observing is only viable if there is no precipitation, humidity is at or below 85\%, and the wind speed is at or below 50 km hr\textsuperscript{-1}.
+		\item Camera Setup
+		\begin{enumerate}
+			\item Launch MaxIm DL from the desktop shortcut.
+			\item Use the keyboard shortcut \textit{Ctrl}+\textit{W} or select \textit{Camera Control Window} from the \textit{View} menu.
+			\item In the \textit{Setup} sub-menu of the \textit{Camera Control Window}, select \textit{Connect}.
+			\item Once connected to the camera, select the \textit{Cooler} button under \textit{Camera 1} and choose an appropriate setpoint, usually -15\textsuperscript{$\circ$} C. Note that the camera can achieve a temperature at maximum 35\textsuperscript{$\circ$} C below ambient.
+		\end{enumerate}
+		\item Open the in-dome web camera webpages, 10.214.214.220 and 10.214.214.221, and turn on \textit{Night Mode}. Remember to disable \textit{Night Mode} when imaging begins.
+		\item Telescope Setup
+		\begin{enumerate}
+			\item Open the DFMTCS shortcut from the desktop. This program tends to minimize itself and cannot be refocused normally. This is fixed by opening the \textit{On-Screen Keyboard} and using the shortcut \textit{Windows}+$\uparrow$ with the DFM program active.
+			\item Open the \textit{Miscellaneous} window from the \textit{Telescope} menu.
+			\item Under the \textit{Switches/Mirror Door} tab, select the two red Dome boxes to turn the dome on and enable tracking.
+			\item Under the \textit{Display Epoch/Dome Shutter} tab, select \textit{Shutter Open}, if it is safe to do so. Check the \textit{Disable Cloud Sensor Input} box.
+			\item Under the \textit{Switches/Mirror Door} tab, select the \textit{Open Mirror Door} once the dome shutter has finished opening and the \textit{Activity Message} window is clear.
+			\item In the \textit{Rates} window under the \textit{Telescope} menu, set the \textit{R.A. Rate} to 15.029$^{\prime\prime}$ s\textsuperscript{-1}.
+		\end{enumerate}
+	\end{enumerate}
+	
+	\subsection{Observation}
+	\begin{enumerate}
+		\item In the \textit{Movement} window under the \textit{Telescope} menu, enter the coordinates and epoch of the target in the \textit{Slew Position} tab.
+		\item Select apply and ensure that the coordinates and epoch have populated the \textit{Next Object} line in the main window.
+		\item If the \textit{Operating Mode} does not read \textit{TARGET OUT OF RANGE}, then it is safe to select \textit{Start Slew}. The telescope will slew to the target and begin tracking.
+		\item Imaging
+		\begin{enumerate}
+			\item In MaxIm DL, under the \textit{Exposure} tab in the \textit{Camera Control} window, set the exposure type to \textit{Single} on the right hand side.
+			\item The filter can be selected in the bottom left of the \textit{Expose} tab.
+			\item Typically a 10\textsuperscript{th} magnitude star reaches an acceptable signal to noise with a 45 s exposure. Adjust exposure time accordingly and take a sample exposure. That is to say:
+			\[
+			t \approx 45\left (2.5\right )^{m-10}
+			\]
+			\item Photometry can be checked using the \textit{Ctrl}+\textit{I} keyboard shortcut.
+			\item If the exposure looks acceptable, then select the \textit{Autosave} bubble and button.
+			\item In the \textit{Options} arrow menu, select \textit{Set Image Save Path}.
+			\item Set the Autosave Filename, exposure slots, filters, filename suffix, exposure length, and repetitions.
+			\item Review the exposure sequences, then select \textit{Apply} and \textit{OK}.
+			\item To start the the exposure sequences, select \textit{Start}.
+		\end{enumerate}
+		\item Repeat the above \textit{Observation} steps for all targets until all targets have been imaged.
+	\end{enumerate}
+	
+	\subsection{Shutdown}
+	\begin{enumerate}
+		\item Set the camera's  cooler to \textit{Warm Up}.
+		\item Close the mirror doors.
+		\item Close the dome shutters, once the mirror doors are closed.
+		\item Set the dome to go \textit{Home}, but leave the dome \textit{On} until it has reached an azimuth of 270$^\circ$ and the \textit{Activity Message} is clear. Once the dome has stopped moving, turn it \textit{Off}.
+		\item Slew the telescope to zenith (i.e. $\alpha$: local sidereal time, $\delta$: 41:19:00).
+		\item Set the \textit{R.A. Tracking Rate} to 0$^{\prime\prime}$ s\textsuperscript{-1}.
+		\item Close the DFMTCS program.
+		\item Once the camera has reached less than 5\% power, it is safe to disable the cooler.
+		\item Disconnect the camera and close MaxIm DL.
+		\item Turn the computer off.
+		\item On the PDU webpage, in the \textit{Actions} tab, select \textit{Control} from the side.
+		\item Select \textit{Start Shed Sequence} from the \textit{Control Command} drop down menu.
+		\item Select \textit{Execute Command}.
+		\item Return the key to where it was obtained.
+	\end{enumerate}
+\newpage
+\section{Remote Manual Observations}\label{sec:remote}
+	\subsection{VNC Installation}
+	\begin{enumerate}
+		\item Install an X-Windows system on your laptop. Mac already has one installed. For windows, use \textit{Cygwin}.
+		\item Inside the X-Windows system, create and cd to your \textit{$\sim$/.ssh} directory.
+		\item Create a text file called \textit{config} and type these two lines:\\\\
+			Host zem.uwyo.edu\\
+			\hspace*{1ex} ProxyCommand ssh -e none chip@zulu.uwyo.edu exec nc \%h \%p
+		\item Replace \textit{zem} with your department computer name, and \textit{chip} by your username.
+		\item In your home directory, create a file called \textit{tozem.com}. Inside, type this line:\\\\
+			ssh -L 1208:zem.uwyo.edu:5908 chip@zem.uwyo.edu
+
+		\item The 8 can be replaced by 2, 3, or 4, as long as the same is done in later steps.
+		\item Replace \textit{zem} with your department computer name, and \textit{chip} by your username.
+		\item Make the file executable by running \textit{chmod +x tozem.com}.
+		\item In a terminal execute \textit{./tozem.com}. You will be prompted for you system password twice, once for zulu and once for your desktop. You may get a warning the first time you do this prompting if you want to continue. Do so only once to allow your computer to store the host key for zulu. Subsequent prompts may be a virtual attack and should be regarded as suspicious.
+		\item If your computer fails to connect because it does not have the needed host keys, create a file inside the \textit{$\sim$./ssh} folder called \textit{known\_hosts}.
+		\item From someone else in the department, acquire a list of known hosts and copy the host keys into this file.
+		\item Leaving this ssh connection open, download and install \textit{VNCViewer} from \textit{RealVNC}.
+		\item While installing, run \textit{vncpasswd} in the same terminal that is connected to your department computer. This is where you will set your VNC password, which \textit{cannot} be the same as your department password.
+		\item Launch the VNC client. In the top bar, type \textit{localhost:1208}. It should prompt you for your VNC password. Once signed in, you should see the lock screen for you department computer.
+	\end{enumerate}
+	\subsection{Setup}
+	\begin{enumerate}
+		\item Log into Dra using the \textit{rboremote} user. All usernames and passwords for computers on the RBO network are located in Appendix \ref{app:users}, Table \ref{tab:users}.
+		\item Enable power at the observatory.
+			\begin{enumerate}
+				\item Log into the PDU webpage, 10.214.214.205, from any web browser.
+				\item On the PDU webpage, in the \textit{Actions} tab, select \textit{Control} from the side.
+				\item Select \textit{Start Ramp Sequence} from the \textit{Control Command} drop down menu.
+				\item Select \textit{Execute Command}.
+			\end{enumerate}
+		The PDU webpage can operate very slowly with a delay of ten seconds for an action to occur and a delay of one minute for the webpage to reflect the actions performed.
+		\item Open a VNC session to the \textit{RBOTCS} computer, 10.214.214.222. This can be done with the \textit{vncviewer} terminal command, \textit{vncviewer 10.214.214.222 -shared \&}, or TigerVNC.
+	\end{enumerate}
+	
+	\subsection{Initiation of Observation Software}
+	\begin{enumerate}
+		\item Check the local weather station, which can be accessed at \textit{www.ambientweather.net}, a quality Radar and Satellite map, such as \textit{www.weather.gov} and \textit{radar.weather.gov}, and any other appropriate forecast to assess the viability of observing. Observing is only viable if there is no precipitation, humidity is at or below 85\%, and the wind speed is at or below 50 km hr\textsuperscript{-1}.
+		\item Camera Setup
+		\begin{enumerate}
+			\item Launch MaxIm DL from the desktop shortcut.
+			\item Use the keyboard shortcut \textit{Ctrl}+\textit{W} or select \textit{Camera Control Window} from the \textit{View} menu.
+			\item In the \textit{Setup} sub-menu of the \textit{Camera Control Window}, select \textit{Connect}.
+			\item Once connected to the camera, select the \textit{Cooler} button under \textit{Camera 1} and choose an appropriate setpoint, usually -15\textsuperscript{$\circ$} C. Note that the camera can achieve a temperature at maximum 35\textsuperscript{$\circ$} C below ambient.
+		\end{enumerate}
+		\item Open the in-dome camera webpages and turn on \textit{Night Mode}. Remember to disable \textit{Night Mode} when imaging begins.
+		\item Telescope Setup
+		\begin{enumerate}
+			\item Open the DFMTCS shortcut from the desktop. This program tends to minimize itself and cannot be refocused normally. This is fixed by opening the \textit{On-Screen Keyboard} and using the shortcut \textit{Windows}+$\uparrow$ with the DFM program active.
+			\item Open the \textit{Miscellaneous} window from the \textit{Telescope} menu.
+			\item Under the \textit{Switches/Mirror Door} tab, select the two red Dome boxes to turn the dome on and enable tracking.
+			\item Under the \textit{Display Epoch/Dome Shutter} tab, select \textit{Shutter Open}, if it is safe to do so. Check the \textit{Disable Cloud Sensor Input} box.
+			\item Under the \textit{Switches/Mirror Door} tab, select the \textit{Open Mirror Door} once the dome shutter has finished opening and the \textit{Activity Message} window is clear.
+			\item In the \textit{Rates} window under the \textit{Telescope} menu, set the \textit{R.A. Rate} to 15.029$^{\prime\prime}$ s\textsuperscript{-1}.
+		\end{enumerate}
+	\end{enumerate}
+	
+	\subsection{Observation}
+	\begin{enumerate}
+	\item In the \textit{Movement} window under the \textit{Telescope} menu, enter the coordinates and epoch of the target in the \textit{Slew Position} tab.
+	\item Select apply and ensure that the coordinates and epoch have populated the \textit{Next Object} line in the main window.
+	\item If the \textit{Operating Mode} does not read \textit{TARGET OUT OF RANGE}, then it is safe to select \textit{Start Slew}. The telescope will slew to the target and begin tracking.
+	\item Imaging
+	\begin{enumerate}
+		\item In MaxIm DL, under the \textit{Exposure} tab in the \textit{Camera Control} window, set the exposure type to \textit{Single} on the right hand side.
+		\item The filter can be selected in the bottom left of the \textit{Expose} tab.
+		\item Typically a 10\textsuperscript{th} magnitude star reaches an acceptable signal to noise with a 45 s exposure. Adjust exposure time accordingly and take a sample exposure. That is to say:
+		\[
+			t \approx 45\left (2.5\right )^{m-10}
+		\]
+		\item Photometry can be checked using the \textit{Ctrl}+\textit{I} keyboard shortcut.
+		\item If the exposure looks acceptable, then select the \textit{Autosave} bubble and button.
+		\item In the \textit{Options} arrow menu, select \textit{Set Image Save Path}.
+		\item Set the Autosave Filename, exposure slots, filters, filename suffix, exposure length, and repetitions.
+		\item Review the exposure sequences, then select \textit{Apply} and \textit{OK}.
+		\item To start the the exposure sequences, select \textit{Start}.
+	\end{enumerate}
+	\item Repeat the above \textit{Observation} steps for all targets until all targets have been imaged.
+	\item Data stored in \textit{E:$\backslash$Data} is automatically transfered by a WinSCP script to \textit{/dra2/RBO/}that starts 15 minutes after the user has logged in. To manually backup data, double-click the file on the desktop named \textit{WinSCP Autosync}.
+	\end{enumerate}
+	\subsection{Shutdown}
+	\begin{enumerate}
+	\item Set the camera's  cooler to \textit{Warm Up}.
+	\item Close the mirror doors.
+	\item Close the dome shutters, once the mirror doors are closed.
+	\item Set the dome to go \textit{Home}, but leave the dome \textit{On} until it has reached an azimuth of 270$^\circ$ and the \textit{Activity Message} is clear. Once the dome has stopped moving, turn it \textit{Off}.
+	\item Slew the telescope to zenith (i.e. $\alpha$: local sidereal time, $\delta$: 41:19:00).
+	\item Set the \textit{R.A. Tracking Rate} to 0$^{\prime\prime}$ s\textsuperscript{-1}.
+	\item Close the DFMTCS program.
+	\item Once the camera has reached 0$^\circ$ C, it is safe to disable the cooler.
+	\item Disconnect the camera and close MaxIm DL.
+	\item Turn \textit{DFMTCS} off from the Start menu.
+	\item On the PDU webpage, in the \textit{Actions} tab, select \textit{Control} from the side.
+	\item Select \textit{Start Shed Sequence} from the \textit{Control Command} drop down menu.
+	\item Select \textit{Execute Command}.
+	\end{enumerate}
+
+\newpage
+\section{Automated Observations}
+	\subsection{Setup}
+	\begin{enumerate}
+		\item Log into Dra using the \textit{rboremote} user. All usernames and passwords for computers on the RBO network are located in Appendix \ref{app:users}, Table \ref{tab:users}.
+		\item Enable power at the observatory.
+		\begin{enumerate}
+			\item Log into the PDU webpage, 10.214.214.205, from any web browser.
+			\item On the PDU webpage, in the \textit{Actions} tab, select \textit{Control} from the side.
+			\item Select \textit{Start Ramp Sequence} from the \textit{Control Command} drop down menu.
+			\item Select \textit{Execute Command}.
+		\end{enumerate}
+		The PDU webpage can operate very slowly with a delay of ten seconds for an action to occur and a delay of one minute for the webpage to reflect the actions performed.
+		\item Open a VNC session to the \textit{RBOTCS} computer, 10.214.214.222. This can be done with the \textit{vncviewer} terminal command, \textit{vncviewer 10.214.214.222 -shared \&}, or TigerVNC.
+	\end{enumerate}
+
+	\subsection{Initiation of Observation Software}
+	\begin{enumerate}
+		\item Open MaxIm DL and minimize it.
+		\item Open DFMTCS and minimize it.
+		\item Open the \textit{RBO Automated Observing} shortcut and enter in the details of your target.
+		\item Verify, using airmass plots and observation charts, the target is visible for the time specified (i.e. Airmass less than 2.75 and Hour Angle between 10 and -10).
+		\item Make sure to follow the given legend for using the appropriate filter. E.g. if you would like to observe in R, you would enter 2 in the field that says filter.
+		\item Click on \textit{SAVE} once and then click on \textit{RUN}.
+		\item A dialog box will appear asking for the destination to save all the observations. Enter the appropriate directory path in the window. After that, a terminal will pop up.
+		\item Once information is printing to the terminal, the setup is complete and the VNC session can be closed.
+	\end{enumerate}
+\newpage
+	\subsection{In the Morning}
+	\begin{enumerate}
+		\item Check your data and ensure the telescope was shut down correctly.
+		\item Close all open tabs, and verify the dome is in the correct home position.
+		\item Shut down the \textit{RBOTCS} Computer.
+		\item On the PDU webpage, in the \textit{Actions} tab, select \textit{Control} from the side.
+		\item Select \textit{Start Shed Sequence} from the \textit{Control Command} drop down menu.
+		\item Select \textit{Execute Command}.
+	\end{enumerate}
+\newpage
+\section{Taking Calibration Images}
+\subsection{Setup}
+\begin{enumerate}
+	\item Check the local weather station, which can be accessed at \textit{www.ambientweather.net}, a quality Radar and Satellite map, such as \textit{www.weather.gov} and \textit{radar.weather.gov}, and any other appropriate forecast to assess the viability of observing. Observing is only viable if there is no precipitation, humidity is at or below 85\%, and the wind speed is at or below 50 km hr\textsuperscript{-1}.
+	\item Setup the Telescope as you would for manual observations. Refer to the Operations Manual for this.
+\end{enumerate}
+
+\subsection{Taking Calibration Images - Flats}
+\begin{enumerate}
+	\item In MaxIm DL, select \textit{Autosave} under the \textit{Exposure} tab in the \textit{Camera Control window}.
+	
+	\item Change the filename under \textit{Autosave Filename} to "f-".
+	\item Set \textit{Delay First} to 0 and \textit{Delay Between} to 0.
+	\item In \textit{Slot} 1, set \textit{Type} to Flat, \textit{Filter} to the filter you wish to take your flats in, \textit{Exposure} to whatever is appropriate based on current twilight, but no less than 10 seconds, \textit{Readout Mode} as Monochrome and \textit{Repeat} is set to 1. Make sure \textit{Binning} is set to 2.
+	\item Select the arrow button next to \textit{Options} and select \textit{Set Image Save Path} and select the appropriate directory.
+	\item Review the exposure sequences, then select \textit{Apply} and \textit{OK}.
+	\item In the DFMTCS window, select the \textit{Slew Position} tab under the \textit{Movement} window in the \textit{Telescope} menu.
+	\item Slew the telescope to an acceptable clear sky location, preferably near zenith e.g. \textit{RA} within 2 hours of zenith and \textit{Dec} within 10 degrees of zenith. 
+	\item In the same window, select \textit{Zenith/Offset}.
+	\item Set an appropriate offset for both \textit{RA} and \textit{Dec}, between 100' and 1000'.
+	\item Select \textit{Start} in the \textit{Camera Control window} in MaxIm DL.
+	\item During the delay between the images, press \textit{Apply} underneath the offsets, and then \textit{Start Slew}, in order to avoid taking images of the same patch of the sky.
+	\item Continue this until the image taking process has been completed.
+\end{enumerate}
+
+\subsection{Taking Calibration Images - Darks}
+\begin{enumerate}
+	\item In MaxIm DL, select \textit{Autosave} under the \textit{Exposure} tab in the \textit{Camera Control window}.
+	
+	\item Change the filename under \textit{Autosave Filename} to "d-".
+	\item Set \textit{Delay First} to 0 and \textit{Delay Between} to 2.
+	\item In \textit{Slot} 1, set \textit{Type} to Dark, \textit{Exposure} to whatever is appropriate based on your exposure time of your targets, \textit{Readout Mode} as Monochrome and \textit{Repeat} is set to usually around 5. Make sure \textit{Binning} is set to 2.
+	\item Select the arrow button next to \textit{Options} and select \textit{Set Image Save Path} and select the appropriate directory.
+	\item Review the exposure sequences, then select \textit{Apply} and \textit{OK}.
+	\item Make sure both the Mirror doors and the Dome Shutters are closed.
+	\item Select \textit{Start} in the \textit{Camera Control window} in MaxIm DL.
+\end{enumerate}
+
+\subsection{Taking Calibration Images - Biases}
+\begin{enumerate}
+	\item In MaxIm DL, select \textit{Autosave} under the \textit{Exposure} tab in the \textit{Camera Control window}.
+	
+	\item Change the filename under \textit{Autosave Filename} to "b-".
+	\item Set \textit{Delay First} to 0 and \textit{Delay Between} to 2.
+	\item In \textit{Slot} 1, set \textit{Type} to Bias, \textit{Readout Mode} as Monochrome and \textit{Repeat} is set to usually around 30. Make sure \textit{Binning} is set to 2.
+	\item Select the arrow button next to \textit{Options} and select \textit{Set Image Save Path} and select the appropriate directory.
+	\item Review the exposure sequences, then select \textit{Apply} and \textit{OK}.
+	\item Make sure both the Mirror doors and the Dome Shutters are closed.
+	\item Select \textit{Start} in the \textit{Camera Control window} in MaxIm DL.
+\end{enumerate}
+\newpage
+\section{Troubleshooting}
+\begin{shaded}\centering
+	The dome continuously rotates in a circle.
+\end{shaded}\noindent
+In the TCS software in the \textit{Miscellaneous} menu under \textit{Telescope}, turn the dome tracking to Home and then turn the Dome off. After this, turn the dome power back on and then enable tracking. If the dome does not recognize Home it may have lost contact with the Home foot switch. Check the switch position onsite and make sure it is in contact with the dome railing. Flip the switch back up if the dome has pushed it into the wrong position.
+
+\begin{shaded}\centering
+	The dome is pointing in the wrong direction.
+\end{shaded}\noindent
+Move the telescope back to zenith and the dome back to home. If the dome fails to return to the corrent location, turn the dome tracking to Home and turn the dome off in the TCS software in the \textit{Miscellaneous} menu under \textit{Telescope}. Use the \textit{Dome Left}, \textit{Dome Right}, and \textit{Dome Stop} buttons in the \textit{Display Epoch/Dome Shutter} tab to manually move the dome to the correct dome location (i.e. the two black strips are aligned). Close the Mirror Doors and Dome Shutter, and when it is safe to do so close and reopen the TCS software. The dome should be at home and read an azimuth of 270.
+
+\begin{shaded}\centering
+	Sidereal tracking is too fast or too slow.
+\end{shaded}\noindent
+Adjust the rate in the \textit{Rates} menu under \textit{Telescope} until the RA remains constant or nearly so. Once an appropriate rate has been found navigate to the Job778TCS directory on the desktop and open ``WinPNTM\_With4x.exe''. Select ``RBO1.pat''. Select the \textit{Adjust XMTR}. The desired tracking rate is 15 and the observed rate is the rate experimentally found earlier. Once the program has calculated the new XMTR value, substitute it for the current value and select \textit{Save Initialization File}.
+\begin{shaded}\centering
+	Pointing Offset Errors.
+\end{shaded}\noindent
+\begin{enumerate}
+			\item Move to a bright star using the DFM TCS software's \textit{Telescope} under \textit{Movement} tab. Be sure to input correct Epoch as well as RA/Dec. (Make sure the telescope is tracking before continuing). 
+			\item Find the bright star in the sky and center it on the instrument field by using hand-paddle controls. This is most easily done by going to the observatory and using the small telescopes mounted on the North side of the main telescope housing.  With very bright stars (1-3 mag) centering can also be achieved by following defraction spikes back to their source directly on the imager if the star is nearby to begin with.
+			\item Reset the location of the telescope in the DFM TCS software's \textit{Initialization} under \textit{Telescope Position} tab. Again input the RA/DEC and Epoch of the bright star you have now centered the instrument on. (Be sure NOT to click the 'use next position' button as your correcting slews will be counted).
+			\item Once you have saved the position on the bright star in the \textit{Initialization}, try to slew to another bright star following step 1.  If the method was successful your new star should be centered on the instrument.
+			\item Alternatively, the telescope can be manually set to zenith by using the level attached onsite and leveling the telescope in all directions. That position can then be set as zenith in \textit{Telescope Position} in \textit{Initialization}.
+		\end{enumerate}
+
+\begin{shaded}\centering
+	Telescope is pointed at the ground and will not move.
+\end{shaded}\noindent
+At the observatory, manually shut down TCS as specified in steps 1-9 in the shutdown procedure. Once the telescope no longer responds to hand paddle actions, head into the dome and physically move the telescope back into position. This will take a bit of force. If the telescope moves itself back, shut down the observatory completely. Once the telescope is near zenith, reinitialize the TCS software and verify the telescope thinks it is near zenith. If not, follow the above guide to the reset the pointing.
+
+
+\begin{shaded}\centering
+	Images are blank or there are no stars.
+\end{shaded}\noindent
+Verify both Dome Shutters and Mirror Doors are open, in addition to all lights being off.
+\begin{enumerate}
+\item If the images are uniformly 65000 counts, which will appear completely black, there is too much light from either the sun or dome lights. Turn off all lights and try images again. Wait 5 minutes to try flats again.
+\item If the images are spotty, yet there are no stars, there is likely clouds. Images with clouds will always have higher counts than images with the Mirror Doors or Dome Shutters Closed. For flats, move to a clear spot of the sky. For science images, verify the weather is acceptable and wait.
+\item If the images have large white or black portions, verify \textit{Night Mode} is off for both cameras. Other causes may be moonlight if the target is near the bright moon, or rarely, condensation on the mirror when the humidity is too hight. If humidity is suspected, shutdown the telescope until weather conditions are acceptable.
+\end{enumerate}
+
+\begin{shaded}\centering
+	The weather station is not reading properly in the automated script.
+\end{shaded}\noindent
+If the weather station reads correctly on \textit{ambientweather.net}, but will not load properly at its IP address or in the automated script, it likely needs a firmware update. On the \textit{RBOTCS} computer, launch the program titled \textit{IP Tools}. Enter the IP address of the \textit{RBOTCS} computer and press \textit{OK}, then press \textit{Search}. You should see the weather station information listed in a row. Click on the row, and select \textit{Upgrade}. Select \textit{Upgrade Firmware} and follow the rest of the steps as given in the program. If the weather station still does not read properly or reads too slowly, verify the information update delay is set to one minute at \textit{10.214.214.207/livedata} under the \textit{Settings} tab.
+
+\begin{shaded}\centering
+	The internet is slow or the the PDU webpage is unresponsive.
+\end{shaded}\noindent
+Often, the problem can be fixed by manually resetting the internet at the observatory. Onsite, unplug and replug both ends of the cable going into the small box on the outside of the observatory on the south wall. You may need a ladder to reach it. Inside, unplug and replug both the power and the internet to the rooftop satellite, located in the back of the server rack. Finally, unplug and replug the power for the router, which will interrupt all connections to the telescope for a few minutes. If the internet has still not improved, contact IT and wait. Weather can often affect internet connectivity.
+
+\begin{shaded}\centering
+	The telescope focus is stuck.
+\end{shaded}\noindent
+Occasionally, the focus can reach one of the limits and become stuck. Using the handpaddle onsite, move the telescope to zenith if the focus is too high, and as close to the horizion as possible if the focus is too low. Again using the handpaddle, manually adjust the focus back into limits. If needed, reset the focus to acceptable limits. In the \textit{Initilization} window under the \textit{Telescope} menu in the \textit{Other Positions} tab, reset the focus position to approximately 36.5 while in the middle of the focus range.
+
+\begin{shaded}\centering
+	The lower shutter will not open.
+\end{shaded}\noindent
+In order for the lower shutter to open, the upper shutter must be open enough to release the switch loctated near the bottom of the shutter. Rarely, this switch can become stuck in the depressed position. Onsite, carefully climb and locate the black switch near the bottom of the upper shutter and depress it a few times. Use the manual dome shutter controls located over the door to the dome to verify the proper actuation of the shutters. If no attempts to clean or fix the switch are successful, a new switch may need to be ordered, and is the same as the rest of the switches in the dome.
+
+\newpage
+
+\appendix
+\section{Usernames and Passwords}\label{app:users}
+RBO uses the 10.214.214.0/24 IP address block. A notable exception is the \textit{Dra} computer which hosts the data for reduction. This computer is located at 10.212.212.214.
+
+\begin{table}[H]
+	\caption{\label{tab:users}Relevant network locations, usernames, and passwords for observation.}
+	\begin{center}
+			\begin{tabular}{c|l|l|l}
+				IP address	& Device	& Username	& Password \\\hline
+				200 		& RBO\_1 	& Observer	& iii2skY \\
+				205 		& PDU 		& admin 	& 78Vista \\
+				206 		& UPS 		& apc 		& 78VistaGrande \\
+				207		& Ambient Weather Station	& jrothenb$@$uwyo.edu	& weather\_rbo\\
+				220 		& In-dome Webcam 1 	& admin		& 78Vista \\
+				221 		& In-dome Webcam 2	& admin		& 78Vista \\
+				222 		& RBOTCS	& DFM Engineering & add\_@stra!\\
+				222			& TCS VPN	& 			& 78Vista!
+			\end{tabular}
+	\end{center}
+\end{table}
+
+On the local computer network there are two users which are commonly used:
+\begin{table}[H]
+	\caption{\label{tab:comp}Local network users.}
+	\begin{center}
+		\begin{tabular}{l|l}
+			Username	& Password\\\hline
+			RBO			& iii2skY\\
+			rboremote	& 78Vista!
+		\end{tabular}
+	\end{center}
+\end{table}
+
+The Ambient Weather weather station can be accessed through www.ambientweather.net using the username \textit{jrothenb$@$uwyo.edu} with password \textit{weather\_rbo}.
+Lastly, the RBO webpage is managed by the RBO account. The login to password protected pages is \textit{iii2skY}
+
+\section{File Locations}\label{app:files}
+\begin{enumerate}
+\item All observation plans are located at \textit{C://Users/RBO/Desktop/Observation/Plans/}, and are saved as \textit{yyyymmdd.txt}.
+\item All Python files, including the automated script, are stored at\\ \textit{C://Users/RBO/Desktop/Observation/}.
+\item All data is stored on the external hard drive, currently listed as \textit{E://Data/}.
+\item The nigtly backup script is stored at \textit{C://ProgramFiles/WinSCP/syncrbo.bat}, and runs as a startup program with a 15 minute delay. A shortcut to the backup scrip is stored on the desktop as \textit{WinSCP Autosync}.
+\item For sharing data externally, cd to \textit{/d/dra2/RBO/} and run the following command, with the proper file locations and dates:\\ \textit{tar -cvf /d/www/RBO/public\_html/PennSt/20211223\_RBO.tar 20211223}.
+\end{enumerate}
+
+\section{Helpful Websites}\label{app:web}
+The following is a list of helpful websites for planning observations.
+\begin{enumerate}
+\item For checking weather and radar, \textit{www.weather.gov} and \textit{radar.weather.gov}.
+\item For checking observation conditions, \textit{www.cleardarksky.com/c/RdBtsObWYkey.html}.
+\item For finding transits, \textit{astro.swarthmore.edu/transits/transits.cgi}.
+\item For finding targets in the night sky, \textit{aladin.u-strasbg.fr/AladinLite/}. Note that for TESS targets, the TIC number must be entered, rather than the TOI number.
+\item For checking the visibility of targets, \textit{catserver.ing.iac.es/staralt/}.
+\item For converting UTC to JD and vice versa, \textit{www.aavso.org/jd-calculator}.
+\end{enumerate}
+
+\section{Miscellaneous Information}\label{app:misc}
+The currently equipped weather station is an Ambient Weather \textit{WS-1550-IP}.
+The currently equipped camera is an Apogee Alta F16M. With 2x2 on-chip binning, the camera has a gain of 1.39 e-/ADU, read noise of 15.3 e-, dark current of 0.139 e-/s/pix, and plate scale of 0.731"/pix.
+\par As of writing, these are the approximate focuses for RBO at different temperatures. For transits, the focus will need to be set slightly higher as to spread the light out. Alternatively, for very bright targets, the diffuser in the filter wheel can be used. Notably, the diffuser replaces the filters, meaning it uses white light.
+
+\begin{table}[H]
+	\caption{\label{tab:temp}Focus at different temperatures.}
+	\begin{center}
+			\begin{tabular}{c|c}
+				Temperature	& Approximate Focus\\\hline
+				-10$^\circ$ C 		& N/A\\
+				-5$^\circ$ C 		& N/A\\
+				0$^\circ$ C 		& 44.25\\
+		 		5$^\circ$ C 		& N/A\\
+				10$^\circ$ C 		& N/A\\
+				15$^\circ$ C 		& N/A\\
+				20$^\circ$ C 		& N/A\\
+				25$^\circ$ C 		& N/A\\
+				30$^\circ$ C 		& N/A\\
+			\end{tabular}
+	\end{center}
+\end{table}
+
+\par The field at RBO is oriented like any other astronomical field, with North to the top, South to the bottom, East to the left, and West to the right.\par
+
+
+\begin{table}[H]
+	\caption{\label{tab:load}PDU Loads.}
+	\begin{center}
+			\begin{tabular}{c|l}
+				Load	& Connection\\\hline
+				1 		& Dome Lights\\
+				2 		& Base Plate Power\\
+				3 		& N/A\\
+				4 		& N/A\\
+				5 		& PDU 2\\
+				6 		& CCD Power Bar\\
+				7 		& CCD\\
+				8 		& N/A\\
+				9 		& N/A\\
+				10 		& N/A\\
+				11 		& N/A\\
+				12 		& N/A\\
+				13 		& N/A\\
+				14 		& N/A\\
+				15 		& N/A\\
+				16 		& Ambient Weather Station\\
+			\end{tabular}
+	\end{center}
+\end{table}
+
+As of writing, the needed loads on the PDU are 2, 3, 5, 6, 7, 9, 13, and 16.
+
+\begin{table}[H]
+	\caption{\label{tab:filt}Filter Locations.}
+	\begin{center}
+			\begin{tabular}{c|c}
+				Location	& Filter\\\hline
+				0		& B\\
+				1 		& V\\
+				2 		& I\\
+				3 		& R\\
+				4 		& Empty\\
+				5 		& Empty\\
+				6 		& Diffuser\\
+				7 		& U\\
+			\end{tabular}
+	\end{center}
+\end{table}
+\newpage
+\section{Picking Targets}\label{app:targets}
+The following selection criteria apply for transiting exoplanets.
+\begin{enumerate}
+\item For transiting exoplanet candidates, RBO time is most useful verifying timings, rather than following up already known planets. As such, the most recent unconfirmed candidates are the recommended targets. For TESS objects these are the 3xxx and 4xxx TOIs.
+\item In order to balance signal to noise and timing precision, it is recommended to select targets brighter than 14\textsuperscript{th} magnitude and limit images to under 240 seconds.
+\item The precision of RBO is approximately 2ppt, and as such all targets selected should have transit depths larger than 2ppt.
+\item Ideally, all transit observations should have at least half an hour of out of transit time on either side of the transit, such that data reductions are more accurate.
+\item Additionally, the entirety of the transit and out of transit should be visible (i.e. Airmass less than 2.75 and Hour Angle between 10 and -10).
+\item If using the Swarthmore Transit Finder, verify the target is a Planetary Candidate, not an Ambiguous Planetary Candidate or False Positive. (Priority 3 and above).
+\end{enumerate}
+
+\end{document}

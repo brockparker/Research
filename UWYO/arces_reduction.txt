@@ -1,0 +1,654 @@
+########################################################## 
+          Reduction notes for ARCES data
+##########################################################
+
+============================================================================================================================================
+
+# open iraf
+
+	xgterm -sb -sl 2000 &
+	cl
+
+	iraf
+
+
+
+# copy in files if needed
+
+	cp -r /d/...
+
+
+
+# rename files with spaces or extra characters
+
+	find . -type f -name "i*" -print0 -exec bash -c 'mv "$0" "${0/charactertorepalce/charactertosubstitude}"' {} \;
+
+	# for spaces, make charactertorepalce '/ '
+
+
+
+# subtract overscan and trim
+
+	# delete old files if needed
+	del allfiles.txt,bias_out.txt ver-
+	
+	# make list of all files to trim and subtract (all)
+	files *.fits > allfiles.txt
+
+	# check to make sure its right
+	!more allfiles.txt
+
+	# change bias and trimmed image list to _bt
+	!sed -e s/.fits/_bt.fits/ allfiles.txt > bias_out.txt
+
+	# delete old files if needed
+	del @bias_out.txt ver-
+
+	# load needed iraf packages
+	noao
+	imred
+	bias
+
+	# do the trim and biasing
+	colbias @allfiles.txt @bias_out.txt bias=[2081:2126,2:1700] trim=[310:1799,10:1938] func=cheb order=5 interac-
+
+
+
+# fix bad data
+	
+	# create list of bad colums in a file called bad.dat
+	gedit bad.dat
+
+	# (pixel coordinates are for "image", not "physical")
+	153 153 540 2029
+	182 182 1567 2029
+	358 258 1456 2029
+	382 382 1565 2029
+	386 386 1529 2029
+	479 479 801 1647
+	673 673 1602 1843
+	679 679 1 2029
+	780 780 1642 2029
+	788 788 810 2029
+	873 873 1600 2029
+	965 965 1346 1798
+	980 980 1640 2029
+	1047 1047 1466 2029
+	1165 1165 1531 2029
+	1112 1112 1598 2029
+	1247 1247 1463 2029
+	1294 1294 1409 1720
+	1301 1301 1598 2029
+	1342 1342 461 1580
+	1374 1374 655 1475
+	1494 1494 1408 2029
+	1542 1542 1 2029
+	1574 1574 652 2029
+	1755 1755 849 2029
+
+	# mask out these columns from being used
+	fixpix @bias_out.txt mask=bad.dat verbos-
+
+
+
+# create master flat to scale all images by
+
+	# delete old files if needed
+	del masterflatB.fits,masterflatR.fits ver-
+
+	# create list of all R (open) flats
+	!ls f.*_bt.fits | head -5 > Rflats.txt
+
+	# make sure they are correct
+	!more Rflats.txt
+
+	# create list of all B flates
+	!ls f.*_bt.fits | tail -5 > Bflats.txt
+
+	# make sure they are correct
+	!more Bflats.txt
+
+	# combine all Rflats and Bflats into masterflatR and masterflatB
+	imcomb @Bflats.txt masterflatB.fits combine=average reject=avsig scale=none lsig=3 hsig=3 weight=none
+	imcomb @Rflats.txt masterflatR.fits combine=average reject=avsig scale=none lsig=3 hsig=3 weight=none
+
+	# delete old files if needed
+	del masterflat.fits ver-
+
+	# combine red and blue flats for better signal
+	imarith masterflatB.fits + masterflatR.fits masterflat.fits
+
+
+
+# define flat aperatures (orders on the detector). use masterflat to define apertures and extract 1D flat spectra
+
+	# add keyword to header to indicate the order of the aperatures, 1 is x 0 is y
+	hedit masterflat.fits field=DISPAXIS value=1 add+ addonly+
+	
+	# load needed iraf packages
+	noao
+	twodspec
+	apextract
+
+	# edit apdefault to specify -2.5:2.5 as aperture size and -7:-3,3:7 as background with 1st order func
+	epar apdefault
+	:wq
+
+	##### remember to set back to first order function ######
+
+	# find ~100 aperatures
+	# (Evan suggests :lower -4 and :upper 4 when doing the following)
+	# want to do everything interactively, including fitting aperature location and spectrum
+	apflatten masterflat.fits masterflat_apflatt.fits interact+ find+ recen+ resize- edit+ trace+ flatt+ fitspec+ niter=3
+	
+		# j plots residuals, h plots normal data
+		# d to delete nearest point
+		# r to replot
+		# f to refit
+		# q to save and move to next aperature
+
+
+
+# flat field science images by dividing them by masterflat_apflatt.fits
+	
+	# create list of files to flat field (all)
+	!cp bias_out.txt flat_in.txt
+
+	# Remove any entries that shouldn't be flat-fielded from flat_in.txt
+
+	# change flat_out list to _btf
+	!sed -e s/_bt.fits/_btf.fits/ flat_in.txt > flat_out.txt
+
+	# check to make sure list is correct
+	!more flat_out.txt
+
+	# delete old files if necessary
+	del @flat_out.txt
+
+	# If necessary, copy the master flat from another directory to current one.
+	!cp ../UT220824/masterflat_apflatt.fits .
+
+	# divide flat_in by masterflat
+	imarith @flat_in.txt / masterflat_apflatt.fits @flat_out.txt
+
+
+
+# remove cosmic rays from science images
+
+	# delete old files if necessary
+	del crfix_in.txt,crfix_out.txt
+
+	# create list of files to remove cosmic rays from
+	!ls -1 a*_btf.fits > crfix_in.txt
+
+	# check to make sure list is correct
+	!more crfix_in.txt
+
+	# Manually remove the ThAr exposures from crfix_in.txt
+
+	# change crfix_out list to _btr
+	!sed -e s/_btf.fits/_btrf.fits/ crfix_in.txt > crfix_out.txt
+
+	# delete old files if needed
+	del @crfix_out.txt ver-
+
+	# load needed iraf packages
+	imred
+	crutil
+
+	# remove cosmic rays
+	cosmicrays @crfix_in.txt @crfix_out.txt thresh=10 fluxra=1.5 npass=9 window=7 inter-
+
+	# manually add the same suffix to any ThAr images
+	!cp a.0027_btf.fits a.0027_btrf.fits
+	!cp a.0032_btf.fits a.0032_btrf.fits
+
+
+
+# add dispaxis to science images
+	
+	# create list of science images (all)
+	!ls a*_btf.fits > science.txt
+
+	# make sure list is correct
+	!more science.txt
+
+	# change science_r list to _btrf
+	!sed -e s/_btf.fits/_btrf.fits/ science.txt > science_r.txt
+	
+	# add dispersion axis direction to all images, just like masterflat
+	hedit @science_r.txt field=DISPAXIS value=1 add+ addonly+ ver-
+
+
+
+# extract 1D spectra from science and arc images using apertures defined in masterflat.fits
+
+	# delete old files if needed
+	del a*.ec.* ver-
+
+	# load needed iraf packages
+	noao
+	twodspec
+	apextract
+
+	# copy over bright star reference aperatures
+
+		# copy reference file
+		!cp /d/gem1/evan/lowqstars/UT190629/9-Cet_bt.fits .
+
+		# if there isn't already a database folder, make one.
+		!mkdir database
+
+		# copy over aperatures
+		!cp /d/gem1/evan/lowqstars/UT190629/database/ap9-Cet_bt database/
+
+	# or create bright star reference aperatures
+
+		# run apall on a bright star to trace star aperatures 
+		# rather than the full flat field aperatures
+		!cp a.0024_btrf.fits bright_star.fits
+		apall bright_star.fits aper=1-115 format=echelle refer=masterflat.fits interac+ find+ recen+ resize+ edit+ trace+ fittr+ review+ extras-
+
+	# extract 1D spectra with bright star aperatures
+	# this produces .ec suffix images
+	apall @science_r.txt aper=1-115 format=echelle refer=bright_star.fits interac- find- recen- resize- edit- trace- fittr- review- extras-
+
+	# create list of files that were just created
+	!sed -e s/_btrf.fits/_btrf.ec.fits/ science_r.txt > apall_out.txt
+
+	# check to make sure the list is right
+	!more apall_out.txt
+
+	# create refspec_in list as apall_out
+	!cp apall_out.txt refspec_in.txt
+
+	# Remove the ThAr image(s) from refspec_in.txt
+
+	# check to make sure list is right after removing ThAr
+	!more refspec_in.txt
+
+	# load needed iraf packages
+	astutil
+
+	# set jd and observatory for all refspec_in images
+	setjd @refspec_in.txt observatory=APO epoch=equinox
+
+	# set the jd of the ThAr image(s) separately
+	setjd  a.0027_btrf.ec.fits observatory=APO epoch=equinox
+	setjd  a.0032_btrf.ec.fits observatory=APO epoch=equinox
+
+
+
+# continuum normalize
+	
+	# rename refspec_in list to _btrfc.ec
+	!sed -e s/btrf.ec.fits/btrfc.ec.fits/ refspec_in.txt > contin_out.txt
+
+	# make sure list is correct
+	!more contin_out.txt
+
+	# delete old files if needed
+	del @contin_out.txt ver-
+
+	# normalize the continuum
+	continuum @refspec_in.txt @contin_out.txt order=9 interac- low=1.7 high=4 niter=6
+
+
+
+# more cosmic ray removal (with evans python file, which i dont have)
+
+	# rename contin_out to _btrfcR.ec
+	!sed -e s/btrfc.ec.fits/btrfcR.ec.fits/ contin_out.txt > imreplace_out.txt
+
+	# make sure list is correct
+	!more imreplace_out.txt
+
+	# delete old files if needed
+	del @imreplace_out.txt ver-
+
+	# if python file is available
+
+		# In a bash shell, open a jupyter-notebook and run the trimspectra file
+
+	# get rid of bad values
+	imreplace @imreplace_out.txt value=1 lower=1.2 upper=10000 radius=0                          # dont know if this is needed (<2)
+	imreplace @imreplace_out.txt value=1 lower=-10000 upper=0 radius=0
+
+
+
+# wavelength calibrate ThAr spectra
+
+	# Reduce ThAr images up to right before the wavelength calibration step 
+	# do not do any cosmic ray reduction steps for ThAr images
+	
+	# load needed iraf packages
+	noao
+	imred
+	echelle
+
+	# rename to proper names
+
+	# run wavelength calibration
+	ecidentify images=a.0027_btrfcR.ec.fits
+
+		# j for previous order
+		# k for next order
+		# m to mark a new feature, must be somewhat near peak, type wavelength, enter
+		# d to delete nearest feature
+		# f to fit disperion curve
+##########################Good to aperature 36##############################
+
+
+# convert science image pixels to wavelengths
+
+	# copy over wavelength reference file if needed
+	!cp /d/tel2/brock/Data/ARCES/practice/UT220529/a.0027_btrfcR.ec.fits
+	!cp /d/tel2/brock/Data/ARCES/practice/UT220529/database/eca.0027_btrfcR.ec
+
+	# calibrate all arc spectra in tonights data with reference
+	ecreidentify a.0027_btrfcR.ec.fits,a.0032_btrfcR.ec.fits a.0027_btrfcR.ec
+
+	# for only one reference arc spectra
+
+		# create refarc file with same number of entries as imreplace_out file
+		!sed 's/.*fits/a.0027_btrfcR.ec.fits/' imreplace_out.txt > refarc.txt
+
+		# assign each file in imreplace_out with a reference arc spectra that matches up directly to refarc
+		refspectra @imreplace_out.txt refer=@refarc.txt select=match ignor-
+
+	# for multiple reference arc spectra
+		
+		# create refarc file with all reference ThAr files on one line
+		!ls -1 a.0027_btrfcR.ec.fits  a.0032_btrfcR.ec.fits | tr '\n' ',' > refarc.txt
+
+		# assign each file in imreplace_out with a reference arc spectra interpolated in time from refarc
+		refspectra @imreplace_out.txt refer=@refarc.txt select=interp ignor-
+		
+	# load needed iraf packages
+	onedspec
+
+	# rename the newly wavelength calibrated _btrfcR files to btrfcRw
+	!sed -e s/btrfcR.ec.fits/btrfcRw.ec.fits/ imreplace_out.txt > disp_out.txt
+
+	# make sure list is correct
+	!more disp_out.txt
+
+	# delete old files if needed
+	del @disp_out.txt ver-
+
+	# copy over ... some kinda reference file??? if needed???
+	!cp ../UT190629/database/ecobj.0007_btr_ff.ec database/
+
+	# convert pixels to wavelengths for the files in imreplace_out, output as disp_out files
+	dispcor @imreplace_out.txt @disp_out.txt
+
+	# plot images to make sure converstion worked
+	splot @disp_out.txt
+========================================== Good up to here ===============================================
+
+# merge orders into full spectra
+
+	# delete old text file if needed
+	del comb_out.txt
+	
+	# rename combined files to _btrfcRwComb.fits from disp_out
+	!sed -e s/btrfcRw.ec.fits/btrfcRwComb.fits/ disp_out.txt > comb_out.txt
+
+	# make sure list is correct
+	!more comb_out.txt
+
+	# delete old files if needed
+	del @comb_out.txt ver-
+
+	# combine files
+	###################### can this just be one command? ################################################
+	scombine a.0016_btrfcRw.ec.fits output=a.0016_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0017_btrfcRw.ec.fits output=a.0017_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0018_btrfcRw.ec.fits output=a.0018_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0020_btrfcRw.ec.fits output=a.0020_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0021_btrfcRw.ec.fits output=a.0021_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0022_btrfcRw.ec.fits output=a.0022_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0023_btrfcRw.ec.fits output=a.0023_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0024_btrfcRw.ec.fits output=a.0024_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0025_btrfcRw.ec.fits output=a.0025_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0026_btrfcRw.ec.fits output=a.0026_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0027_btrfcRw.ec.fits output=a.0027_btrfcRwComb.fits rej=none comb=average aper=* group=all
+	scombine a.0028_btrfcRw.ec.fits output=a.0028_btrfcRwComb.fits rej=none comb=average aper=* group=all
+
+
+
+
+
+
+
+
+
+
+# RADIAL VELOCITY CORRECTION
+# Since each image was taken at a different time, each one will have a slightly
+# different velocity offset from a heliocentric frame. Therefore, we need to
+# correct the velocity shifts of each image individually before combining them to
+# get our final spectrum.
+
+# run RVCOR  DOPCOR to put in Heliocentric
+rvcor images=@comb_out.txt
+hedit @comb_out.txt VHELIO '(-1*(VHELIO))' show+ update+ verify-
+!sed -e s/Comb.fits/CombV.fits/ comb_out.txt > dopcor.txt
+!more dopcor.txt
+del @dopcor.txt ver-
+dopcor @comb_out.txt @dopcor.txt vhelio isvel+ add- disper+ flux- 
+
+# make a list of all combined fits images.
+!ls -1 *Comb*.fits > comb.txt
+!more comb.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################################################################################################################################################################
+##################################################               Chip's Reduction Notes for ARCES                  #############################################################
+################################################################################################################################################################################
+# 20190628 APO data both ARCES and DIS were taken this night
+# this is ARCES reductions
+   ##### Are raw files the obj.000?.fits ?
+
+# overscan subtract and trim all images
+del allfiles.txt,bias_out.txt ver-
+files *.fits > allfiles.txt
+!sed -e s/.fits/_bt.fits/ allfiles.txt > bias_out.txt
+del @bias_out.txt ver-
+colbias @allfiles.txt @bias_out.txt bias=[2081:2126,2:1700] trim=[110:1999,10:1938] func=cheb order=5 interac+
+	##### colbias input output bias=[range where bias pixels exist] trim=[region of the image to bias subtract and return, exclude the rest]
+	##### is the order dependent on something or just what is known to work best
+	##### same for the function
+
+# fix bad columns described in bad.dat
+	##### Are these calculated each night or just known as they go bad?
+
+153 153 540 2029
+358 258 1456 2029
+382 382 1565 2029
+386 386 1529 2029
+679 679 1 2029
+873 873 1600 2029
+980 980 1640 2029
+1165 1165 1531 2029
+1112 1112 1598 2029
+1247 1247 1463 2029
+1301 1301 1598 2029
+1494 1494 1408 2029
+1542 1542 1 2029
+1574 1574 652 2029
+1755 1755 849 2029
+
+fixpix @bias_out.txt mask=bad.dat verbos-
+
+# create mast flats combining teh red and blue images
+	##### format for these? always *quart*.fits ?
+	##### why do B flats have _B but R flats dont have _R, how to tell the difference
+
+del Bflats.txt,Rflats.txt ver-
+	#### why are there all these deletes, just to make it easier
+! ls -1 *quart*_bt.fits | grep _B > Bflats.txt # select just _B
+! ls -1 *quart*_bt.fits | grep -v _B | tail -5 > Rflats.txt # select everything not _B
+
+del masterflatB.fits,masterflatR.fits ver-
+imcomb @Bflats.txt masterflatB.fits combine=average reject=avsig scale=none lsig=3 hsig=3 weight=none
+imcomb @Rflats.txt masterflatR.fits combine=average reject=avsig scale=none lsig=3 hsig=3 weight=none
+
+del masterflat.fits ver-
+# combine red and blue flats for better signal
+	#### you're gonna have to explain this one
+	#### why take them in different filters just to combine them later
+	#### what filter are the images taken in
+imarith masterflatB.fits + masterflatR.fits masterflat.fits
+
+# use masterflat to define apertures and extract 1D flat spectra
+hedit masterflat.fits field=DISPAXIS value=1 add+ addonly+
+	#### what does this do? why do we need to update display axis?
+	#### orders parallel to rows is 1, parallel to columns is 2
+# edit apdefault to specify -2.5:2.5 as aperture size and -7:-3,3:7 as background with 1st order func
+	#### apdefault
+		lower = -2.5
+		uppder = 2.5
+		b_sampl = -7:-3:,3:7
+# find 110 apertures
+	#### whats an aperature for echelle spectroscopy
+apflatten masterflat.fits masterflat_apflatt.fits  interact+ find+ recen+ resize- edit+ trace+ flatt+ fitspec+ niter=3
+	#### recenter?
+	#### edit aperatures?
+	#### trace aperatures?
+	#### fit interactively?
+	#### write to database?
+	#### fit interactively?
+	#### clobber output?
+
+# extract 1D spectra from masterflat_apflatt.fits using apertures defined in masterflat.fits
+apall masterflat_apflatt.fits output=masterflat1D.fits aper=1-110 format=echelle refer=masterflat.fits interac- find- recen- resize- edit- trace- fittr- review- extras- 
+	#### doesn't really look 1d - does it compress each degree into a single column
+
+# divide 1D by 5 to account for 5 pixel extraction width
+imarith masterflat1D.fits / 5.  masterflat1D_norm.fits
+
+# remove cosmic rays from science images
+
+del crfix_in.txt,crfix_out.txt 
+!ls -1 obj*_bt.fits | grep -v 0007 > crfix_in.txt 
+!sed -e s/_bt.fits/_btr.fits/ crfix_in.txt > crfix_out.txt 
+del @crfix_out.txt ver-
+cosmicrays @crfix_in.txt @crfix_out.txt thresh=10 fluxra=1.5 npass=9 window=7 inter-
+del obj.0007_btr.fits ver-
+cp obj.0007_bt.fits obj.0007_btr.fits
+# extract 1D spectra from arcs and sciecne images
+
+# ThAr is 7 and others are V1187 Her
+
+# add dispaxis to science images 
+!sed -e s/bt.fits/btr.fits/ science.txt > science_r.txt
+hedit @science_r.txt field=DISPAXIS value=1 add+ addonly+ ver-
+
+# extract 1D spectra from science and arc iamges using apertures defined in masterflat.fits
+del obj*.ec.* ver-
+apall @science_r.txt  aper=1-110 format=echelle refer=masterflat.fits interac- find- recen- resize- edit- trace- fittr- review- extras- 
+# this produces .ec suffix iamges
+
+flat field the .ec extracted iamges
+del @objflat_out.txt
+del objflat_in.txt,objflat_out.txt ver-
+!ls -1 obj*ec.fits > objflat_in.txt
+!sed -e s/_btr/_btrf/ objflat_in.txt > objflat_out.txt
+imarith @objflat_in.txt / masterflat1D_norm.fits @objflat_out.txt
+
+# run ecidentify on obj.0007_btf.ec.fits
+# orders 25 and 26 contain 7600 O2 feature; blue is to larger pixel # in extractions
+ecidentify obj.0007_btrf.ec.fits
+ecreidentify obj.0007_btrf.ec.fits obj.0007_btrf.ec refit-
+# 7th order in x, 5th in y, rms is 0.0035Ang
+
+# define reference spectra
+nedit refarc.txt 
+# use  obj.0007_btrf.ec.fits for all 
+
+setjd @objflat_out.txt observatory=APO epoch=equinox 
+setjd  obj.0007_btrf.ec.fits observatory=APO epoch=equinox 
+refspectra @objflat_out.txt refer=@refarc.txt select=match ignor- 
+
+!sed -e s/btrf.ec.fits/btrfw.ec.fits/ objflat_out.txt >  disp_out.txt
+dispcor @objflat_out.txt @disp_out.txt
+
+!sed -e s/btrfw.ec.fits/btrfwc.ec.fits/ disp_out.txt > contin_out.txt
+continuum @disp_out.txt @contin_out.txt order=6 interac+ low=3 high=4 niter=3
+
+# replace remaining bad pixels >2 or < 0
+del @imreplace_out.txt ver-
+!sed -e s/btrfwc.ec.fits/btrfwcR.ec.fits/ contin_out.txt > imreplace_out.txt
+imcopy @contin_out.txt @imreplace_out.txt
+imreplace @imreplace_out.txt value=1 lower=1.2 upper=10000 radius=0
+imreplace @imreplace_out.txt value=1  lower=-10000 upper=0 radius=0
+
+# combine orders
+del comb_out.txt,V1187Her_Comb.fits ver-
+!sed -e s/btrfwcR.ec.fits/btrfwcRComb.ec.fits/ contin_out.txt > comb_out.txt
+scomb @imreplace_out.txt V1187Her_Comb.fits rej=none comb=average aper=* group=all 
+scomb obj.0010_btrfwcR.ec.fits obj.0010_btrfwcRComb.fits rej=none comb=average aper=* group=all 
+
+!ls -1 *Comb.fits > comb.txt
+# run RVCOR  DOPCOR to put in Heliocentric
+rvcor @comb.txt 
+hedit @comb.txt VHELIO '(-1*(VHELIO))' show+ update+ verify-
+!sed -e s/Comb.fits/CombV.fits/ comb.txt > dopcor.txt
+dopcor @comb.txt @dopcor.txt vhelio isvel+ add- disper+ flux- 
+
+# edit some regions and high CRs out -> .ED. file
+
+
+
+
+
+
+

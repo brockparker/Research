@@ -1,0 +1,357 @@
+########################################################## 
+Reduction notes for wiro double prime data from 2020 06 15
+##########################################################
+
+
+# open iraf
+
+	xgterm -sb -sl 2000 &
+	cl
+	(terminal)
+
+
+# copy double prime data from horatio to current directory
+	
+	cp -r /d/hamlet2/Data.horatio/yyyymmdd/ .
+	(terminal)
+	
+
+# first remove the bias level or "zero" level using the overscan strip for each quadrant of the array
+	
+	# copy WDPzero
+	
+	cp /d/www/cgardner/public_html/summer2020/WDPzero_diffuser.cl WDPzero.cl	
+	(iraf or terminal)
+		
+	task WDPzero=WDPzero.cl								
+	(iraf)
+
+	# make a list of input files that we want to remove the bias level on
+	
+	! ls -1 *.fit > infiles.txt							
+	(iraf or terminal)
+
+	# run it on the list of files to remove bias
+	
+	WDPzero("infiles.txt")								
+	(iraf)
+
+
+# make master bias to subtract from all data (made from average of all zero corrected biases)
+	
+	# create list of all biases (first 36, last 30)
+	
+	! ls -1 a0[1-4]*_z.fits | head -36 | tail -30 > bias_in.list			
+	(iraf or terminal)
+	
+	# check to see if list is correct
+	
+	imstat @bias_in.list								
+	(iraf)
+	
+	# combine biases into masterbias
+	
+	imcombine @bias_in.list masterbias.fits combine=average reject=avsigclip scale=none weight=none
+	(iraf)
+		
+	# create list of frames to subtract masterbias from
+	
+	! ls -1 *_z.fits > bias_tosubtract.list						
+	(iraf or terminal)
+
+	# change to subtract list to _zb
+	
+	! sed -e s/_z/_zb/ bias_tosubtract.list > bias_subtracted.list			
+	(terminal)
+	
+	# subtract masterbias from to subtract files
+	
+	imarith @bias_tosubtract.list - masterbias.fits @bias_subtracted.list		
+	(iraf)
+
+
+# create master flat fields from flats in each filter
+
+	# create input file with list of flats for each filter
+
+	! head -5 bias_subtracted.list | tail -5 > iflats_in.list
+	! head -10 bias_subtracted.list | tail -5 > rflats_in.list
+	! head -15 bias_subtracted.list | tail -5 > gflats_in.list
+	! head -20 bias_subtracted.list | tail -5 > uflats_in.list
+	! head -25 bias_subtracted.list | tail -5 > Rflats_in.list			
+	(iraf or terminal)
+
+	# use imcombine to create a master flat
+
+	imcombine @iflats_in.list masterflat_i.fits combine=median scale=median weight=none	
+	imcombine @gflats_in.list masterflat_g.fits combine=median scale=median weight=none	
+	imcombine @rflats_in.list masterflat_r.fits combine=median scale=median weight=none	
+	imcombine @uflats_in.list masterflat_u.fits combine=median scale=median weight=none	
+	imcombine @Rflats_in.list masterflat_R.fits combine=median scale=median weight=none	
+	(iraf)
+
+
+# normalize our flat field to unity
+	
+	# find average over center portion of image
+	
+	imstat masterflat_i.fits[1000:2000, 1000:2000]					
+	imarith masterflat_i.fits / 5247. masterflat_i_norm.fits			
+	(iraf)
+	
+	imstat masterflat_g.fits[1000:2000, 1000:2000]					
+	imarith masterflat_g.fits / 9017. masterflat_g_norm.fits			
+	(iraf)
+	
+	imstat masterflat_r.fits[1000:2000, 1000:2000]					
+	imarith masterflat_r.fits / 3092. masterflat_r_norm.fits			
+	(iraf)
+
+	imstat masterflat_u.fits[1000:2000, 1000:2000]					
+	imarith masterflat_u.fits / 3092. masterflat_u_norm.fits			
+	(iraf)
+
+	imstat masterflat_R.fits[1000:2000, 1000:2000]					
+	imarith masterflat_R.fits / 3078. masterflat_R_norm.fits			
+	(iraf)
+
+
+# divide data by masterflat in each filter
+	
+	# create list of all files in each filter
+	
+	grep "Filter 5" *_zb.fits | cut -c 13-24 > science_i.list			
+	(terminal)
+
+	grep "Filter 1" *_zb.fits | cut -c 13-24 > science_g.list			
+	(terminal)
+	
+	grep "Filter 2" *_zb.fits | cut -c 13-24 > science_r.list			
+	(terminal)
+
+	grep "Filter 3" *_zb.fits | cut -c 13-24 > science_u.list			
+	(terminal)
+
+	grep "Filter 4" *_zb.fits | cut -c 13-24 > science_R.list			
+	(terminal)
+
+
+	# create output file for flat fielded filenames
+	
+	sed -e s/_zb/_zbf/ science_i.list > science_i_flattened.list			
+	(terminal)
+	
+	sed -e s/_zb/_zbf/ science_g.list > science_g_flattened.list			
+	(terminal)
+	
+	sed -e s/_zb/_zbf/ science_r.list > science_r_flattened.list			
+	(terminal)
+	
+	sed -e s/_zb/_zbf/ science_u.list > science_u_flattened.list			
+	(terminal)
+
+	sed -e s/_zb/_zbf/ science_R.list > science_R_flattened.list			
+	(terminal)
+
+
+	# divide data by the masterflat
+	
+	imarith @science_i.list / masterflat_i_norm.fits @science_i_flattened.list	
+	(iraf)
+	
+	imarith @science_g.list / masterflat_g_norm.fits @science_g_flattened.list	
+	(iraf)
+		
+	imarith @science_r.list / masterflat_r_norm.fits @science_r_flattened.list	
+	(iraf)
+
+	imarith @science_u.list / masterflat_u_norm.fits @science_u_flattened.list	
+	(iraf)
+
+	imarith @science_R.list / masterflat_R_norm.fits @science_R_flattened.list	
+	(iraf)
+
+
+# Put all zero, biased, and flattened images into directories
+
+	mkdir ifilter									
+	mkdir gfilter								
+	mkdir rfilter									
+	mkdir ufilter									
+	mkdir Rfilter									
+	(iraf or terminal)
+
+	xargs -a science_i_flattened.list mv -t ifilter					
+	xargs -a science_g_flattened.list mv -t gfilter					
+	xargs -a science_r_flattened.list mv -t rfilter					
+	xargs -a science_u_flattened.list mv -t ufilter					
+	xargs -a science_R_flattened.list mv -t Rfilter					
+	(terminal)
+
+
+# Open aij and import image sequence
+
+	aij &
+
+	# File --> Import --> Image Sequence 
+	# 
+	# '_zbf' under 'File name contains:'
+	#  'Sort names numerically' and 'Use virtual stack' are checked
+	# alt left click on target
+	# check seeing profile
+	# 50, 60, 70 aperature raidus settings - aperature size changes night by night
+	# Centroid Apertures
+	# Use Howell centroid Method
+	# Remove stars from backgnd
+	# List the following FITS keyword decimal values
+  	# Keywords: JD_SOBS,JD_UTC,HJD_UTC,BJD_TDB,AIRMASS,ALT_OBJ,CCD-TEMP,EXPTIME,RAOBJ2K,DECOBJ2K
+  	# CCD gain: 2.62
+   	# CCD readout noise: 5.20
+   	# CCD dark current per sec: 0.01
+	# Saturation warning = 65000
+	# Linearity warning = 40000
+	
+
+# Perform Multi-Aperature Measurements
+
+	# Reposition aperture to object centroid
+	# Remove stars from backgnd
+	# Update plot of measurements while running
+
+	# Left click on first target star and then many comparison starss
+
+
+# Enter Relavent Information
+
+	# Period (from spreadsheet)
+	# Radius(Solar Radii) (from exoplanet archive: https://exoplanetarchive.ipac.caltech.edu/)
+
+
+# In Multi-plot Main
+
+	# Default X-data = JD_UTC
+	# Title = Exoplanet name
+	# Subtitle = yyy-mm-dd(filter)
+	# Legend = Right
+	# X-Axis Label = UT Time - 2459..
+	# Y-Axis Label = Relative Flux of Target
+	# X-Axis Scaling = Auto X-range
+	# Y-axis Scaling = Auto Y-range
+
+
+# Enter Ingress, Midpoint, and Egress Using JD converter
+
+
+# Enter the JD time with no decimals
+
+	# X-Axis Label = UT Time - 2459000
+	
+
+# Under V.Marker 1 & 2 enter decimal values of ingress and egress
+
+	# V.Marker 1 = 0.83681
+	# V.Marker 2 = 0.91319
+
+
+# Under Fit and Normalize Region Selection enter in the values of ingress and egress
+
+	# Left =  0.83681 (ingress)
+	# Right = 0.91319 (egress)
+
+	# Hit 'Redraw plot' to update values
+
+
+#Input proper limb-darkening coefficients (https://astroutils.astronomy.osu.edu/exofast/limbdark.shtml)
+	# u' =     1.0665824     -0.21241532
+	# g' =     0.77618848     0.049214395
+	# r' =     0.54635712     0.18094810
+	# i' =     0.42806157     0.20623954
+
+
+# Choose comparison stars to minimize RMS
+
+
+# Open Plot of Measurements and Multi-plot Y data
+
+	# X-data default
+	# Fitted target as first selection
+	# Unfitted target as second selection
+	# Comparison stars for rest
+
+
+# Multi-plot Y data
+	
+	# New Col
+	# Add columns to table
+	# Add column from Y-data
+    		# New column name (from Y-data): rel_flux_T1_fn      (normalized flux)
+	# Add column from Y-error
+    		# New column name (from Y-error): rel_flux_err_T1_fn (normalized flux error)
+
+
+# Save all plots and tables
+
+	# Open Multi-plot Main
+	# File -> save all
+	# *filter_name
+
+
+# Rename Dataset files to Exofast format
+
+	# mv gfilter_dataset.dat nyyyymmdd.Sloang.WIRO.dat
+	# mv ufilter_dataset.dat nyyyymmdd.Sloanu.WIRO.dat
+	# mv ifilter_dataset.dat nyyyymmdd.Sloani.WIRO.dat
+	# mv rfilter_dataset.dat nyyyymmdd.Sloanr.WIRO.dat
+
+
+# Edit new files to correct format
+
+	# remove the first two columns (# and label) by hitting control+shift keys and highlighting the text you want to remove
+	# Then remove the header
+
+
+# Change JD_UTC to BJD
+
+	# open a web browser and go to the webtool https://astroutils.astronomy.osdu/time/utc2bjd.html
+	# enter in the info for the target/observatory
+		# RA = 20 00 43.71
+		# DEC = +22 42 35.19
+		# Latitude = 41
+		# Longitude = -105
+		# Elevation = 2935
+		
+	# paste in the list of UTC and convert to BJD
+	# change UTC in file to BJD by holding control
+
+
+# Go to the EXOFAST tool on the NASA archive
+	
+	# Under the 'Transit File Options' select the band you are uploading and upload the transit file
+		# Band: SDSS g'
+	# Make sure the 'Current Transit File' name is correct
+		# Name: n20200612.Sloang.WIRO.dat 
+	# Add any extra columns from AIJ to detrend with. Click the box to include all detrending columns
+
+
+# Add any available Radial Velocity data to Radial Velocity File Options
+
+	# Host: HD 189733
+
+
+# Under 'Period and Settings Inputs'
+
+	# select MCMC 
+	# check the box for Force Circular Orbit
+
+# Prior and Prior Width Inputs
+	# Lookup planet
+		# Planet name: HD 189733 b 
+		# Include widths: Teff, [Fe/H] & log g* only 
+
+	# Transit Midpoint: 2459013.879232815
+	# Metallicity: -0.03 0.1
+
+
+
+
+

@@ -1,0 +1,132 @@
+# 20190628 APO data both ARCES and DIS were taken this night
+# this is ARCES reductions
+
+# overscan subtract and trim all images
+del allfiles.txt,bias_out.txt ver-
+files *.fits > allfiles.txt
+!sed -e s/.fits/_bt.fits/ allfiles.txt > bias_out.txt
+del @bias_out.txt ver-
+colbias @allfiles.txt @bias_out.txt bias=[2081:2126,2:1700] trim=[110:1999,10:1938] func=cheb order=5 interac-
+
+# fix bad columns described in bad.dat
+153 153 540 2029
+358 258 1456 2029
+382 382 1565 2029
+386 386 1529 2029
+679 679 1 2029
+873 873 1600 2029
+980 980 1640 2029
+1165 1165 1531 2029
+1112 1112 1598 2029
+1247 1247 1463 2029
+1301 1301 1598 2029
+1494 1494 1408 2029
+1542 1542 1 2029
+1574 1574 652 2029
+1755 1755 849 2029
+
+fixpix @bias_out.txt mask=bad.dat verbos-
+
+# create mast flats combining teh red and blue images
+
+del Bflats.txt,Rflats.txt ver-
+! ls -1 *quart*_bt.fits | grep _B > Bflats.txt
+! ls -1 *quart*_bt.fits | grep -v _B | tail -5 > Rflats.txt
+
+del masterflatB.fits,masterflatR.fits ver-
+imcomb @Bflats.txt masterflatB.fits combine=average reject=avsig scale=none lsig=3 hsig=3 weight=none
+imcomb @Rflats.txt masterflatR.fits combine=average reject=avsig scale=none lsig=3 hsig=3 weight=none
+
+del masterflat.fits ver-
+# combine red and blue flats for better signal
+imarith masterflatB.fits + masterflatR.fits masterflat.fits
+
+# use masterflat to define apertures and extract 1D flat spectra
+hedit masterflat.fits field=DISPAXIS value=1 add+ addonly+
+# edit apdefault to specify -2.5:2.5 as aperture size and -7:-3,3:7 as background with 1st order func
+# find 110 apertures
+apflatten masterflat.fits masterflat_apflatt.fits  interact+ find+ recen+ resize- edit+ trace+ flatt+ fitspec+ niter=3
+
+# extract 1D spectra from masterflat_apflatt.fits using apertures defined in masterflat.fits
+apall masterflat_apflatt.fits output=masterflat1D.fits aper=1-110 format=echelle refer=masterflat.fits interac- find- recen- resize- edit- trace- fittr- review- extras- 
+
+# divide 1D by 5 to account for 5 pixel extraction width
+imarith masterflat1D.fits / 5.  masterflat1D_norm.fits
+
+# remove cosmic rays from science images
+
+del crfix_in.txt,crfix_out.txt 
+!ls -1 obj*_bt.fits | grep -v 0007 > crfix_in.txt 
+!sed -e s/_bt.fits/_btr.fits/ crfix_in.txt > crfix_out.txt 
+del @crfix_out.txt ver-
+cosmicrays @crfix_in.txt @crfix_out.txt thresh=10 fluxra=1.5 npass=9 window=7 inter-
+del obj.0007_btr.fits ver-
+cp obj.0007_bt.fits obj.0007_btr.fits
+# extract 1D spectra from arcs and sciecne images
+
+# ThAr is 7 and others are V1187 Her
+
+# add dispaxis to science images 
+!sed -e s/bt.fits/btr.fits/ science.txt > science_r.txt
+hedit @science_r.txt field=DISPAXIS value=1 add+ addonly+ ver-
+
+# extract 1D spectra from science and arc iamges using apertures defined in masterflat.fits
+del obj*.ec.* ver-
+apall @science_r.txt  aper=1-110 format=echelle refer=masterflat.fits interac- find- recen- resize- edit- trace- fittr- review- extras- 
+# this produces .ec suffix iamges
+
+flat field the .ec extracted iamges
+del @objflat_out.txt
+del objflat_in.txt,objflat_out.txt ver-
+!ls -1 obj*ec.fits > objflat_in.txt
+!sed -e s/_btr/_btrf/ objflat_in.txt > objflat_out.txt
+imarith @objflat_in.txt / masterflat1D_norm.fits @objflat_out.txt
+
+# run ecidentify on obj.0007_btf.ec.fits
+# orders 25 and 26 contain 7600 O2 feature; blue is to larger pixel # in extractions
+ecidentify obj.0007_btrf.ec.fits
+ecreidentify obj.0007_btrf.ec.fits obj.0007_btrf.ec refit-
+# 7th order in x, 5th in y, rms is 0.0035Ang
+
+# define reference spectra
+nedit refarc.txt 
+# use  obj.0007_btrf.ec.fits for all 
+
+setjd @objflat_out.txt observatory=APO epoch=equinox 
+setjd  obj.0007_btrf.ec.fits observatory=APO epoch=equinox 
+refspectra @objflat_out.txt refer=@refarc.txt select=match ignor- 
+
+!sed -e s/btrf.ec.fits/btrfw.ec.fits/ objflat_out.txt >  disp_out.txt
+dispcor @objflat_out.txt @disp_out.txt
+
+!sed -e s/btrfw.ec.fits/btrfwc.ec.fits/ disp_out.txt > contin_out.txt
+continuum @disp_out.txt @contin_out.txt order=6 interac+ low=3 high=4 niter=3
+
+# replace remaining bad pixels >2 or < 0
+del @imreplace_out.txt ver-
+!sed -e s/btrfwc.ec.fits/btrfwcR.ec.fits/ contin_out.txt > imreplace_out.txt
+imcopy @contin_out.txt @imreplace_out.txt
+imreplace @imreplace_out.txt value=1 lower=1.2 upper=10000 radius=0
+imreplace @imreplace_out.txt value=1  lower=-10000 upper=0 radius=0
+
+# combine orders
+del comb_out.txt,V1187Her_Comb.fits ver-
+!sed -e s/btrfwcR.ec.fits/btrfwcRComb.ec.fits/ contin_out.txt > comb_out.txt
+scomb @imreplace_out.txt V1187Her_Comb.fits rej=none comb=average aper=* group=all 
+scomb obj.0010_btrfwcR.ec.fits obj.0010_btrfwcRComb.fits rej=none comb=average aper=* group=all 
+
+!ls -1 *Comb.fits > comb.txt
+# run RVCOR  DOPCOR to put in Heliocentric
+rvcor @comb.txt 
+hedit @comb.txt VHELIO '(-1*(VHELIO))' show+ update+ verify-
+!sed -e s/Comb.fits/CombV.fits/ comb.txt > dopcor.txt
+dopcor @comb.txt @dopcor.txt vhelio isvel+ add- disper+ flux- 
+
+# edit some regions and high CRs out -> .ED. file
+
+
+
+
+
+
+

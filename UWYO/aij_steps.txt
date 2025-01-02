@@ -1,0 +1,170 @@
+Step 0: IRAF reductions
+
+Step 1: Get all zero, biased and flatfielded images into the proper directories. 
+#into terminal window
+mkdir ifilter
+mkdir gfilter
+mkdir rfilter
+mkdir ufilter
+
+
+xargs -a ifilter.zbf.list mv -t ifilter
+xargs -a rfilter.zbf.list mv -t rfilter
+xargs -a gfilter.zbf.list mv -t gfilter
+xargs -a gfilter.zbf.list mv -t ufilter
+
+#for this exersise we will use the night of 20200612 of HD-189733
+
+#you can copy ready images fromthe practice folder:
+/d/users/cgardner/summer2020/practice_aij
+
+#to copy use the command for each of the filters while in a new directory you star on your machine:
+#you are asking to copy from the directory conatining the files (/zon2/data/20200612/gfilter_hd189733) to your directory (.)
+
+cp -r /d/users/cgardner/summer2020/practice_aij/gfilter_hd189733 .
+cp -r /d/users/cgardner/summer2020/practice_aij/ifilter_hd189733 .
+cp -r /d/users/cgardner/summer2020/practice_aij/rfilter_hd189733 .
+cp -r /d/users/cgardner/summer2020/practice_aij/ufilter_hd189733 .
+
+#I have left my finished aij files in each direcotry for your reference
+
+Step 2: Open AIJ and import image sequence
+#into terminal
+aij &
+
+#AstroimageJ window will pop up
+
+File --> Import --> Image Sequence 
+
+#Navigate to the directory where your images are located and 'Open'
+#Sequence Options window will open and you will want to enter '_zbf' under 'File name contains:'
+#Make sure just the boxes 'Sort names numerically' and 'Use virtual stack are checked'
+
+
+Step 3: Make sure your settings are correct under 'Aperture Photometry Settings'
+#check the seeing profile to see what your aperture size should be
+
+Alt + left click near target
+
+#for this target the majority of the flux is within a radius of ~50 pix so we will set our inner aperture at that value
+
+#Change aperture settings by clicking the box with a red/blue circle and 'Set' text
+#The aperture of each target you reduce data for may be different, for this one:
+
+
+Radius of object aperture: 50
+
+Inner radius of background annulus: 60
+
+Outer radius of background annulus: 70
+
+#these other options should stay the SAME for all subsequent reductions:
+
+Checked Boxes:
+
+Centroid Apertures
+Use Howell centroid Method
+Remove stars from backgnd
+List the following FITS keyword decimal values
+   Keywords: JD_SOBS,JD_UTC,HJD_UTC,BJD_TDB,AIRMASS,ALT_OBJ,CCD-TEMP,EXPTIME,RAOBJ2K,DECOBJ2K
+   CCD gain: 2.62
+   CCD readout noise: 5.20
+   CCD dark current per sec: 0.01
+Saturation warning = 65000
+Linearity warning = 40000
+
+
+Step 4: Place apertures around target star and comparison stars
+
+Click the two red/blue circles
+
+#Multi-Aperture Measurements
+
+Checked boxes:
+
+Reposition aperture to object centroid
+Remove stars from backgnd
+Update plot of measurements while running
+
+
+Close
+
+#Now you are ready to actually place your apertures. Make sure you have the box use previous apertures unchecked if you are moving onto a target. If you need to clear misplaced apertures you can use the buttom with the broom and two blue/red circles
+
+Left click on the target (Green T1)
+
+Left click on the the brightest stars, nearby stars (Red C#)
+
+#Choose as many comparison stars as you'd like since we want to check all the possibilities. you can use the scroll bar on the bottom to change the scaling and check which are the brightest objects. 
+# Once you are done hit 'Enter'
+# Many boxes will open as your data loads into AIJ
+
+Step 5: Enter in the relevent information in to 'Data Set 1 Fit Settings' and 'Multi-plot Main'
+#In Data Set 1 Fit Settings we just need to enter in the period and the star's radius at the top
+Period = 2.218577    (from summer spreadsheet since we are using one source for this info)
+R*(Sun) = 0.75       (from Exoplanetarchive: https://exoplanetarchive.ipac.caltech.edu/)
+
+#In Multi-plot Main
+Default X-data = JD_UTC
+Title = HD 189733b
+Subtitle = 2020-06-12(g)
+Legend = Right
+X-Axis Label = UT Time - 2459..
+Y-Axis Label = Relative Flux of Target
+X-Axis Scaling = Auto X-range
+Y-axis Scaling = Auto Y-range
+
+#Now we need to check Ingress, Midpoint and Egress to fill in the 'V.Marker' and 'Fit and Normalize Region Selection'. Go back to the summer spreadsheet and open up a UTC-->JD conversion tool ()
+
+Ingress:  2020-06-13 8:05 --> 2459013.83681
+Midpoint: 2020-06-13 9:00 --> 2459013.87500
+Egress:   2020-06-13 9:55 --> 2459013.91319
+
+#Enter the JD time with no decimals
+X-Axis Label = UT Time - 2459013
+
+#Under V.Marker 1 & 2 enter the decimal values of ingress and egress - this gives you the red dashed lines on the plot
+
+V.Marker 1 = 0.83681
+V.Marker 2 = 0.91319
+
+#Under Fit and Normalize Region Selection enter in the values of ingress and egress - this is the region you are telling aij to fit
+
+Left =  0.83681 (ingress)
+Right = 0.91319 (egress)
+
+#Hit 'Redraw plot' to update values
+
+
+Step 6: Choose Comparison stars to minimize RMS - a measure of the imperfection of the fit of the estimator to the data
+# In 'Multi-plot Y data make sure that your target star is the only thing with a fit mode of a transit.
+#You will want a few windows open for this next step - 'Data Set 1 Fit Settings' and 'Multi-plot Reference star Settings'
+#Here you will have to play around with the comparison star ensemble (checking and unchecking bixes on Multi-plot Reference star Settings) to find the lowest possible RMS value on the Data Set 1 Fit Settings 'Fit statistics' panel. Take your time here. If you feel like you have not chosen good enough comparison stars or want to start over I suggest you completly exit out of AIJ and re-load the data - I do this quite a bit and will check the box to open up previous apertures. This makes it easy to see what stars did not work before and you can remove apertures from the stars by left clicking on them. 
+
+Step 7: Prepare your plot and save your data. 
+#To prepare your plot you will want the 'Plot of Measurements' and the 'Multi-plot Y data' open
+#Always keep X-data as 'default'
+#for y-data choose your fitted target as the first selection (rel_flux_T1 with fit mode of a transit or partial if applicable), your unfitted target as the second selection (rel_flux_T1 with fit mode set to 'off'), and your comparison stars for the rest (rel_flux_C# with fit mode set to no transit - straight line all the way through). 
+#Set appropriate colors/symbols 
+
+#Once your plot looks good you can save everything
+#In the window 'Multi-plot Y data' click the button 'New col' next to the first data set row. A new window will pop up 'Add columns to table'
+
+Check boxes
+  
+Add column from Y-data
+    New column name (from Y-data): rel_flux_T1_fn      (this is the normalized flux)
+Add column from Y-error
+    New column name (from Y-error): rel_flux_err_T1_fn (normalized flux error)
+
+Hit OK
+
+
+#Save all plots/tables measurements by going to the 'Multi-plot Main' window
+
+File --> Save all 
+
+#Save as 'gilter' or whichever filter you are in. If these files already exist in your directory then it will re-write over them so name accordingly. 
+
+
+

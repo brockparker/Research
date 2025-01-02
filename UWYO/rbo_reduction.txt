@@ -1,0 +1,437 @@
+########################################################## 
+Reduction notes for red buttes data from 2021 05 25
+##########################################################
+
+============================================================================================================================================
+
+# open iraf
+
+	xgterm -sb -sl 2000 &
+	cl
+
+	iraf
+
+
+# copy red buttes data from dra to current directory
+	
+	cp -r /d/dra2/RBO/yyyymmdd/ . 
+
+
+# copy in flats if need be
+
+	cp /d/dra2/RBO/yyyymmdd/f*.fit .
+
+# rename files with spaces or extra characters
+
+	find . -type f -name "i*" -print0 -exec bash -c 'mv "$0" "${0/charactertorepalce/charactertosubstitude}"' {} \;
+
+	for spaces, make charactertorepalce '/ '
+
+# make master bias to subtract from all data (made from average of all zero corrected biases)
+	
+	# create list of all biases
+	
+	! ls -1 b*.fit > bias_in.list
+	
+	# check to see if list is correct
+	
+	imstat @bias_in.list
+	
+	# combine biases into masterbias
+	
+	imcombine @bias_in.list masterbias.fits combine=average reject=avsigclip scale=none weight=none
+	
+	# create list of frames to subtract masterbias from
+	
+	! ls -1 *.fit > bias_tosubtract.list
+
+	# change to subtract list to _b
+	
+	! sed -e s/.fit/_b.fits/ bias_tosubtract.list > bias_subtracted.list
+	
+	# subtract masterbias from to subtract files
+	
+	imarith @bias_tosubtract.list - masterbias.fits @bias_subtracted.list
+
+
+# make scaled master darks to subtract from all data (made from average of all biased darks scaled by exposure time)
+
+	# create list of all darks
+	
+	! ls -1 d*_b.fits > dark_in.list
+	
+	# check to see if list is correct
+
+	imstat @dark_in.list
+
+	# combine darks into masterdark
+	
+	imcombine @dark_in.list masterdark.fits combine=median reject=avsigclip scale=none weight=none
+
+	# create list of frames to subtract masterdark from by exposure time
+
+	grep -l "60.00000000000000" *_b.fits > dark_tosubtract_60.list 
+	grep -l "12.00000000000000" *_b.fits > dark_tosubtract_12.list 
+	grep -l "30.00000000000000" *_b.fits > dark_tosubtract_30.list
+	grep -l "90.00000000000000" *_b.fits > dark_tosubtract_90.list
+	grep -l "25.00000000000000" *_b.fits > dark_tosubtract_25.list
+	grep -l "180.0000000000000" *_b.fits > dark_tosubtract_180.list
+	grep -l "120.0000000000000" *_b.fits > dark_tosubtract_120.list
+	grep -l "45.00000000000000" *_b.fits > dark_tosubtract_45.list
+	grep -l "15.00000000000000" *_b.fits > dark_tosubtract_15.list 
+	grep -l "240.0000000000000" *_b.fits > dark_tosubtract_240.list
+
+	# check if list is correct
+
+	imstat @dark_tosubtract_60.list
+	imstat @dark_tosubtract_12.list
+	imstat @dark_tosubtract_30.list
+	imstat @dark_tosubtract_90.list
+	imstat @dark_tosubtract_25.list
+	imstat @dark_tosubtract_180.list	
+	imstat @dark_tosubtract_120.list
+	imstat @dark_tosubtract_45.list
+	imstat @dark_tosubtract_15.list
+	imstat @dark_tosubtract_240.list
+	
+	# change subtract list to _bd
+
+	! sed -e s/_b/_bd/ dark_tosubtract_60.list > dark_subtracted_60.list
+	! sed -e s/_b/_bd/ dark_tosubtract_12.list > dark_subtracted_12.list
+	! sed -e s/_b/_bd/ dark_tosubtract_30.list > dark_subtracted_30.list
+	! sed -e s/_b/_bd/ dark_tosubtract_90.list > dark_subtracted_90.list
+	! sed -e s/_b/_bd/ dark_tosubtract_25.list > dark_subtracted_25.list
+	! sed -e s/_b/_bd/ dark_tosubtract_180.list > dark_subtracted_180.list
+	! sed -e s/_b/_bd/ dark_tosubtract_120.list > dark_subtracted_120.list
+	! sed -e s/_b/_bd/ dark_tosubtract_45.list > dark_subtracted_45.list
+	! sed -e s/_b/_bd/ dark_tosubtract_15.list > dark_subtracted_15.list
+	! sed -e s/_b/_bd/ dark_tosubtract_240.list > dark_subtracted_240.list
+
+	# scale masterdark to exposure time
+	# for 60s darks
+
+	imarith masterdark.fits / 1 masterdark_60.fits
+	imarith masterdark.fits / 5 masterdark_12.fits
+	imarith masterdark.fits / 2 masterdark_30.fits
+	imarith masterdark.fits * 1.5 masterdark_90.fits
+	imarith masterdark.fits / 2.4 masterdark_25.fits
+	imarith masterdark.fits * 3 masterdark_180.fits
+	imarith masterdark.fits * 2 masterdark_120.fits
+	imarith masterdark.fits / (4/3) masterdark_45.fits
+	imarith masterdark.fits / 4 masterdark_15.fits
+
+	# for 180s darks
+
+	imarith masterdark.fits / 3 masterdark_60.fits
+	imarith masterdark.fits / 15 masterdark_12.fits
+	imarith masterdark.fits / 6 masterdark_30.fits
+	imarith masterdark.fits / 2 masterdark_90.fits
+	imarith masterdark.fits / 7.2 masterdark_25.fits
+	imarith masterdark.fits * 1 masterdark_180.fits
+	imarith masterdark.fits / 1.5 masterdark_120.fits
+	imarith masterdark.fits / 4 masterdark_45.fits
+	imarith masterdark.fits / 12 masterdark_15.fits
+	imarith masterdark.fits * (4/3) masterdark_240.fits
+
+	# for 240s darks
+
+	imarith masterdark.fits / 4 masterdark_60.fits
+	imarith masterdark.fits / 20 masterdark_12.fits
+	imarith masterdark.fits / 8 masterdark_30.fits
+	imarith masterdark.fits / (8/3)  masterdark_90.fits
+	imarith masterdark.fits / (4/3) masterdark_180.fits
+	imarith masterdark.fits / 2 masterdark_120.fits
+	imarith masterdark.fits * 1 masterdark_240.fits
+
+	# subtract masterdark from each set of exposure times
+
+	imarith @dark_tosubtract_60.list - masterdark_60.fits @dark_subtracted_60.list
+	imarith @dark_tosubtract_12.list - masterdark_12.fits @dark_subtracted_12.list
+	imarith @dark_tosubtract_30.list - masterdark_30.fits @dark_subtracted_30.list
+	imarith @dark_tosubtract_90.list - masterdark_90.fits @dark_subtracted_90.list
+	imarith @dark_tosubtract_25.list - masterdark_25.fits @dark_subtracted_25.list
+	imarith @dark_tosubtract_180.list - masterdark_180.fits @dark_subtracted_180.list	
+	imarith @dark_tosubtract_120.list - masterdark_120.fits @dark_subtracted_120.list
+	imarith @dark_tosubtract_45.list - masterdark_45.fits @dark_subtracted_45.list
+	imarith @dark_tosubtract_15.list - masterdark_15.fits @dark_subtracted_15.list
+	imarith @dark_tosubtract_240.list - masterdark_240.fits @dark_subtracted_240.list
+
+# create master flat fields from flats
+
+	# create input file with list of flats for each filter
+
+	! ls -1 f*_bd.fits > iflats_in.list
+
+	# check to see if list is correct
+
+	imstat @iflats_in.list
+
+	# use imcombine to create a master flat
+
+	imcombine @iflats_in.list masterflat_i.fits combine=median scale=median weight=none
+
+
+# normalize our flat field to unity
+	
+	# find average over center portion of image
+	
+	imstat masterflat_i.fits[750:1250, 750:1250]		
+	imarith masterflat_i.fits / 22118. masterflat_i_norm.fits
+
+
+# divide data by masterflat in each filter
+	
+	# create list of all files in each filter
+	
+	! ls -1 *_bd.fits > science_i.list
+
+	# create output file for flat fielded filenames
+	
+	! sed -e s/_bd/_bdf/ science_i.list > science_i_flattened.list
+
+	# divide data by the masterflat
+	
+	imarith @science_i.list / masterflat_i_norm.fits @science_i_flattened.list
+	
+
+# Put all zero, biased, and flattened images into directories
+
+	mkdir ifilter
+
+	xargs -a science_i_flattened.list mv -t ifilter
+
+
+# Open aij and import image sequence
+
+	aij &
+
+	# File --> Import --> Image Sequence 
+	# 
+	# '_bdf' under 'File name contains:'
+	#  'Sort names numerically' and 'Use virtual stack' are checked
+	# alt left click on target
+	# check seeing profile
+	# 10, 20, 30 aperature raidus settings
+	# Centroid Apertures
+	# Use Howell centroid Method
+	# Remove stars from backgnd
+	# List the following FITS keyword decimal values
+  	# Keywords: JD_SOBS,JD_UTC,HJD_UTC,BJD_TDB,AIRMASS,ALT_OBJ,CCD-TEMP,EXPTIME,RAOBJ2K,DECOBJ2K
+  	# CCD gain: 1.39
+   	# CCD readout noise: 15.3
+   	# CCD dark current per sec: 0.139
+	# Saturation warning = 65000
+	# Linearity warning = 40000
+	
+
+# Perform Multi-Aperature Measurements
+
+	# Reposition aperture to object centroid
+	# Remove stars from backgnd
+	# Update plot of measurements while running
+
+	# Left click on first target star and then many comparison starss
+
+
+# Enter Relavent Information
+
+	# Period (from spreadsheet)
+	# Radius(Solar Radii) (from exoplanet archive: https://exoplanetarchive.ipac.caltech.edu/)
+
+
+# In Multi-plot Main
+
+	# Default X-data = JD_UTC
+	# Title = Exoplanet name
+	# Subtitle = yyyy-mm-dd(filter)
+	# Legend = Right
+	# X-Axis Label = UT Time - 2459..
+	# Y-Axis Label = Relative Flux of Target
+	# X-Axis Scaling = Auto X-range
+	# Y-axis Scaling = Auto Y-range
+
+
+# Enter Ingress, Midpoint, and Egress Using JD converter
+
+
+# Enter the JD time with no decimals
+
+	# X-Axis Label = UT Time - 2459000
+	
+
+# Under V.Marker 1 & 2 enter decimal values of ingress and egress
+
+	# V.Marker 1 = 0.83681
+	# V.Marker 2 = 0.91319
+
+
+# Under Fit and Normalize Region Selection enter in the values of ingress and egress
+
+	# Left =  0.83681 (ingress)
+	# Right = 0.91319 (egress)
+
+	# Hit 'Redraw plot' to update values
+
+
+# Enter Limb Darkening Coefficients (https://astroutils.astronomy.osu.edu/exofast/limbdark.shtml)
+
+	# V = 0.37967834      0.30481027
+
+
+# Choose comparison stars to minimize RMS
+
+
+# Open Plot of Measurements and Multi-plot Y data
+
+	# X-data default
+	# Fitted target as first selection
+	# Unfitted target as second selection
+	# Comparison stars for rest
+
+
+# Multi-plot Y data
+	
+	# New Col
+	# Add columns to table
+	# Add column from Y-data
+    		# New column name (from Y-data): rel_flux_T1_fn      (normalized flux)
+	# Add column from Y-error
+    		# New column name (from Y-error): rel_flux_err_T1_fn (normalized flux error)
+
+
+# Save all plots and tables
+
+	# Open Multi-plot Main
+	# File -> save all
+	# *filter_name
+
+
+# Rename Dataset files to Exofast format
+
+	# mv gfilter_dataset.dat nyyyymmdd.Sloang.WIRO.dat
+	# mv ufilter_dataset.dat nyyyymmdd.Sloanu.WIRO.dat
+	# mv ifilter_dataset.dat nyyyymmdd.Sloani.WIRO.dat
+	# mv rfilter_dataset.dat nyyyymmdd.Sloanr.WIRO.dat
+
+
+# Edit new files to correct format
+
+	# remove the first two columns (# and label) by hitting control+shift keys and highlighting the text you want to remove
+	# Then remove the header
+
+
+# Change JD_UTC to BJD
+
+	# open a web browser and go to the webtool https://astroutils.astronomy.osu.edu/time/utc2bjd.html
+	# enter in the info for the target/observatory
+		# RA = 20 00 43.71
+		# DEC = +22 42 35.19
+		# Latitude = 41
+		# Longitude = -105
+		# Elevation = 2935
+		
+	# paste in the list of UTC and convert to BJD
+	# change UTC in file to BJD by holding control
+
+
+# Go to the EXOFAST tool on the NASA archive
+	
+	# Under the 'Transit File Options' select the band you are uploading and upload the transit file
+		# Band: SDSS g'
+	# Make sure the 'Current Transit File' name is correct
+		# Name: n20200612.Sloang.WIRO.dat 
+	# Add any extra columns from AIJ to detrend with. Click the box to include all detrending columns
+
+
+# Add any available Radial Velocity data to Radial Velocity File Options
+
+	# Host: HD 189733
+
+
+# Under 'Period and Settings Inputs'
+
+	# select MCMC 
+	# check the box for Force Circular Orbit
+
+# Prior and Prior Width Inputs
+	# Lookup planet
+		# Planet name: HD 189733 b 
+		# Include widths: Teff, [Fe/H] & log g* only 
+
+	# Transit Midpoint: 2459013.879232815
+	# Metallicity: -0.03 0.1
+
+============================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+# David Reductions
+
+	cd /d/zivy2/kasper/WIRO_dat
+
+	# change save and load locations in code
+	# copy pasted aij data tables - airmass, x, y
+	# times in BJD NOT UTC - barycorepy - jason eastman bjd
+	# normalized flux datasets
+	# each night seperately then combine
+
+	# ngprt1BatHammer.py - best version may or may not have n at front 
+	# spread across 1/10 of range - checking for convergence
+
+	# change midtransit in code?
+	# make sure windows around non time parameters include all expected or possible values - 3 or 10 sigma error bars for 1serr
+
+	# add hard coded values to priors.txt
+
+	# run ngprt1cornerquotes.py and ngprt1detrends.py - also use all files for all filters - have to modify depending on what filters are per night
+
+	# include TESS datasets in analysis 
+
+
+
+====================
+new (-15)
+
+f14 - 15867
+f15 - 14667
+avgdiff = 1200
+sigf1-f2 = 149.1
+
+f21 - 8559
+f23 - 7095
+avgdiff = 1464
+siff1-f2 = 161.7
+
+b5 - 1305
+b8 - 1305
+avgdiff = 0
+sigb1-b2 = 15.56
+
+b2 - 1306
+b27 - 1304
+avgdiff = 2
+sigb1-b2 = 15.52
+
+====================
+gain = 1.270
+read noise = 13.972
+dark current = 0.139 (-15)
+====================
+
+====================
+gain = 0.503
+read noise = 5.524
+dark current = 0.097 (-20)
+====================
+
+
+
+
