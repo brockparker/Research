@@ -378,7 +378,7 @@ Friday - 12/6/2024
 			PTC appears to be correct shape, can even see full well ~65k
 
 Monday - 12/9/2024
-	Sudying for ISM
+	Studying for ISM
 
 Tuesday - 12/10/2024
 	Studying for ISM
@@ -417,8 +417,61 @@ Saturday - 12/14/2024
 Sunday - 12/15/2024
 	Working on instrumentation project
 
-Monday - 12/12/2024
+Monday - 12/16/2024
 	Working on instrumentation project
-	FINESST 
+
+Tuesday - 12/17/2024
+	Working on FINESST outline
+
+Wednesday - 12/18/2024
+	Working on FINESST outline
+	Packing for trip
+
+Thursday - 12/19/2024
+	Travel!
+	Working on FINESST outline
+		Feel like it may be too short - what else should I add?
+		How to make research readiness dual anonymous?
+		Expertise and Experience document not dual anonymous
+
+Friday - 12/20/2024
+	Meeting with Erika
+		Cancelled!
+	PTC with Anshul
+		Are the equations we using even correct?
+			I am currently taking the standard deviation of the difference image, which is formed by first bias subtracting the average of the bias from each flat image, divided by the square root of two to correct for averaging the images. I then calculate the average signal from the average of the two flat images, after bias subtracting
+			Affy gets the signal the same way - although it doesn't agree???? He gets the variance following the equation in Janseick, however he does not subtract the average difference image signal from the difference image before calculating the standard deviation
+			Anshul calculates the difference image average by just taking the average of the region of the average of the two flat images, not bias subtracted and not difference
+		Need to verify if Affy's equations give the same as mine
+			Signal sort of agrees, but not quite?
+			Variance way off
+		Turns out I was subtracting the mean of the full bias image, not the region
+			This brings my and Affy's signals into agreement, noise is still off
+			His noise agrees if I change his to subtract the mean of the difference image when calculating the variance
+
+Saturday - 12/28/2024
+	Putting together orders
+		Desiccant
+			Looks like bags will be best
+			Can we bulk order these or will they go bad left out
+			Low humidity bags? We want humidity as low as possible inside of the dry box
+			https://www.mcmaster.com/1523T63/   - probably 2 packs of 5 to start, I imagine that will last
+		Double check account these are all going on
+
+Wednesday - 1/1/2025
+	Working on PTC reduction
+		Intercept converted from log space to linear space (i.e. data space)
+		Left column is where the read noise is calculated from
+
+				Intercept (DN)	Gain (e/DN)	Read Noise (DN)
+		Raw Bias STD	0.90960		1.20864		5.60276
+		Red. Bias STD	0.91048		1.20630		5.60276				Random region selection gives slightly different intercept/gain	
+		Error Minimum	0.91757		1.18772		4.91075
+		None		0.97381		1.05449		0
+		Eyeball		0.91689		1.18949		4.97				Getting as close to straight line as possible
+
+		Gain seems fairly insensitive to read noise, at least within a reasonable value for the read noise around ~5 DN
+
+		Need to fit for the read noise instead, will fit the full data to a straight line
 
 
