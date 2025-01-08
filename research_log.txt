@@ -471,7 +471,59 @@ Wednesday - 1/1/2025
 		Eyeball		0.91689		1.18949		4.97				Getting as close to straight line as possible
 
 		Gain seems fairly insensitive to read noise, at least within a reasonable value for the read noise around ~5 DN
+		Fairly strong correlation between read noise and gain, higher RN gives higher gain, between ~1.05 and ~1.21 - gain should be within there		
 
 		Need to fit for the read noise instead, will fit the full data to a straight line
 
+Thursday - 1/2/2025
+	Back to PTC
+		Trying to fit the read noise as well as the line
+		Derived equation to fit to, seems to match if I type in values manually
+		Fit gives similar gain ~1.1, but nonsensical read noise ~1.93
 
+		Cannot seem to possibly get the fit to line up with the data
+			Read noise subtracted data curves around a straight line
+			Read noise added straight line does not have a sharp enough knee/corner
+			Could be some characteristic of the detector, does not seem to affect calculation of read noise and gain
+
+		Still should have gain ~4 e/ADU (or 1 or 2) and read noise ~7.0 e
+			header says high gain, low noise, speed 1 MHz x 2 ports = 2 MHz
+
+Friday - 1/3/2025
+	Final attempt to find read noise from fitting the flat part of the PTC (below 1)
+		Gives varying results from 5.5-5.55, in agreement with the read noise from the bias
+				Intercept (DN)	Gain (e/DN)	Read Noise (DN)
+		Flat Fit 1	0.90866		1.21112		5.51701
+		Flat Fit 2	0.91029		1.20680		5.51098
+		Flat Fit 3	0.91057		1.20604		5.54748
+		Flat Fit 4	0.90976		1.20819		5.54659			
+			Using same 2e3 to 4e4 fit limits
+
+	Overall most methods agree with a gain a little over 1, and a read noise around 6e, or ~5 ADU, which would seem to agree with the high noise (fast speed) 7e and the low gain 1e/ADU
+		This does not agree with the settings in the header...			
+
+Saturday - 1/4/2025
+	Trying to download the same PTC data as Aafaque's in the JATIS paper
+		12212022 ptc8 or 12232022 ptc11
+		Need to see if my reduction method agrees and produces a straight line
+	Switching to other PTC method, variance in linear space
+	
+Monday - 1/6/2025
+	Working on Skipper simulator
+		Adding biases, read noise, cic, etc.
+		Hoping to make this resemble the Astro skipper from Fermilab
+	Finishing orders for skipper stuff
+		Computer, monitor, desiccant, plug
+	
+Tuesday - 1/7/2025
+	Getting everything set up for LTA control on my laptop
+		Need to order lap computer
+
+
+
+
+
+
+
+
+	
