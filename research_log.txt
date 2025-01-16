@@ -517,12 +517,95 @@ Monday - 1/6/2025
 	
 Tuesday - 1/7/2025
 	Getting everything set up for LTA control on my laptop
-		Need to order lap computer
+		Need to order lab computer
+		Looks like most of the setup was done by setting up the COO camera software
+			- Need CFITSIO - already installed
+			- Need ROOT
+				- Download latest release from https://root.cern/install/all_releases/
+				- Unpack the archive, tar -xvzf root_...
+				- Move into correct folder, mv root/ ...
+				- Add root library into environment, source root/bin/thisroot.sh
+				- Add command into .bashrc, 
+			- Also need lib-C headers
+				- Run apt install libc6-dev
+			- Install the latest version from https://github.com/sensei-skipper/ltaDaemon_public
+				- Cd into source
+				- Run Make clean (verify you have root installed)
+				- Run Make
+				
+		Having issues making the LTADaemon
+			"Undefined reference to ..." inside root
+		
+Wednesday - 1/8/2025
+	Visiting friends in Laramie
+	
+Thursday - 1/9/2025
+	Travel
+	
+Friday - 1/10/2025
+	Moving
 
-
-
-
-
+Saturday - 1/11/2025
+	Moving
+	
+Sunday - 1/12/2025
+	Moving
+	
+Monday - 1/13/2025
+	Moving
+	
+Tuesday - 1/14/2025
+	Moving
+	
+Wednesday - 1/15/2025
+	Meeting with Steve
+		Unboxing LTA
+		Found power supply
+			12V, is 1.5A enough?
+		Looks like all the needed voltages and sequences are on the github now, all labeled _microchip
+		
+	Trying to compile LTADaemon
+		ROOT disappeared? where
+		Reinstalling following directions above
+		Looks like needed package (libtbb2) was depricated
+			- Run, sudo apt-get install libtbb-dev
+			Seems to have fixed the issue, compiled properly
+		All tests in test.sh and testsseq.sh passed
+		
+	Installing slack
+		Sudo snap install slack
+		
+	Another meeting with Steve
+		Testing LTA
+		NOTE - Because we are using the USB to Ethernet adapter, have to change the manual IPV4/6 address
+			For LTA:
+				Address - 192.168.133.0
+				Netmask - 255.255.255.0
+				DNS - 128.192.11.234
+			For Archon:
+				Address - 10.0.0.100
+				Netmask - 255.255.255.0
+				DNS - 128.192.11.234
+				
+		Connection successful - Used default IP 192.168.133.7
+		Readout successful - lta read
+		  	Loads the queued readout sequence, set by source /init/init_skp_lta_v2_smart.sh
+		  	Make sure to change the above file to the sequence and voltage file in use
+		  		sequencers/sequencer_microchip.xml
+				voltage_skp_lta_v2_microchip.sh
+		Properly calculates readout time ~600 ms
+		
+		Seems to have some kind of built in method to tell if a CCD is plugged in
+			Error no data received from LTA
+			Perhaps it measures the video signals?
+			
+		Connecting to Oscope
+			Almost all ungrounded connections give wild signals >70 V
+			Need to ground to tiny ground hole on the left (looking from 50-pin connector)
+			Testing the pinout to the detector, some clock signals can be seen briefly
+				There are various biases that can be seen as well, and they change between the regular readout and the epurge, which should have higher voltages
+			
+		
 
 
 

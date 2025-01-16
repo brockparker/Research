@@ -17,4 +17,4 @@ do
     lta set packStart 0
 done
 
-python plot_raw_video.py 
+python3 plot_raw_video.py 
