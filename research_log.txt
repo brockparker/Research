@@ -608,18 +608,58 @@ Wednesday - 1/15/2025
 		
 Thursday - 1/17/2025
 	Meeting with Aafaque
+		Quick discussion about PTC
+			Need to use smaller range for fitting the linear regime - current reigon goes too high
+			May have to add a 'fudge' factor for the read noise
+				The values from the fit/bias may not give the best read noise to give a perfectly linear read noise subtracted PTC
+			Should try to optimize the read noise to give the most linear read noise subtracted PTC
 	Designing LTA Case
+		Basing it around an arduino case
+		First had to model the LTA - all values in inches
+		Bottom shell that pops into the LTA, top shell will attach to the bottom with screws
+		Need to make sure to include all of the proper connectors
+		Will have a lip between to keep secure
 
 Friday - 1/18/2025
 	Catching up on reading
 	Meeting with Anshul
+		Going over the LTA specifics, how to connect, how it reads out, where to get the lta_daemon
 	
 Monday - 1/20/2025
 	Studying for prelim - Holiday!
 	
 Tuesday - 1/21/2025
 	Meeting with Anshul
-		Going over basics of skipper readout electronics and 
+		Going over basics of skipper readout electronics and how the Skipper works
+	Studying for Prelim
 
-
+Wednesday - 1/22/2025
+	Meeting with Steve and Kelian
+		Testing LTA pinout and sequences
+		There are more pins on the CCD, but we should be able to tie some of them together
+		All of the labels seem to match up, A's are A's, except L's are also A's and U's are B's, contrary to what it says on the pinout sheets
+		We are able to get one pin to oscillate between high and low, and the voltages match up with what is in the voltage files
+			All very straightforward in the sequencer files
+	Meeting with Erika
+		FINESST outline mostly OK
+			Make sure to include Tiffenberg figure and explain it, photo of our current setup/detector characterization setup
+			Make sure to talk about us having a vacuum monochromator
+			Make sure to mention we have been sent Skipper CCDs
+			Make sure to mention that we are putting in an order for 8 wafers of Skipper CCDs (they will follow the Oscura architecture)
+				4 of them will be sent (to JPL) to get uv optimized at the wafer level through backsurface passivation
+				All of this is done with existing funding
+			When talking about UV optimization, be careful to not give away who we are, very few groups do UV optimization and very few groups work with them
+			Get assistance when writing the Expertise and Resources Not Anonymized section
+				Seems like this is just the Research Readiness statement and bio sketches and current and pending support, no actual new section
+	Fighting Github again :(
+		Generating a new fine-grained PAT for the organization worked once, but not again
+		Had to just make all repos in Hamden Lab public, solved all issues
+		Had to remove a lot of files from .gitignore in the lta_Daemonpublic fork I made so we can add some of the testing scripts
 	
+Thursday - 1/23/2025
+	Prelim planning meeting
+
+	Working on 3D printer
+		Looks like the changes they made to the internet broke our interent, not sure how to connect the 3D printer to a different internet
+		Will probably just have to plug in a USB
+
