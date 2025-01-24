@@ -661,11 +661,23 @@ Thursday - 1/23/2025
 		:(
 		2 hour limit, 2 pages front and back, everything in questions we should know
 	Working on 3D printer
-		Looks like the changes they made to the internet broke our interent, not sure how to connect the 3D printer to a different internet
+		Looks like the changes they made to the internet broke our internet, not sure how to connect the 3D printer to a different internet
 		Will probably just have to plug in a USB
 	Lots of meetings today
 		
 Friday - 1/24/2025
 	Studying for Prelim
+	Meeting with Anshul
+	Designing LTA Case
+		Looks like 2mm bolts will be best
+			3mm don't fit, and don't want to use imperial
+			Adding lip to standoffs
+		0.23in room around holes
+		Verified fand header is 12 V - Both fans seem to work just fine
+		Standoffs can be up to 0.23in in diameter - going to set at 0.2in for safety
+		Added cutout for grounding connector on the top/side of LTA
+		Can add small support-only standoff 3.825in from the bottom on the right side - corresponds to small hole underneath unused connector
+	Modeling fan
+	Neither of the P+ or N+ connectors next to the 50-pin output give any signal out - not sure if they are supposed to be 15 V or not
 	
 
