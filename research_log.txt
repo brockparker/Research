@@ -668,6 +668,7 @@ Thursday - 1/23/2025
 Friday - 1/24/2025
 	Studying for Prelim
 	Meeting with Anshul
+		PTC gain error, error propagation gives very small error, even though we know it should be higher
 	Designing LTA Case
 		Looks like 2mm bolts will be best
 			3mm don't fit, and don't want to use imperial
@@ -680,4 +681,22 @@ Friday - 1/24/2025
 	Modeling fan
 	Neither of the P+ or N+ connectors next to the 50-pin output give any signal out - not sure if they are supposed to be 15 V or not
 	
+Monday - 1/27/2025
+	Sandstone final walk-through :O
+	Packages - desiccant stuff is here
+	Meeting with Kelian
+		Discussing next steps
+		Staring testing of Lakeshore
+		Added lots of code to 
+	Quick PTC analysis
+		Even using Anshul's method, I seem to get the exact same values as before that do not agree with Anshul
+		Should break into bigger more coherent regions that avoid the vignetting at the edges - Affy does 13 vertically/horizontally
+		Error on the fit seems much larger than reasonable when plotting
+			Perhaps I need to figure out a more accurate method for calculating the error on the data points
+			Currently using the Poisson square root error
+	Studying for Prelim
+
+Tuesday - 1/25/2025
+
+
 
