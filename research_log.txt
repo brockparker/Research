@@ -697,6 +697,15 @@ Monday - 1/27/2025
 	Studying for Prelim
 
 Tuesday - 1/25/2025
+	Finishing modeling the LTA case
+	Test printing with helmet screws
+		MakerBot Method X
+		ExtrudModel 1C, Support 2A
+		Tough, Stone White
+		No PVA supports, instead using breakaway
+		All other settings default
+		Build plate looks really warped - center should be okay for test print, not for longer print
+		47m total, 5g, will check back in morning
 
 
 
