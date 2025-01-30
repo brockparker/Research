@@ -713,7 +713,8 @@ Tuesday - 1/28/2025
 Wednesday - 1/29/2025
 	Test Print
 		No good :(
-		Print finished successfully, 
+		Print finished successfully, but threads look fairly contaminated
+		Will need to redesign case to use holds for nuts rather than actual threads - all through holes
 	Meeting with Erika
 		ITL getting skippers from LBLN/STA - same as the ones we are looking at from STA
 		Need to design transition boards/amplifiers, can ask electronics guys
@@ -733,18 +734,37 @@ Wednesday - 1/29/2025
 			Need to clean cables
 		Cryocooler
 			Crimped and wired up all the power sources
-		Need 18in breadboard x 24ish
-
+			Will need to heat up RTD wires to actually separate them and test them - they are already stripped but still bonded together
 	Dewar
 		Through hole side needs to be flat, NO O-ring slot - will be input for cryocooler, need FULL NEW flange plate with proper spacing and NO O-ring
 		Threaded side needs O-ring slot - flat plate good, will be output to Monochromator, flange plate needs redrilled
+		Feedthrough will need to be redesigned, hole is too big for the inside screws the new feedthrough needs
+			Perhaps we just seal up the 4 existing holes and machine a new one
 	Rack
 		Server rack?
 		Square extruded?
 		Want multiple levels
 		Definitely want active leveling, screw at each corner
-		
+		Use a breadboard for each level, then we can screw into it with locking feet
 
+Thursday - 1/30/2025
+	LTA Case
+		Modeled fan
+	Dewar lids
+		Checking if the ISO 100 flange fits onto the dewar lid that Affy has
+		Fits just fine, need that exact dimension
+		0.17in through holes
+		Flat Oring backplate GOOD
+		ISO 100 Oring backplate NEEDS REDRILLED
+		ISO 100 NO Oring backplate NEEDS MANUFACTURED
+	Dewar is 4.5in Radius
+	Meeting with STA/Dalsa
+		Differential amplifier status and future lot runs
+		12 prototype wafers, 9/12 functional, package first 4kx4k and run it cold, frontside illuminated
+		2-3 months for results
+		ITL thinning other devices, not skippers?
+		32 skippers in a row, one set of 32 at each corner
+		Can still clock charges past bad outputs, just floating gates
 
 
 
