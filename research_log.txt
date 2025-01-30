@@ -696,7 +696,7 @@ Monday - 1/27/2025
 			Currently using the Poisson square root error
 	Studying for Prelim
 
-Tuesday - 1/25/2025
+Tuesday - 1/28/2025
 	Finishing modeling the LTA case
 	Test printing with helmet screws
 		MakerBot Method X
@@ -706,6 +706,48 @@ Tuesday - 1/25/2025
 		All other settings default
 		Build plate looks really warped - center should be okay for test print, not for longer print
 		47m total, 5g, will check back in morning
+	Test print #2
+		Build plate was improperly installed, warped and failed print
+		Same settings, trying again
+
+Wednesday - 1/29/2025
+	Test Print
+		No good :(
+		Print finished successfully, 
+	Meeting with Erika
+		ITL getting skippers from LBLN/STA - same as the ones we are looking at from STA
+		Need to design transition boards/amplifiers, can ask electronics guys
+			Dave Beaty, Frank Gascan?, John?
+		Archon needs pre-amps
+			Single transition board with both 50 and 68
+			Start with ODB from Fermilab, if we need 68 pin pre-amp we can make it later
+		As it cools down, it clamps down
+		Applications
+			Speed vs noise
+			Iterative sampling (smart sample)
+	Lab work
+		Setting up cryocooler test
+		Water cooler
+			Need power adapter https://koolance.com/exos-ac-power-adapter?srsltid=AfmBOop-0tTbiWzwWL1GszXXM4l2ktihag00sG5tj5oTdNcICeUzSWBe
+			Need male Quick disconnect https://www.google.com/search?q=koolance+AC+Power+Adapter+for+EXT%2FEX2+Systems&rlz=1C1ONGR_enUS1014US1014&oq=koolance+AC+Power+Adapter+for+EXT%2FEX2+Systems&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg80gEIMTkwN2owajeoAgCwAgA&sourceid=chrome&ie=UTF-8
+			Need to clean cables
+		Cryocooler
+			Crimped and wired up all the power sources
+		Need 18in breadboard x 24ish
+
+	Dewar
+		Through hole side needs to be flat, NO O-ring slot - will be input for cryocooler, need FULL NEW flange plate with proper spacing and NO O-ring
+		Threaded side needs O-ring slot - flat plate good, will be output to Monochromator, flange plate needs redrilled
+	Rack
+		Server rack?
+		Square extruded?
+		Want multiple levels
+		Definitely want active leveling, screw at each corner
+		
+
+
+
+
 
 
 
