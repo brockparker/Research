@@ -765,9 +765,26 @@ Thursday - 1/30/2025
 		ITL thinning other devices, not skippers?
 		32 skippers in a row, one set of 32 at each corner
 		Can still clock charges past bad outputs, just floating gates
+	Lots of FINESST writing :)
 
-
-
-
+Friday - 1/31/2025
+	Meeting with Erika
+		Reorganizing introduction
+		Hauen figure?
+			Different color bar
+			cut off left side to make diffuse cutout seem bigger
+		Timeline figure
+		Take setup picture
+	Dewar lids
+		Not the right thread???
+		Spacing seems to be right, flange adapter fits perfectly
+		NOT 5/16-24, those don't fit
+		Supposed to be 5/16-18
+		Perhaps its actually an M8-1.25x45mm???????? why does it use a 5/16 washer
+		Guess I just need to buy new bolts
+	Starting to model dewar
+	Meeting with Anshul
+		Going over his presentation, did well :)
+		For next week, need to work on PTC linear variation method
 
 
