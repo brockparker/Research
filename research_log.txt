@@ -796,19 +796,34 @@ Tuesday - 2/4/2025
 	Starting to look at LTA software for processing image data
 		Seems to be 2 githubs, libLTA and LTApy, not sure of the difference
 		Seems like libLTA is newer (1 year vs 5 years last change)
-		Will need to make our own version of Skipper2Root - does the processing of the skips into a coherent image
+			In fact, libLTA is just the newer version (fork) of ltapy
+		Otherwise looks like we don't need to modify any acquisition scripts
+			May need to change what gets saved to headers, but this should be easy in Python
+		Will need to make our own version of Skipper2Root - does the processing of the skips into a coherent image, plus prescan subtraction and peak fitting
 	Working on CGM presentation
+		Upper Limits on the Mass of Cool Gas in the CGM of Dwarf Galaxies
 	LTA Testing
 		libLTA seems to work just fine
-	Broken LTA board?????????
-		oops, other one works, but can't seem to connect to this one
-		All lights on, reset ethernet and cpu, no difference
+		Can't connect to LTA
+			Possible broken board? - all lights on and ethernet connetion lights blink in time when pinging, but pings fail
+			Reset ethernet and cpu, no change
+		Different board works properly, and can connect fully with libLTA and lta_Daemon
 	New lab computer
-		Can't seem to access bios
-		Locked behind Windows?
+		Setting up on wood desk across from optical bench
+		Can't seem to access bios - Locked behind Windows?
 		Now it doesn't boot into bios at all, can hear the beeps but can't see the screen
 		TODO: Need to order Mini DP to HDMI cable - internal graphics card disables on board video ports
+		Looks like BIOS are inaccessible when booting with an intenal graphics card, may need to boot with graphics card disabled and then reinstall once we are done in the BIOS
+	Studying for Prelim
+
+Wednesday - 2/5/2025
+
 	
+
+
+
+
+
 
 
 
