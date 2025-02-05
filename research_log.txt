@@ -770,7 +770,7 @@ Thursday - 1/30/2025
 Friday - 1/31/2025
 	Meeting with Erika
 		Reorganizing introduction
-		Hauen figure?
+		Haeun figure?
 			Different color bar
 			cut off left side to make diffuse cutout seem bigger
 		Timeline figure
@@ -786,5 +786,30 @@ Friday - 1/31/2025
 	Meeting with Anshul
 		Going over his presentation, did well :)
 		For next week, need to work on PTC linear variation method
+
+Monday - 2/3/2025
+	Filling out COI certification
+	Aunt and Uncle in town :)))
+	Studying for Prelim
+
+Tuesday - 2/4/2025
+	Starting to look at LTA software for processing image data
+		Seems to be 2 githubs, libLTA and LTApy, not sure of the difference
+		Seems like libLTA is newer (1 year vs 5 years last change)
+		Will need to make our own version of Skipper2Root - does the processing of the skips into a coherent image
+	Working on CGM presentation
+	LTA Testing
+		libLTA seems to work just fine
+	Broken LTA board?????????
+		oops, other one works, but can't seem to connect to this one
+		All lights on, reset ethernet and cpu, no difference
+	New lab computer
+		Can't seem to access bios
+		Locked behind Windows?
+		Now it doesn't boot into bios at all, can hear the beeps but can't see the screen
+		TODO: Need to order Mini DP to HDMI cable - internal graphics card disables on board video ports
+	
+
+
 
 
