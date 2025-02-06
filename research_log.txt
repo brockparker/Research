@@ -817,10 +817,33 @@ Tuesday - 2/4/2025
 	Studying for Prelim
 
 Wednesday - 2/5/2025
+	Dewar
+		We need a vacuum pump - do we need to order one or can we use existing pumps to test
+			Fermilab uses HiCubes, seems like any model will do, all have pumping rates >80 L/m
+				https://www.ajvs.com/product_info.php?products_id=46
+				https://new.marshallscientific.com/Pfeiffer-HiCube-300-Neo-100-ISO-K-MVP-030-3-Turb-p/2000117444.htm?gad_source=1&gclid=CjwKCAiAtYy9BhBcEiwANWQQL1lrBnyiGS6C2t7VCMsZp6wwfqg7AedpawxXLJtsKuY6LMlEBUOqShoCNXgQAvD_BwE
+			Aafaque has two step pump
+				Roughing - Agilent IDP 3, 60 L/m
+				Turbo - Twistorr 84 FS, 84 L/m
+		Vacuum Gate valve
+			MDC GV-625M 302000
+	Meeting with Steve and Kelian
+		Testing LTA - confirmed it doesn't work, 10 MB light never comes on
+		Trying to flash the FPGA
+			Unable to even flash, can't connect
+		TODO: Install Vivado for FPGA flash - DONE
+			https://www.xilinx.com/support/download.html
+	Meeting with Aafaque
+		Cold chain design needs to be based around the geometry first
+		Need to figure out where things will sit, how long the flexible copper cable will be, need to verify clearance for all the cables and feedthroughs
+			Using these values, compute back of the envelope equivalent circuit to calculate thermal load
+			CCD plus package is one node held out 173K, resistor to another node, that node goes to the mechanical mount/thermal ground (held at 298K) via 2 (or more) resistors in parallel, a third resistor goes to the cold tip/cryocooler held at 77K, another heat input from the heaters, which should only provide 1-5 W of load, any more is too much
+			The resistance of each piece is known, and can be converted into a thermal capacitance (or vice versa), should be dependent on the length and width of the piece
+			Assuming values for all thermal parts, the width of the copper strap should be the only unknown that we are solving for
+	Finishing CGM presentation
+		God this sucks lmao
 
-	
-
-
+Thursday - 2/6/2025
 
 
 
