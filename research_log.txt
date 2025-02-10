@@ -34,6 +34,7 @@ Wednesday - 2024/11/06
 		Apparently can't get it to work on Centos7
 		Need cmake - Run sudo apt-get install cmake (already have)
 		Need gcc - Run sudo apt-get install gcc (already have)
+		Need zlib - Run sudo apt-get install zlib1g-dev
 		Need cfitsio - Download the latest version https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz
 			     - Untar
 			     - Inside the cfitsio-?.?.?/ folder, run ./configure --prefix=/usr/local
@@ -844,10 +845,38 @@ Wednesday - 2/5/2025
 		God this sucks lmao
 
 Thursday - 2/6/2025
+	Lights!
+		Don't fit, no voltage at terminals
+		All wires look good
+	CGM Group Meeting
+		Presenting
+		Miriam presentation
+			most of the absorption is near center of galaxy, as we would expect
+			RH1 is a better probe of metal absorption lines than Rvir?
 
+Friday - 2/7/2025
+	Studying for Prelim
+	Internet Issues
+		In summary, plugging in the (now banned) external router disables the switch
+		The switch has to be plugged into the specific port (4B 511), all devices plugged into the switch
+		Mounted switch to wall so it won't be disturbed
+		Running labeled cables to all the computers in the lab
+		Need to send MAC addresses to UTIS, didn't know about one in cleanroom
+	Setting up new computer
+		Before installing cfitsio, also need zlib
+			sudo apt-get install zlib1(one)g
+			sudo apt-get install zlib1(one)g-dev
 
-
-
-
-
-
+Monday -
+	Fake interview for Jacob
+	Running cable into cleanroom
+		Cleaned as it ran in, ran around back
+		Cleanroom computer is not connected to ethernet, need to send MAC to UTIS
+	Need to replace filters on top of cover
+		Not sure of the size
+	Testing LTA again
+		Able to flash the FPGA, successful connection
+		Flashing the LTA runs self tests, and those all pass
+		Still unable to connect via Ethernet or Mini USB, only through Micro USB
+	ODB arrived!!!!
+	Studying for Prelim
