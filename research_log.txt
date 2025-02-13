@@ -35,6 +35,7 @@ Wednesday - 2024/11/06
 		Need cmake - Run sudo apt-get install cmake (already have)
 		Need gcc - Run sudo apt-get install gcc (already have)
 		Need zlib - Run sudo apt-get install zlib1g-dev
+		Need g++ - Run sudo apt-get install g++
 		Need cfitsio - Download the latest version https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz
 			     - Untar
 			     - Inside the cfitsio-?.?.?/ folder, run ./configure --prefix=/usr/local
@@ -867,7 +868,7 @@ Friday - 2/7/2025
 			sudo apt-get install zlib1(one)g
 			sudo apt-get install zlib1(one)g-dev
 
-Monday -
+Monday - 2/10/2025
 	Fake interview for Jacob
 	Running cable into cleanroom
 		Cleaned as it ran in, ran around back
@@ -880,3 +881,39 @@ Monday -
 		Still unable to connect via Ethernet or Mini USB, only through Micro USB
 	ODB arrived!!!!
 	Studying for Prelim
+
+Tuesday - 2/11/2025
+	Class
+	Installing software on computer
+		Pretty much smooth sailing
+	An email from Alex indicates perhaps the LTA is not our fault
+		Need to replace several capacitors with 0 Ohm resistors
+		Need to replace some fuses
+		They have not seen this issue before with this run, but they have replaced the ethernet switch before
+		TODO: Email Fernando or Claudio about ethernet replacement
+	Studying for prelim
+
+Wednesday - 2/12/2025
+	Electrician came and fixed lights on ESD bench
+	Working on 3D models
+		Dewar needs vacuum flange - KF16 Flange
+			Had to make custom adapter to mount to existing feedthrough on dewar
+			Screws are 10-32, unknown length
+		Need blanks to cover all of the existing feedthroughs
+			Screws are 8-32x1/2", just copying existing design
+			Can maybe make thinner, but would have to ensure we have 3-5 threads sticking out of the back, all that is available in the dewar
+	Found new drawing of cold chain for Oscura
+		Detector is mounted sideways on a cold plane
+		Cold plane is attached directly to cold finger attached to cryocooler
+		There appears to be no other supporting mounts for the CCD
+		Internal LED mounted to cold plane
+	Absolute gain calibration
+		Expose skipper in single-electron resolution to 16 different light intervals from internal LED
+		All 16 images combined into one histogram
+		All peaks are fit by a Gaussian to calibrate across the entire dynamic range
+		TODO: Can probably measure non-linear gain from this
+
+Thursday - 2/13/2025
+
+
+
