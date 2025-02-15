@@ -757,7 +757,7 @@ Thursday - 1/30/2025
 		Fits just fine, need that exact dimension
 		0.17in through holes
 		Flat Oring backplate GOOD
-		ISO 100 Oring backplate NEEDS REDRILLED
+		ISO 100 Oring backplate NEEDS REDRILLED - DONE
 		ISO 100 NO Oring backplate NEEDS MANUFACTURED
 	Dewar is 4.5in Radius
 	Meeting with STA/Dalsa
@@ -914,6 +914,39 @@ Wednesday - 2/12/2025
 		TODO: Can probably measure non-linear gain from this
 
 Thursday - 2/13/2025
+	Coffee Ride
+	Class
+	Trying to match the input aperture to PSF Fourier transformations seen in the slides
+		Need to do 2D FT
+		Seems like larger arrays don't necessarily give better results - central region when zoomed in looks corrupt, don't see Airy pattern
+	Making feedthrough adapter for DB68 feedthrough
+		Holes to attach to adapter are 4-40, 0.115 in diameter
+		Designed for a 9" inner perimeter (~ID 2.864") O-ring
+			Viton 75 - SKU V75040, Size 040, ID 2.864"
+			https://www.globaloring.com/product-category/o-rings-standard-sizes/viton-fkm-75-duro-o-rings/page/3/
+			https://www.mcmaster.com/1173N406/
+	Doing a test print, should be ~5 hrs
+	Colloquium
+	Gym/Cycling Meeting
+	Building Noah's bike
+
+Friday - 2/14/2025
+	Prelim Study
+	Test 3D Prints
+		All seems good, print successful
+			Vacuum flange adapter
+				Connects to Agilent pump perfectly
+				Both holes and o-ring slot seem a little tight, but this is likely just because of printing tolerances
+				Just barely enough clearance to attach vacuum pump while bolts are in
+			Inner holes on feedthrough adapter do not need to be threaded, just a through hole 0.115in in diameter
+				Actually work fine how they are, but should get rid of the thread
+				Everything else perfect, bolts sit flush, bolts onto dewar perfect
+				Unable to test O-ring
+	Lights went out in the front of the lab
+		Dead ballast? Smell of electrical burning
+	Meeting with Anshul
+		
+		
 
 
 
