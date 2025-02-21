@@ -945,8 +945,33 @@ Friday - 2/14/2025
 	Lights went out in the front of the lab
 		Dead ballast? Smell of electrical burning
 	Meeting with Anshul
+		Quick talk about data to double check PTC
+		Going over very basics of Solidworks
 		
+Sunday - 2/16/2025
+	Working on optics project
+	
+Monday - 2/17/2025
+	Working on Optics HW
+	Space Drafts livestream training
+	Studying for prelim
+	2025 Arizona Space Institute Symposium
+		Should I try to present at this???
+		Friday, April 11th 8:30-4:30
 		
-
-
-
+Tuesday - 2/18/2025
+	Studying for Prelim
+	Lots of BS with Spacedrafts
+		Powerpoint (and everyone) hates keynote
+	Paper from Fermilab
+		Basic readout operation of the MAS CCDs
+		Skipper CCDs with skipper amplifiers in a line
+		Images get this weird step function to them because of the inactive region dumping
+		The further the amplifier is from the image the more prescan there is
+		Active regions can be stacked later by appropriately shifting the image pixels
+		They also show region of interests using this readout technique
+	Space Drafts!
+	
+Wednesday - 2/19/2025
+	Studying for Prelim
+	Working on FINESST
